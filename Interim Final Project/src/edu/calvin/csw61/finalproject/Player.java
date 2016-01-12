@@ -21,13 +21,16 @@ public class Player extends Character {
 	}
 	
 	//Executes commands
-	public void executeCommand(String command) {
-		switch(command.toLowerCase()) {
+	public void executeCommand(String verb, String noun) {
+		switch(verb.toLowerCase()) {
 			case "walk": case "go":
 				System.out.println("you walked");
 				break;
 			case "eat":
-				System.out.println("you ate");
+				ObjectInterface food = new Food(noun);
+				food.handleCommand(verb);
+				System.out.println(food.getInstruction());
+				
 				break;
 			case "fight": case "hit":
 				System.out.println("you fought");
@@ -39,10 +42,14 @@ public class Player extends Character {
 				System.out.println("you gave");
 				break;
 			case "lock":
-				System.out.println("you locked");
+				ObjectInterface lockKey = new Key(noun);
+				lockKey.handleCommand(verb);
+				System.out.println(lockKey.getInstruction());
 				break;
 			case "unlock":
-				System.out.println("you unlocked");
+				ObjectInterface unlockKey = new Key(noun);
+				unlockKey.handleCommand(verb);
+				System.out.println(unlockKey.getInstruction());
 				break;
 			case "break":
 				System.out.println("you broke");
