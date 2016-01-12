@@ -93,5 +93,22 @@ public class Player extends Character {
 			}
 		}
 	}
+
+	public boolean hasItem(String item) {
+		int i = 0;
+		ObjectInterface holder; 
+		if(myNumberOfObjects == 0) {
+			return false;
+		}
+		
+		while(i < myNumberOfObjects) {
+			holder = myBackpack.get(i);
+			if(holder.getName().toLowerCase().equals(item)) {  //make it lower case
+				return true;
+			}
+			i++;
+		}
+		return false; 
+	}
 	
 }
