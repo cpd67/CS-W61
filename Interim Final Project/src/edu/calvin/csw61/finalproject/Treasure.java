@@ -11,5 +11,5 @@ public class Treasure implements ObjectInterface {
 	public String getName() {
 		return myName;
 	}
-	
+
 }
