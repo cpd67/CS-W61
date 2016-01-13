@@ -10,11 +10,16 @@ public class Driver {
 		System.out.println("Welcome to Lost in Knightdale!");
 		
 		ObjectInterface ob = new Food("apple");
+		ObjectInterface ob2 = new Key("key"); //In front of Player
 		
 		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself
 										//Reason is because we remove objects by name
 										//Just because two objects have the same name does NOT mean they are the same object
 										//At least in memory
+		//Need a help menu to show commands
+		System.out.println("You have an apple in your backpack.");
+		System.out.println("There is a key in front of you.");
+		
 		verb = "";
 		noun = "";
 		

@@ -1,7 +1,11 @@
 package edu.calvin.csw61.finalproject;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Player extends Character {
 	
@@ -9,13 +13,13 @@ public class Player extends Character {
 	private int myHealth;
 	private int myNumberOfObjects;  //Number of objects one currently has
 	private int myLimit; //Limit on number of Objects one can have in the backpack
-	private Map<String, ObjectInterface> myBackpack;  //Backpack
+	private Hashtable<String, ObjectInterface> myBackpack;  //Backpack
 	
 	//Constructor
 	public Player() {
 		myName = "Flying Dutchman";
 		myHealth = 100;
-		myBackpack = new HashMap<>();
+		myBackpack = new Hashtable<>();
 		myNumberOfObjects = 0;
 		myLimit = 10;
 		
@@ -35,17 +39,15 @@ public class Player extends Character {
 					ObjectInterface food = new Food(noun);  //Create the food item
 					Eat eatEvent = new Eat(food, this); //Eat it
 					eatEvent.execute();
-				}
-	
-		//		food.handleCommand(verb);
-		//		System.out.println(food.getInstruction());
-				
+				}		
 				break;
 			case "fight": case "hit":
 				System.out.println("you fought");
 				break;
 			case "take": case "get":
-				System.out.println("you have obtained");
+				Key key = new Key("key");
+				Take takeEvent = new Take(this, key);
+				takeEvent.execute();
 				break;
 			case "give":
 				System.out.println("you gave");
@@ -93,7 +95,7 @@ public class Player extends Character {
 		if(myNumberOfObjects == myLimit) {  //Backpack full; can't add a new Object
 			System.out.println("Backpack is full! Drop an item!");
 		} else {
-			myBackpack.put(name, ob);
+			myBackpack.put(name.toLowerCase(), ob);
 			myNumberOfObjects++;  //Number of Objects in map
 		}
 	}
@@ -130,7 +132,7 @@ public class Player extends Character {
 			return false;
 		}
 		
-		if(myBackpack.containsKey(item)) {  //We have it
+		if(myBackpack.containsKey(item.toLowerCase())) {  //We have it
 			return true;
 		}
 		
