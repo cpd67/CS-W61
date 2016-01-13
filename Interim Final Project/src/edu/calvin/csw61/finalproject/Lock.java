@@ -18,6 +18,7 @@ public class Lock implements CommandBehavior {
 		//if door is unlocked...
 		if(myPlayer.hasItem(myKey.getName())) {
 			System.out.println("You locked");
+			//p.removeObject(myKey)
 		} else {
 			System.out.println("You don't have a key");
 		}

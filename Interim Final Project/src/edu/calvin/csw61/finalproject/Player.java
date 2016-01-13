@@ -30,6 +30,7 @@ public class Player extends Character {
 	public void executeCommand(String verb, String noun) {
 		switch(verb.toLowerCase()) {
 			case "walk": case "go":
+				CommandBehavior walk = new Walk(noun);
 				System.out.println("you walked");
 				break;
 			case "eat":
