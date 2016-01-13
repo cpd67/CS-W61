@@ -46,8 +46,6 @@ public class Driver {
 				noun = parts[1];
 				p.executeCommand(verb, noun);
 			}
-			
-			//execute the command
 
 		}
 	}
@@ -62,5 +60,6 @@ public class Driver {
 		}
 		return trim.split("\\W+").length; // separate string around spaces
 	}
+	
 
 }

@@ -45,9 +45,13 @@ public class Player extends Character {
 				System.out.println("you fought");
 				break;
 			case "take": case "get":
-				Key key = new Key("key");
-				Take takeEvent = new Take(this, key);
-				takeEvent.execute();
+				if(noun.equals("")) {  //item not given...
+					System.out.println("Take what?");
+				} else {
+					Key key = new Key("key");
+					Take takeEvent = new Take(this, key);
+					takeEvent.execute();
+				}
 				break;
 			case "give":
 				System.out.println("you gave");
