@@ -4,7 +4,6 @@ public class Key implements ObjectInterface {
 	String myName;
 	String instruction, objectToActOn;
 	
-	//Don't have to set a different name for a Key.
 	public Key(String name) {
 		myName = "Key";
 		instruction = "";
@@ -15,7 +14,7 @@ public class Key implements ObjectInterface {
 		return myName;
 	}
 
-	@Override
+/**	@Override
 	public void handleCommand(String cmd) {
 		if(cmd.equals("lock")){
 			switch(objectToActOn){
@@ -48,6 +47,6 @@ public class Key implements ObjectInterface {
 	public String getInstruction() {
 		
 		return instruction;
-	}
+	} */
 	
 }

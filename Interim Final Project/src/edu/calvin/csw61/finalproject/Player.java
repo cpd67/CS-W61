@@ -1,22 +1,28 @@
 package edu.calvin.csw61.finalproject;
 
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Player extends Character {
 	
 	//Give him some health
 	private int myHealth;
-	private ArrayList<ObjectInterface> myBackpack;  //Current possessions (number of Objects one has)
 	private int myNumberOfObjects;  //Number of objects one currently has
 	private int myLimit; //Limit on number of Objects one can have in the backpack
+	private Hashtable<String, ObjectInterface> myBackpack;  //Backpack
 	
 	//Constructor
 	public Player() {
 		myName = "Flying Dutchman";
 		myHealth = 100;
-		myBackpack = new ArrayList<ObjectInterface>();
+		myBackpack = new Hashtable<>();
 		myNumberOfObjects = 0;
 		myLimit = 10;
+		
 		//myMapPieces? 
 	}
 	
@@ -27,29 +33,40 @@ public class Player extends Character {
 				System.out.println("you walked");
 				break;
 			case "eat":
-				ObjectInterface food = new Food(noun);
-				food.handleCommand(verb);
-				System.out.println(food.getInstruction());
-				
+				if(noun.equals("")) {  //Food item not given...
+					System.out.println("Eat what?");
+				} else {
+					ObjectInterface food = new Food(noun);  //Create the food item
+					Eat eatEvent = new Eat(food, this); //Eat it
+					eatEvent.execute();
+				}		
 				break;
 			case "fight": case "hit":
 				System.out.println("you fought");
 				break;
 			case "take": case "get":
-				System.out.println("you have obtained");
+				Key key = new Key("key");
+				Take takeEvent = new Take(this, key);
+				takeEvent.execute();
 				break;
 			case "give":
 				System.out.println("you gave");
 				break;
 			case "lock":
-				ObjectInterface lockKey = new Key(noun);
-				lockKey.handleCommand(verb);
-				System.out.println(lockKey.getInstruction());
+				if(noun.equals("")) {
+					System.out.println("Lock what?");
+				} else {
+					Lock lockEvent = new Lock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
+					lockEvent.execute();
+				}
 				break;
 			case "unlock":
-				ObjectInterface unlockKey = new Key(noun);
-				unlockKey.handleCommand(verb);
-				System.out.println(unlockKey.getInstruction());
+				if(noun.equals("")) {
+					System.out.println("Unlock what?");
+				} else {
+					Unlock unlockEvent = new Unlock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
+					unlockEvent.execute();
+				}
 				break;
 			case "break":
 				System.out.println("you broke");
@@ -66,17 +83,34 @@ public class Player extends Character {
 			case "dig":
 				System.out.println("you dug");
 				break;
+			case "show":  //Show the backpack
+				printBackpack();
+				break;
 			default: System.out.println("I don't know what that means.");
 		}
 	}
 	
 	//Add an Object
-	public void addObject(ObjectInterface ob) {
+	public void addObject(String name, ObjectInterface ob) {
 		if(myNumberOfObjects == myLimit) {  //Backpack full; can't add a new Object
 			System.out.println("Backpack is full! Drop an item!");
 		} else {
-			myBackpack.add(ob);
-			myNumberOfObjects++;  //Also acts as an indicer and points to the next empty spot in backpack
+			myBackpack.put(name.toLowerCase(), ob);
+			myNumberOfObjects++;  //Number of Objects in map
+		}
+	}
+	
+	//Removes an Object from the backpack
+	public void removeObject(String object) {
+		if(myNumberOfObjects == 0) { //If we have no Objects...
+			System.out.println("You have no items to remove.");
+		} else {  //We do...
+			if(hasItem(object)) {  //If it's in the backpack...
+				myBackpack.remove(object);  //Take it out
+				myNumberOfObjects--;  //We have one less Object
+			} else {
+				System.out.println("You don't have this item.");  //Nope
+			}
 		}
 	}
 	
@@ -86,12 +120,23 @@ public class Player extends Character {
 			System.out.println("You have no items!");
 		} else {  //You have items! 
 			System.out.println("You currently have these items: ");
-			int i = 0;  
-			while(i < myNumberOfObjects) {  //Has to be a while loop, otherwise we get a weird null pointer exception
-				System.out.println(myBackpack.get(i).getName());
-				i++;
+			for(String name : myBackpack.keySet()) {  //For each String in the key set...
+				System.out.println(name);  //Print the name
 			}
 		}
+	}
+
+	//Do I have an item in my backpack?
+	public boolean hasItem(String item) {
+		if(myNumberOfObjects == 0) {  //If we have no Objects in the backpack...
+			return false;
+		}
+		
+		if(myBackpack.containsKey(item.toLowerCase())) {  //We have it
+			return true;
+		}
+		
+		return false;   //We don't have it
 	}
 	
 }
