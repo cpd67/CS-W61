@@ -139,6 +139,9 @@ public class Player extends Character {
 					System.out.println("you threw (NOT IMPLEMENTED)");
 				}
 				break;
+			case "talk": //Talk
+				System.out.println("you talked (NOT IMPLMENETED)");
+				break;
 			case "dig":  //Dig
 				System.out.println("you dug (NOT IMPLEMENTED)");
 				break;

@@ -5,8 +5,8 @@ public class Room {
 	private ObjectInterface[] myObjects;
 	private boolean myNorthDoor, mySouthDoor, myEastDoor, myWestDoor, hasNPC, hasMonster, playerPresent;
 	//bordering rooms
-	private Monster myMonster;
-	private NPC myNPC;
+	private ObjectInterface myMonster;
+	private ObjectInterface myNPC;
 	
 	public Room() {
 		myObjects = new ObjectInterface[2];
@@ -15,16 +15,17 @@ public class Room {
 		playerPresent = false;
 	}
 	//explicit constructor
-	public Room(boolean north, boolean south, boolean east, boolean west, NPC npc, Monster monster){
+	public Room(boolean north, boolean south, boolean east, boolean west){
 		setDoors(north, south, east, west);
-		if(hasNPC){
-			setNPC(npc);
-		}
-		if(hasMonster) {
-			setMonster(monster);
-		}
 	}
 	
+	public String getDescriptor() {
+		return myDescriptor;
+	}
+	public void setDescriptor(String descriptor){
+		myDescriptor = descriptor;
+	}
+
 	//setDoors
 	public void setDoors(boolean north, boolean south, boolean east, boolean west){
 		myNorthDoor = north;
@@ -39,11 +40,17 @@ public class Room {
 	}
 	
 	//setNPC
-	public void setNPC(NPC npc){
+	public void setNPC(String name){
+		ObjectInterface npc = new NPC(name);
 		myNPC = npc;
+		hasNPC = true;
 	}
 	//setMonster
-	public void setMonster(Monster monster){
+	public void setMonster(String name){
+		ObjectInterface monster= new Monster(name);
 		myMonster = monster;
+		hasMonster = true;
 	}
+
 }
+
