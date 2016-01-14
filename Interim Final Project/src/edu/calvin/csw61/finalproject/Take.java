@@ -11,6 +11,7 @@ public class Take implements Command {
 	
 	//Add the Object
 	public void execute() {
+		//Is the Object in the Current Room that the Player is in?
 		myPlayer.addObject(myObject.getName(), myObject);
 		System.out.println("You took " + myObject.getName());
 	}

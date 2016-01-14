@@ -17,11 +17,13 @@ import java.util.Set;
 
 public class Driver {
 	
+	public static Map<Room, String> mySBRooms = new HashMap<Room, String>();
+	
 	public static void main(String[] args) {
 		System.out.println("Welcome to Lost in Knightdale!");
-		System.out.println("\n");
+		System.out.println();
 		story();  //Print out the story of the game
-		System.out.println("\n");
+		System.out.println();
 		String verb, noun;  //Holders for the words of the command
 		Player p = new Player();  //Player
 		
@@ -43,11 +45,10 @@ public class Driver {
 		
 		
 		//Test: Rooms and setting NPCs and Monsters
-		Room centerRoom = new Room(true, true, true, true);
+		Room centerRoom = new Room(true, true, true, true, false, false);
 		setRoomDescriptor("centerRoomDescription.txt", centerRoom); //set the description for the center room
 		
 		Map<Room, String> testRooms = new HashMap<Room, String>();
-		
 		
 		testRooms.put(centerRoom, centerRoom.getDescriptor());
 		
@@ -92,7 +93,6 @@ public class Driver {
 		System.out.println("You have an " + ob.getName() + " in your backpack.");
 
 		
-		//Have to figure a way to stop the game if the Player dies...
 		//Need a help menu to show commands
 		
 		
@@ -186,5 +186,21 @@ public class Driver {
 		//add the description to the room
 		room.setDescriptor(description);
 	}
-
+	
+	public static void loadGame() {
+		loadRooms();
+	}
+	
+	public static void loadRooms() {
+		
+	}
+	
+	public static void loadNPCs() {
+		
+	}
+	
+	public static void loadMonsters() {
+		
+	}
+	
 }
