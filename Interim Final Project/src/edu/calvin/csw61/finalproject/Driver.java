@@ -5,13 +5,23 @@
  */
 package edu.calvin.csw61.finalproject;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Driver {
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome to Lost in Knightdale!");
+		System.out.println("\n");
 		story();  //Print out the story of the game
+		System.out.println("\n");
 		String verb, noun;  //Holders for the words of the command
 		Player p = new Player();  //Player
 		
@@ -30,6 +40,42 @@ public class Driver {
 		//ObjectInterface n = new NPC("Mary");
 		//Since we don't have Rooms (yet), I have to add her to the backpack and see if I can eat her
 		//p.addObject(n.getName(), n);
+		
+		
+		//Test: Rooms and setting NPCs and Monsters
+		Room centerRoom = new Room(true, true, true, true);
+		setRoomDescriptor("centerRoomDescription.txt", centerRoom); //set the description for the center room
+		
+		Map<Room, String> testRooms = new HashMap<Room, String>();
+		
+		
+		testRooms.put(centerRoom, centerRoom.getDescriptor());
+		
+			String[] names = {"Harold", "Sue", "Andrew"};
+		
+			int i = 0;
+		    Iterator it = testRooms.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry<Room, String> pair = (Map.Entry)it.next();
+		        //If the hasNPC is set for the Room...
+		        pair.getKey().setNPC(names[i]);
+		        System.out.println(pair.getValue());
+		        it.remove(); // avoids a ConcurrentModificationException
+		        i++;
+		    }
+		
+		
+		    
+//		for(Map.Entry<Room, String> entry : testRooms.entrySet()) {
+//			System.out.println(entry.getValue());
+///			entry.getKey().setNPC("Andrew");
+
+//		}
+		
+//		Room blah = testRooms.get("Center Room");
+//		blah.setNPC("Andrew");
+	
+		
 		
 		verb = "";
 		noun = "";
@@ -91,6 +137,54 @@ public class Driver {
 
 	//This will print the story...
 	public static void story() {
-		System.out.println("You have been capture by the Leroykins...(-INSERT MORE HERE-)");
+		String fileName = "src/edu/calvin/csw61/finalproject/text_files/story.txt";
+		String line = null;
+		
+		try{
+			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
+			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
+			while((line = br.readLine()) != null) { //read in each line
+				System.out.println(line);	//and print it out
+			}
+			br.close(); //close the file
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Unable to open file.");
+		
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
 	}
+	
+	/**
+	 * This method sets the room description by reading from a text file.
+	 * @param file: The filename.
+	 * @param room: The room to apply the description to.
+	 */
+	public static void setRoomDescriptor(String file, Room room){
+		String fileName = "src/edu/calvin/csw61/finalproject/text_files/" + file; //the filename
+		String description = "";
+		String line = null;
+		
+		try{
+			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
+			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
+			while((line = br.readLine()) != null) { //read in each line
+				description += line + "\n";			//set the description to the read lines, and add a newline after ever line
+			}
+			br.close(); //close the file
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Unable to open file.");
+		
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		//add the description to the room
+		room.setDescriptor(description);
+	}
+
 }
