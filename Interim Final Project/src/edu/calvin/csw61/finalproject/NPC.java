@@ -1,12 +1,24 @@
 package edu.calvin.csw61.finalproject;
 
-public class NPC extends Character {
+//Needs to implement ObjectInterface so that we can catch when a Player wants
+//to eat an NPC
+public class NPC extends Character implements ObjectInterface {
+	//Instance variables are inheirted from the superclass, Character
+	//Constructor for an NPC who doesn't have an Object
+	public NPC(String name) {
+		myName = name;
+		myObj = null;  
+	}
 	
-	//Constructor
-	//An NPC can have a name and an Object
+	//Constructor for an NPC who doesn't have an Object
 	public NPC(String name, ObjectInterface ob) {
 		myName = name;
 		myObj = ob;
+	}
+	
+	@Override
+	public String getName() {
+		return myName;
 	}
 	
 }

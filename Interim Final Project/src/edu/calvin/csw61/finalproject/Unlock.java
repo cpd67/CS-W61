@@ -1,6 +1,6 @@
 package edu.calvin.csw61.finalproject;
 
-public class Unlock implements CommandBehavior {
+public class Unlock implements Command {
 	
 	Player myPlayer;
 	Key myKey;
@@ -17,7 +17,7 @@ public class Unlock implements CommandBehavior {
 		//Check if the door is locked...
 		//if so
 		if(myPlayer.hasItem(myKey.getName())) {
-			System.out.println("You unlocked");
+			System.out.println("You locked (NOT IMPLEMENTED (NO DOOR TO UNLOCK YET))");
 		} else {
 			System.out.println("You don't have a key.");
 		}

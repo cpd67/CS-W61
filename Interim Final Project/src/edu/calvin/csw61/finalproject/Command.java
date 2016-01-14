@@ -1,5 +1,5 @@
 package edu.calvin.csw61.finalproject;
 
-public interface CommandBehavior {
+public interface Command {
 	public void execute();  //Execute the command behavior	
 }
