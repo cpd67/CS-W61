@@ -1,6 +1,6 @@
 package edu.calvin.csw61.finalproject;
 
-public class Lock implements CommandBehavior {
+public class Lock implements Command {
 	
 	Player myPlayer;
 	Key myKey;
@@ -16,12 +16,9 @@ public class Lock implements CommandBehavior {
 	@Override
 	public void execute() {
 		//if door is unlocked...
-		if(myPlayer.hasItem(myKey.getName())) {
-			System.out.println("You locked");
-			//p.removeObject(myKey)
-		} else {
-			System.out.println("You don't have a key");
-		}
+			//Lock the Door
+			myPlayer.removeObject(myKey.getName()); //Take out the key
+			System.out.println("You locked (NOT IMPLEMENTED (NO DOOR TO LOCK YET))");
 		//else, System.out.println("The door is already locked);
 	}
 	

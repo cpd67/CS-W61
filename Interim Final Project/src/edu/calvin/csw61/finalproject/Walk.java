@@ -1,6 +1,6 @@
 package edu.calvin.csw61.finalproject;
 
-public class Walk implements CommandBehavior{
+public class Walk implements Command{
 	String myDirection;
 	Player myPlayer;
 	
@@ -16,7 +16,6 @@ public class Walk implements CommandBehavior{
 		//(go to next spot in two dimensional array of rooms) 
 		//Is the door locked? If not, go through it
 		//If the door is locked, then return String: "The door is locked". Driver then prints it out.
-		
+		System.out.println("You walked (NOT IMPLEMENTED))");
 	}
-
 }
