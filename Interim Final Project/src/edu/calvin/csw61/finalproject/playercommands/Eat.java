@@ -1,4 +1,12 @@
-package edu.calvin.csw61.finalproject;
+package edu.calvin.csw61.finalproject.playercommands;
+
+import edu.calvin.csw61.finalproject.Food;
+import edu.calvin.csw61.finalproject.Key;
+import edu.calvin.csw61.finalproject.Monster;
+import edu.calvin.csw61.finalproject.NPC;
+import edu.calvin.csw61.finalproject.ObjectInterface;
+import edu.calvin.csw61.finalproject.Player;
+import edu.calvin.csw61.finalproject.Treasure;
 
 public class Eat implements Command {
 	

@@ -1,4 +1,6 @@
-package edu.calvin.csw61.finalproject;
+package edu.calvin.csw61.finalproject.playercommands;
+
+import edu.calvin.csw61.finalproject.Player;
 
 public class Dig implements Command {
 	
