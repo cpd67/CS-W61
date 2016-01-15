@@ -1,11 +1,16 @@
 package edu.calvin.csw61.finalproject;
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.HashMap;
+/**
+ * + If you use myBackpack.get(), lowercase the noun (noun.toLowerCase()) when you are passing it.
+ * + Everything is lowercase (for making it look nice when printing and it makes things easier if we have everything stored
+ * as one case. Lowercase seems nicer than having everything upper case ;) ).
+ * + We have a standard pattern when creating a Command:
+ *   - We check all of the prerequisites before creating (item needed is present, item in backpack, etc..).
+ *   - If so, we create the Command object and execute it with the necessary Objects and a handle to the Player.
+ *   - If not, we print an error message.
+ * + Test new functionality in TestClass (to avoid bloating the Driver code). 
+ */
 import java.util.Hashtable;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Player extends Character {
 	
@@ -14,6 +19,10 @@ public class Player extends Character {
 	private int myNumberOfObjects;  //Number of objects one currently has
 	private int myLimit; //Limit on number of Objects one can have in the backpack
 	private Hashtable<String, ObjectInterface> myBackpack;  //Backpack
+	private String[] myDirections = {"north", "south", "east", "west"};  //Valid directions
+	private String myCurrentDirection; //Where am I heading?
+	private Quest myCurrentQuest;  //Current Quest
+	private boolean onQuest;  //Am I on a Quest?
 	
 	//Constructor
 	public Player() {
@@ -22,6 +31,9 @@ public class Player extends Character {
 		myBackpack = new Hashtable<>();
 		myNumberOfObjects = 0;
 		myLimit = 10;
+		myCurrentQuest = null; //No Quest
+		onQuest = false;
+		myCurrentDirection = ""; //No sense of direction...yet
 		
 		//myMapPieces? 
 	}
@@ -31,11 +43,24 @@ public class Player extends Character {
 		Command command;  //This will be the executed command;
 		switch(verb.toLowerCase()) {
 			case "walk": case "go":  //Walk
-				if(noun.equals("")) {
+				if(noun.equals("")) {  //No direction set
 					System.out.println("Walk in which direction?");
 				} else {
-					command = new Walk(noun, this);
-					command.execute();
+					if(this.checkDir(noun)) {  //If a valid direction...
+						this.myCurrentDirection = noun; //Set the Player's direction to that one
+						//Check for a door
+						//switch(this.myCurrentDirection)
+						//case myCurrentRoom.getNorthDoor():
+						// Go through North door
+						//case myCurrentRoom.getSouthDoor():
+						// Go through South door
+						//etc...
+						//Go through it if there is one
+						command = new Walk(noun, this);
+						command.execute();
+					} else {  //Not a valid direction...
+						System.out.println("I can't walk there.");
+					}
 				}
 				break;
 			case "eat":  //Eat
@@ -44,7 +69,7 @@ public class Player extends Character {
 				} else {
 					if(this.hasItem(noun)) {  //If the Player has the Object...
 						//Get the Object from the backpack
-						command = new Eat(this.myBackpack.get(noun), this); //Eat it
+						command = new Eat(this.myBackpack.get(noun.toLowerCase()), this); //Eat it
 						command.execute();  //Print out the returned String
 					} else {  
 						//Else, If the Object is in the Room that the Player is in...
@@ -71,7 +96,7 @@ public class Player extends Character {
 					//Okay, we can. Now, check if it's actually in the Room.
 					//It's in the Room. Now check if it's already in our backpack...
 					if(this.hasItem(noun)) { //If so...
-						System.out.println("You can only have one " + noun + " in your backpack.");
+						System.out.println("You can only have one " + noun.toLowerCase() + " in your backpack.");
 					} else {  //Find the Object in the room and pass it as the ObjectInterface parameter to the Take() constructor
 //						Key key = new Key("key");  //You would also have to remove the Object from the room.
 //						command = new Take(key, this);
@@ -129,7 +154,12 @@ public class Player extends Character {
 				if(noun.equals("")) {
 					System.out.println("Drop what?");
 				} else {
-					System.out.println("you dropped (NOT IMPLEMENTED)");
+					if(this.hasItem(noun)) { //Do we even have the item?
+						Command drop = new Drop(this.myBackpack.get(noun.toLowerCase()), this); //Lower case the item (we have EVERYTHING lower case)
+						drop.execute();
+					} else {  //We don't...
+						System.out.println("You don't have " + noun);
+					}
 				}
 				break;
 			case "throw":  //Throw
@@ -154,11 +184,15 @@ public class Player extends Character {
 	
 	//Add an Object
 	public void addObject(String name, ObjectInterface ob) {
-		if(myNumberOfObjects == myLimit) {  //Backpack full; can't add a new Object
+		if(myNumberOfObjects == myLimit){  //We've reached the limit...
 			System.out.println("Backpack is full! Drop an item!");
-		} else {
-			myBackpack.put(name.toLowerCase(), ob);
-			myNumberOfObjects++;  //Number of Objects in map
+		} else {  //We can add Objects...
+			if(myBackpack.containsKey(name.toLowerCase())) {  //BUT, do we already have it?
+				System.out.println("You already have that item!");
+			} else {  //No. Add it as planned.
+				myBackpack.put(name.toLowerCase(), ob);
+				myNumberOfObjects++;  //Number of Objects in map
+			}
 		}
 	}
 	
@@ -168,7 +202,7 @@ public class Player extends Character {
 			System.out.println("You have no items to remove.");
 		} else {  //We do...
 			if(hasItem(object)) {  //If it's in the backpack...
-				myBackpack.remove(object);  //Take it out
+				myBackpack.remove(object.toLowerCase());  //Take it out
 				myNumberOfObjects--;  //We have one less Object
 			} else {
 				System.out.println("You don't have this item.");  //Nope
@@ -181,10 +215,11 @@ public class Player extends Character {
 		if(myNumberOfObjects == 0) { //Empty backpack = No items!
 			System.out.println("You have no items!");
 		} else {  //You have items! 
-			System.out.println("You currently have these items: ");
+			System.out.println("You currently have " + myNumberOfObjects + " items: ");
 			for(String name : myBackpack.keySet()) {  //For each String in the key set...
-				System.out.println(name);  //Print the name
+				System.out.print(name.toLowerCase() + " ");  //Print the names
 			}
+			System.out.println(); 
 		}
 	}
 
@@ -208,5 +243,60 @@ public class Player extends Character {
 			return false;  //Can't put Monsters in backpack
 		}
 		return true; //You can put it in your backpack
+	}
+	
+	//Check the possible direction please
+	public boolean checkDir(String dir) {
+		for(int i = 0; i < myDirections.length; i++) {
+			if(myDirections[i].equals(dir.toLowerCase())) { //If the input direction is valid...
+				return true;
+			}
+		}
+		return false;  //Input direction not valid!
+	}
+	
+	//Put me on a Quest!
+	public void setQuest(Quest q) {
+		myCurrentQuest = q;
+		onQuest = true;
+	}
+	
+	//Done with a Quest (Gets called when QuestItem has been given to an NPC or an event has happened)0
+	public void questComplete() {
+		myCurrentQuest = null;  //No more Quest :'(
+		onQuest = false; //Not on a Quest anymore
+	}
+	
+	//Give life back to the Player (if not already full)
+	public void addHealth() {
+		myHealth += 10;
+	}
+	
+	//Take it away
+	public void subtractHealth() {
+		if(myHealth > 0) {
+			myHealth -= 10;
+			System.out.println("You lost 10 hit points.");
+		}//Check if it's 0 in Fight...Player dies at that point.
+	}
+	
+	//Get my current direction
+	public String getDirection() {
+		return myCurrentDirection; 
+	}
+	
+	//Get my current health
+	public int getHealth() {
+		return myHealth;  
+	}
+	
+	//Ask if i'm on a Quest
+	public boolean isOnQuest() {
+		return onQuest;
+	}
+	
+	//What Quest am I on?
+	public Quest getQuest() {
+		return myCurrentQuest;
 	}
 }

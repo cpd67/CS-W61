@@ -24,7 +24,7 @@ public class Food implements ObjectInterface {
 		
 	//Different food items = different names
 	public Food(String name) {
-		myName = name;
+		myName = name.toLowerCase();  //Lower case it
 	}
 	
 	//What's my name?

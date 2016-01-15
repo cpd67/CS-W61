@@ -28,6 +28,17 @@ public class Eat implements Command {
 			} else { //Not poisoned, can eat it
 				myPlayer.removeObject(myObject.getName());
 				System.out.println("You ate " + myObject.getName());
+				if(myPlayer.getHealth() == 100) {  //Full health = No health gain
+					System.out.println("Already at full health."); 
+				} else {  //Give the Player health if he/she isn't at full health yet
+					myPlayer.addHealth();
+					System.out.println("You gained 10 hit points");
+					System.out.println("You have " + myPlayer.getHealth() + " hit points");
+					if(myPlayer.getHealth() == 100) {  //Do we have 100 hit points?
+						System.out.println("You are at full health");
+					}
+				}
+				
 			}
 		} else if(myObject instanceof NPC) { //Not a Food item, check if it's either a Monster or NPC
 			NPC holder = (NPC)myObject;  //If so, you can't eat either
@@ -38,7 +49,7 @@ public class Eat implements Command {
 		} else if(myObject instanceof Key) {  //If it's a Key, kill the Player (can't go anywhere if you eat the only Key in the room)
 			//Have to kill the Player here too...
 			Key holder = (Key)myObject;
-			System.out.println("You forciby shove the " + holder.getName() + "down your throat, killing yourself.");
+			System.out.println("You forciby shove the " + holder.getName() + " down your throat, killing yourself.");
 			System.out.println("You have died.");
 			//End the game...
 			//For now...

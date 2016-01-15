@@ -5,7 +5,7 @@ public class Walk implements Command{
 	Player myPlayer;
 	
 	public Walk(String direction, Player player){
-		myDirection = direction; 
+		myDirection = direction.toLowerCase();  //Lower case it 
 		myPlayer = player;
 	}
 
@@ -16,6 +16,6 @@ public class Walk implements Command{
 		//(go to next spot in two dimensional array of rooms) 
 		//Is the door locked? If not, go through it
 		//If the door is locked, then return String: "The door is locked". Driver then prints it out.
-		System.out.println("You walked (NOT IMPLEMENTED))");
+		System.out.println("You walked " + myDirection + " (ALMOST IMPLEMENTED)");
 	}
 }
