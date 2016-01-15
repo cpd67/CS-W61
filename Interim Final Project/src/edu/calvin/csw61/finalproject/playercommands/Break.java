@@ -1,4 +1,7 @@
-package edu.calvin.csw61.finalproject;
+package edu.calvin.csw61.finalproject.playercommands;
+
+import edu.calvin.csw61.finalproject.ApertureBehavior;
+import edu.calvin.csw61.finalproject.Player;
 
 public class Break implements Command {
 

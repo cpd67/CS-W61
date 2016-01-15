@@ -12,6 +12,13 @@ package edu.calvin.csw61.finalproject;
  */
 import java.util.Hashtable;
 
+import edu.calvin.csw61.finalproject.playercommands.Command;
+import edu.calvin.csw61.finalproject.playercommands.Drop;
+import edu.calvin.csw61.finalproject.playercommands.Eat;
+import edu.calvin.csw61.finalproject.playercommands.Lock;
+import edu.calvin.csw61.finalproject.playercommands.Unlock;
+import edu.calvin.csw61.finalproject.playercommands.Walk;
+
 public class Player extends Character {
 	
 	//Give him some health
@@ -23,6 +30,7 @@ public class Player extends Character {
 	private String myCurrentDirection; //Where am I heading?
 	private Quest myCurrentQuest;  //Current Quest
 	private boolean onQuest;  //Am I on a Quest?
+	private Room myCurrentRoom;
 	
 	//Constructor
 	public Player() {
@@ -34,6 +42,7 @@ public class Player extends Character {
 		myCurrentQuest = null; //No Quest
 		onQuest = false;
 		myCurrentDirection = ""; //No sense of direction...yet
+		myCurrentRoom = null;
 		
 		//myMapPieces? 
 	}
@@ -175,6 +184,9 @@ public class Player extends Character {
 			case "dig":  //Dig
 				System.out.println("you dug (NOT IMPLEMENTED)");
 				break;
+			case "look": //look at the room
+				System.out.println("You looked (NOT IMPLEMENTED)");
+				break;
 			case "show":  //Show the backpack
 				printBackpack();
 				break;
@@ -298,5 +310,14 @@ public class Player extends Character {
 	//What Quest am I on?
 	public Quest getQuest() {
 		return myCurrentQuest;
+	}
+	
+	//set the player's current room 
+	public void setCurrentRoom(Room room) {
+		myCurrentRoom = room;
+	}
+	//What room am I in?
+	public Room getRoom() {
+		return myCurrentRoom;
 	}
 }

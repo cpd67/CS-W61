@@ -20,8 +20,6 @@ public class Driver {
 	public static Map<Room, String> mySBRooms = new HashMap<Room, String>();
 	
 	public static void main(String[] args) {
-		System.out.println("Welcome to Lost in Knightdale!");
-		System.out.println();
 		story();  //Print out the story of the game
 		System.out.println();
 		String verb, noun;  //Holders for the words of the command
@@ -47,7 +45,7 @@ public class Driver {
 		//Test: Rooms and setting NPCs and Monsters
 		Room centerRoom = new Room(true, true, true, true, false, false);
 		setRoomDescriptor("centerRoomDescription.txt", centerRoom); //set the description for the center room
-		
+		p.setCurrentRoom(centerRoom); //set the player's current room to the center room. There's probably a better way to do this, but this works temporarily
 		Map<Room, String> testRooms = new HashMap<Room, String>();
 		
 		testRooms.put(centerRoom, centerRoom.getDescriptor());

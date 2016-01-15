@@ -1,4 +1,8 @@
-package edu.calvin.csw61.finalproject;
+package edu.calvin.csw61.finalproject.playercommands;
+
+import edu.calvin.csw61.finalproject.NPC;
+import edu.calvin.csw61.finalproject.ObjectInterface;
+import edu.calvin.csw61.finalproject.Player;
 
 public class Talk implements Command {
 	
