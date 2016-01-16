@@ -180,10 +180,15 @@ public class Player extends Character {
 				System.out.println("you dug (NOT IMPLEMENTED)");
 				break;
 			case "look": //look at the room
-				System.out.println("You looked (NOT IMPLEMENTED)");
+				command = new Look(this);
+				command.execute();
 				break;
 			case "show":  //Show the backpack
 				printBackpack();
+				break;
+			case "help":
+				command = new Help();
+				command.execute();
 				break;
 			default: System.out.println("I don't know what that means.");
 		}

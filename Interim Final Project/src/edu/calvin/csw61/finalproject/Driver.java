@@ -5,15 +5,10 @@
  */
 package edu.calvin.csw61.finalproject;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Driver {
 	
@@ -135,24 +130,8 @@ public class Driver {
 
 	//This will print the story...
 	public static void story() {
-		String fileName = "src/edu/calvin/csw61/finalproject/text_files/story.txt";
-		String line = null;
-		
-		try{
-			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
-			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
-			while((line = br.readLine()) != null) { //read in each line
-				System.out.println(line);	//and print it out
-			}
-			br.close(); //close the file
-		}
-		catch(FileNotFoundException ex) {
-			System.out.println("Unable to open file.");
-		
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
+		ReadFile readFile = new ReadFile("story.txt"); //new readFile with story.txt as the file to be read
+		readFile.readAndPrint(); //read in the file and print it
 	}
 	
 	/**
@@ -161,28 +140,11 @@ public class Driver {
 	 * @param room: The room to apply the description to.
 	 */
 	public static void setRoomDescriptor(String file, Room room){
-		String fileName = "src/edu/calvin/csw61/finalproject/text_files/" + file; //the filename
-		String description = "";
-		String line = null;
+		ReadFile readFile= new ReadFile(file); //new readFile object
+		readFile.read();	//read in the file
 		
-		try{
-			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
-			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
-			while((line = br.readLine()) != null) { //read in each line
-				description += line + "\n";			//set the description to the read lines, and add a newline after ever line
-			}
-			br.close(); //close the file
-		}
-		catch(FileNotFoundException ex) {
-			System.out.println("Unable to open file.");
-		
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		
-		//add the description to the room
-		room.setDescriptor(description);
+		//add the output of the read file to the room
+		room.setDescriptor(readFile.getContents());
 	}
 	
 	public static void loadGame() {
