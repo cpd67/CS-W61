@@ -12,12 +12,7 @@ package edu.calvin.csw61.finalproject;
  */
 import java.util.Hashtable;
 
-import edu.calvin.csw61.finalproject.playercommands.Command;
-import edu.calvin.csw61.finalproject.playercommands.Drop;
-import edu.calvin.csw61.finalproject.playercommands.Eat;
-import edu.calvin.csw61.finalproject.playercommands.Lock;
-import edu.calvin.csw61.finalproject.playercommands.Unlock;
-import edu.calvin.csw61.finalproject.playercommands.Walk;
+import edu.calvin.csw61.finalproject.playercommands.*;
 
 public class Player extends Character {
 	

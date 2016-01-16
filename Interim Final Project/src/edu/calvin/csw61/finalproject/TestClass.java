@@ -30,7 +30,7 @@ public class TestClass {
 		System.out.println("Testbed for LostInKnightdale");
 		//Load the game
 		loadGame();
-		
+	
 		String verb, noun;  //Holders for the words of the command
 		Player p = new Player();  //Player
 		
@@ -87,6 +87,21 @@ public class TestClass {
 //		ObjectInterface ob12 = new Treasure("emerald");
 		
 //		p.addObject(ob12.getName(), ob12);
+		
+		//Test: Get the NPC from a Room. (Works)
+//		ObjectInterface checker = mySBRooms.get(0).getNPC();
+//		System.out.println();
+//		System.out.println("Room 0 should have " + checker.getName());
+		
+		//Test: No NPC in the Room (Works).
+//		ObjectInterface checker2 = mySBRooms.get(4).getNPC();
+//		System.out.println();
+//		System.out.println("Room 4 = " + checker2);  //No NPC. Throws a NullPointerException if I try to get the name.
+		
+		//Test: Get the Monster from a Room.
+		
+		
+		
 		
 		System.out.println("You have an " + ob.getName() + " in your backpack.");
 		System.out.println("\n");
@@ -196,9 +211,10 @@ public class TestClass {
 	}
 	
 	public static void loadRooms() {
+		
 		//Add rooms to the Hash Map
 		//Have NPCs
-		mySBRooms.put(0, new Room(false, false, false, false, true, false));  
+		mySBRooms.put(0, new Room(true, true, true, true, true, false));  
 		mySBRooms.put(1, new Room(true, true, true, true, true, false));  
 		mySBRooms.put(2, new Room(false, false, true, true, true, false));  
 		mySBRooms.put(3, new Room(false, false, false, false, true, false)); 
@@ -214,14 +230,41 @@ public class TestClass {
 		
 	}
 	
+	//Test: Adding NPCs and Monsters
 	public static void loadNPCAndMonster() {
-		String[] names = {"V. Norman", "Yoland", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
+		String[] names = {"V. Norman", "Yolanda", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
 		String[] monsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles" };
 		
 		int npcI = 0, monsterI = 0;
-	    Iterator<Map.Entry<Integer, Room>> it = mySBRooms.entrySet().iterator();
-	 
-	    while (it.hasNext()) {
+	   // Iterator<Map.Entry<Integer, Room>> it = mySBRooms.entrySet().iterator();
+	
+		System.out.println("Size of SB Rooms: " + mySBRooms.size()); //Get the size of SBRooms
+		for(int i = 0; i < mySBRooms.size(); i++) {
+			if(mySBRooms.get(i).needNPC()) {  //Do I need an NPC?
+				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
+					mySBRooms.get(i).setMonster(monsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //No, I only need an NPC
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+ 				mySBRooms.get(i).setNPC(names[npcI]);  //Set the name of the NPC.
+				System.out.println("Room " + i + " has " + mySBRooms.get(i).getNPC().getName());
+				npcI++;
+			} else {
+				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
+				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
+					mySBRooms.get(i).setMonster(monsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //I only need objects 
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+			}
+			
+		}
+		
+/**	    while (it.hasNext()) {
 	        Map.Entry<Integer, Room> pair = it.next();
 	        if(pair.getValue().needNPC()) {  //If a Room needs an NPC....
 		        pair.getValue().setNPC(names[npcI]);
@@ -240,7 +283,12 @@ public class TestClass {
 	        }
 	        
 	        it.remove(); // avoids a ConcurrentModificationException
-	    } 
+	    } */
+		
+	}
+	
+	public static Map<Integer, Room> getInstance() {
+		return mySBRooms;
 	}
 		
 }
