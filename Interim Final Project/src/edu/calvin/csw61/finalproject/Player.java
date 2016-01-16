@@ -62,6 +62,7 @@ public class Player extends Character {
 						//Go through it if there is one
 						command = new Walk(noun, this);
 						command.execute();
+						System.out.println(command.getResult());
 					} else {  //Not a valid direction...
 						System.out.println("I can't walk there.");
 					}
@@ -75,6 +76,7 @@ public class Player extends Character {
 						//Get the Object from the backpack
 						command = new Eat(this.myBackpack.get(noun.toLowerCase()), this); //Eat it
 						command.execute();  //Print out the returned String
+						System.out.println(command.getResult());
 					} else {  
 						//Else, If the Object is in the Room that the Player is in...
 						//Eat the Object (Get the Object from the list of Objects that the Room has)
@@ -124,6 +126,7 @@ public class Player extends Character {
 					if(this.hasItem("key")) {  //Took out the check Object logic and brought it here
 						command = new Lock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
 						command.execute();
+						System.out.println(command.getResult());
 					} else {
 						System.out.println("You don't have a key.");
 					}
@@ -136,6 +139,7 @@ public class Player extends Character {
 					if(this.hasItem("key")) {
 						command = new Unlock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
 						command.execute();  //Execute the command
+						System.out.println(command.getResult());
 					} else {
 						System.out.println("You don't have a key.");
 					}
@@ -144,8 +148,9 @@ public class Player extends Character {
 			case "break":  //Break
 				if(noun.equals("")) {
 					System.out.println("Break what?");
+				} else{
+					System.out.println("you broke (NOT IMPLEMENTED)");
 				}
-				System.out.println("you broke (NOT IMPLEMENTED)");
 				break;
 			case "use": //Use
 				if(noun.equals("")) {
@@ -161,6 +166,7 @@ public class Player extends Character {
 					if(this.hasItem(noun)) { //Do we even have the item?
 						Command drop = new Drop(this.myBackpack.get(noun.toLowerCase()), this); //Lower case the item (we have EVERYTHING lower case)
 						drop.execute();
+						System.out.println(drop.getResult());
 					} else {  //We don't...
 						System.out.println("You don't have " + noun);
 					}
@@ -182,6 +188,7 @@ public class Player extends Character {
 			case "look": //look at the room
 				command = new Look(this);
 				command.execute();
+				System.out.println(command.getResult());
 				break;
 			case "show":  //Show the backpack
 				printBackpack();
@@ -189,6 +196,7 @@ public class Player extends Character {
 			case "help":
 				command = new Help();
 				command.execute();
+				System.out.println(command.getResult());
 				break;
 			default: System.out.println("I don't know what that means.");
 		}

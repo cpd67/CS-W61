@@ -6,21 +6,27 @@ import edu.calvin.csw61.finalproject.Player;
 
 public class Fight implements Command {
 	
+	private String result; //result string
 	Player myPlayer; //Handle to Player
 	Character myOpponent; //Opponent
 	
 	public Fight(Character m, Player p) {
 		myPlayer = p;
 		myOpponent = m;
+		result = "";
 	}
 	
 	@Override
 	public void execute() {
 		if(myOpponent instanceof NPC) {
-			System.out.println("You can't fight " + myOpponent.getName());
+			result = "You can't fight " + myOpponent.getName() + "\n";
 		} else {
 			//Fight the Monster
-			System.out.println("You fought ");
+			result = "You fought \n";
 		}
+	}
+	
+	public String getResult() {
+		return result;
 	}
 }
