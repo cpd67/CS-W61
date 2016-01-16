@@ -4,6 +4,7 @@ import edu.calvin.csw61.finalproject.ObjectInterface;
 import edu.calvin.csw61.finalproject.Player;
 
 public class Drop implements Command {
+	private String result;
 	
 	Player myPlayer;
 	ObjectInterface myObject;
@@ -13,10 +14,15 @@ public class Drop implements Command {
 	public Drop(ObjectInterface ob, Player p) {
 		myObject = ob;
 		myPlayer = p;
+		result = "";
 	}
 	
 	public void execute() {
 		myPlayer.removeObject(myObject.getName());
-		System.out.println("You dropped " + myObject.getName());
+		result = "You dropped the " + myObject.getName();
+	}
+	
+	public String getResult() {
+		return result;
 	}
 }
