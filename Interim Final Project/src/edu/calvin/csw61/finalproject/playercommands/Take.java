@@ -17,8 +17,26 @@ public class Take implements Command {
 	//Add the Object
 	public void execute() {
 		//Is the Object in the Current Room that the Player is in?
-		myPlayer.addObject(myObject.getName(), myObject);
-		result = "You took " + myObject.getName();
+		if(myPlayer.getRoom().getObjects()[0].getName() == myObject.getName()) { //First Object
+			if(myPlayer.hasItem(myPlayer.getRoom().getObjects()[0].getName())) { //BUT, does he/she already have it?
+				result = "You can only have one " + myObject.getName().toLowerCase(); //Yes.
+			} else { //No. Add it to the Backpack.
+				myPlayer.addObject(myObject.getName(), myObject);
+				myPlayer.getRoom().removeObject(0);
+				result = "You took " + myObject.getName().toLowerCase();
+			}
+		} else if(myPlayer.getRoom().getObjects()[1].getName() == myObject.getName()) { //Second Object
+			if(myPlayer.hasItem(myPlayer.getRoom().getObjects()[1].getName())) {
+				result = "You can only have one " + myObject.getName().toLowerCase();
+			} else {
+				myPlayer.addObject(myObject.getName(), myObject);
+				myPlayer.getRoom().removeObject(1);
+				result = "You took " + myObject.getName();
+			}
+		} else {  //The Object is not in the current Room.
+			result = myObject.getName().toLowerCase() + " is not in this room.";
+		}
+
 	}
 	
 	public String getResult() {

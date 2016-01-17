@@ -18,7 +18,12 @@ public class Driver {
 		story();  //Print out the story of the game
 		System.out.println();
 		String verb, noun;  //Holders for the words of the command
-		Player p = new Player();  //Player
+
+		Integer[] rooms = {0, 1, 2, 3}; //Buildings, since we are outside
+		Room centerRoom = new Room(true, true, true, true, false, false, rooms);
+		setRoomDescriptor("centerRoomDescription.txt", centerRoom); //set the description for the center room
+
+		Player p = new Player(centerRoom);  //Player
 		
 		//Test: Poisoning the Player (WORKS :D)
 //		ObjectInterface bidoof = new Food("bidoof");
@@ -38,9 +43,7 @@ public class Driver {
 		
 		
 		//Test: Rooms and setting NPCs and Monsters
-		Room centerRoom = new Room(true, true, true, true, false, false);
-		setRoomDescriptor("centerRoomDescription.txt", centerRoom); //set the description for the center room
-		p.setCurrentRoom(centerRoom); //set the player's current room to the center room. There's probably a better way to do this, but this works temporarily
+//		p.setCurrentRoom(centerRoom); //set the player's current room to the center room. There's probably a better way to do this, but this works temporarily
 		Map<Room, String> testRooms = new HashMap<Room, String>();
 		
 		testRooms.put(centerRoom, centerRoom.getDescriptor());

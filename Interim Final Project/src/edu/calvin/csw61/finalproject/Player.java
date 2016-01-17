@@ -26,9 +26,11 @@ public class Player extends Character {
 	private Quest myCurrentQuest;  //Current Quest
 	private boolean onQuest;  //Am I on a Quest?
 	private Room myCurrentRoom;
+	private String myCurrentBuilding; //I'm in a building (HashMap of Rooms)
+	private Integer myCurrentRoomNum;  //Number of the Room that the Player is currently in
 	
 	//Constructor
-	public Player() {
+	public Player(Room outsideRoom) {
 		myName = "Flying Dutchman";
 		myHealth = 100;
 		myBackpack = new Hashtable<>();
@@ -37,8 +39,9 @@ public class Player extends Character {
 		myCurrentQuest = null; //No Quest
 		onQuest = false;
 		myCurrentDirection = ""; //No sense of direction...yet
-		myCurrentRoom = null;
-		
+		myCurrentRoom = outsideRoom;  //Handle to outside Room...
+		myCurrentBuilding = "Outside";
+		myCurrentRoomNum = -2;  //Outside at start...
 		//myMapPieces? 
 	}
 	
@@ -51,18 +54,25 @@ public class Player extends Character {
 					System.out.println("Walk in which direction?");
 				} else {
 					if(this.checkDir(noun)) {  //If a valid direction...
-						this.myCurrentDirection = noun; //Set the Player's direction to that one
-						//Check for a door
-						//switch(this.myCurrentDirection)
-						//case myCurrentRoom.getNorthDoor():
-						// Go through North door
-						//case myCurrentRoom.getSouthDoor():
-						// Go through South door
-						//etc...
-						//Go through it if there is one
+						this.setDirection(noun); //Set the Player's direction to that one
+					
+						//Outside, the Player will no longer be in the Room.
+						if(this.getBuilding().equals("Outside")) {
+							TestClass.outsideRoom.setNoPlayer();
+						}
+						
+						//TESTING PURPOSES ONLY
+						System.out.println("Room # before walking: " + this.getRoomNum());			
+						
 						command = new Walk(noun, this);
 						command.execute();
-						System.out.println(command.getResult());
+					//	System.out.println(command.getResult());
+						
+						//TESTING PURPOSES ONLY!
+						//IF THE PLAYER WALKED, THEN THE ROOM SHOULD HAVE CHANGED
+						System.out.println("Room # after walking: " + this.getRoomNum());
+						System.out.println(this.getRoom().getDescriptor());
+					
 					} else {  //Not a valid direction...
 						System.out.println("I can't walk there.");
 					}
@@ -258,7 +268,7 @@ public class Player extends Character {
 	//Can we put an item in our backpack?
 	public boolean checkItem(ObjectInterface ob) {
 		if(ob instanceof NPC) {
-			return false;  //Can't put NPCs in bacpack
+			return false;  //Can't put NPCs in backpack
 		} else if(ob instanceof Monster) {
 			return false;  //Can't put Monsters in backpack
 		}
@@ -305,6 +315,11 @@ public class Player extends Character {
 		return myCurrentDirection; 
 	}
 	
+	//Set my new Direction!
+	public void setDirection(String newDir) {
+		myCurrentDirection = newDir.toLowerCase();
+	}
+	
 	//Get my current health
 	public int getHealth() {
 		return myHealth;  
@@ -324,8 +339,30 @@ public class Player extends Character {
 	public void setCurrentRoom(Room room) {
 		myCurrentRoom = room;
 	}
+	
 	//What room am I in?
 	public Room getRoom() {
 		return myCurrentRoom;
 	}
+	
+	//I'm in a HashMap of Rooms
+	public void setBuilding(String b) {
+		myCurrentBuilding = b;
+	}
+	
+	//Which building am I in?
+	public String getBuilding() {
+		return myCurrentBuilding;
+	}
+	
+	//Set the Room number....
+	public void setRoomNum(Integer newNum) {
+		myCurrentRoomNum = newNum;
+	}
+	
+	//Get the current Room number...
+	public Integer getRoomNum() {
+		return myCurrentRoomNum;
+	}
+
 }
