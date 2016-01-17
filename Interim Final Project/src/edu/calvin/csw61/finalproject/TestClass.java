@@ -64,11 +64,6 @@
  *      
  */
 package edu.calvin.csw61.finalproject;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -86,8 +81,8 @@ public class TestClass {
 	
 	static Map<Integer, Room> mySBRooms = new HashMap<Integer, Room>();  //Science Building, East.	
 	static Map<Integer, Room> myHHRooms = new HashMap<Integer, Room>();  //Hiemenga Hall, West
-	static Map<Integer, Room> myNHRooms = new HashMap<Integer, Room>();  //North Hall, North
-	static Map<Integer, Room> myCommonsRooms = new HashMap<Integer, Room>();  //Commons, South
+	static Map<Integer, Room> myCPRooms = new HashMap<Integer, Room>();  //Chapel, North
+	static Map<Integer, Room> myCMRooms = new HashMap<Integer, Room>();  //Commons, South
 	
 	//Only one outside Room
 	static Integer[] outsideBuildings = {0, 0, 0, 0}; //The outside Room will have the first Room from the HashMap of Rooms.
@@ -98,9 +93,9 @@ public class TestClass {
 		System.out.println("Testbed for LostInKnightdale");
 		//Load the game
 		loadGame();
-	
+		story();
 		String verb, noun;  //Holders for the words of the command
-		outsideRoom.setDescriptor("Outside.");  //For now. We may want to implement a loadDescriptions() method that sets the descriptions for every Room in the HashMap.
+		outsideRoom.setDescriptor(makeDescriptor("centerRoomDescription.txt"));  //For now. We may want to implement a loadDescriptions() method that sets the descriptions for every Room in the HashMap.
 		
 		Player p = new Player(outsideRoom);  //Player
 		
@@ -248,54 +243,8 @@ public class TestClass {
 
 	//This will print the story...
 	public static void story() {
-		String fileName = "src/edu/calvin/csw61/finalproject/text_files/story.txt";
-		String line = null;
-		
-		try{
-			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
-			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
-			while((line = br.readLine()) != null) { //read in each line
-				System.out.println(line);	//and print it out
-			}
-			br.close(); //close the file
-		}
-		catch(FileNotFoundException ex) {
-			System.out.println("Unable to open file.");
-		
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	/**
-	 * This method sets the room description by reading from a text file.
-	 * @param file: The filename.
-	 * @param room: The room to apply the description to.
-	 */
-	public static void setRoomDescriptor(String file, Room room){
-		String fileName = "src/edu/calvin/csw61/finalproject/text_files/" + file; //the filename
-		String description = "";
-		String line = null;
-		
-		try{
-			FileReader fr = new FileReader(fileName); //FileReader reads text files in the default encoding.
-			BufferedReader br = new BufferedReader(fr); //Always wrap FileReader in BufferedReader.
-			while((line = br.readLine()) != null) { //read in each line
-				description += line + "\n";			//set the description to the read lines, and add a newline after ever line
-			}
-			br.close(); //close the file
-		}
-		catch(FileNotFoundException ex) {
-			System.out.println("Unable to open file.");
-		
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		
-		//add the description to the room
-		room.setDescriptor(description);
+		ReadFile readFile = new ReadFile("story.txt"); //new readFile with story.txt as the file to be read
+		readFile.readAndPrint(); //read in the file and print it
 	}
 	
 	public static void loadGame() {
@@ -311,46 +260,94 @@ public class TestClass {
 		//We could read these from a text file, that way we don't have to keep
 		//creating an array of Integers...
 	
-		//North
-		Integer[] northHallRooms = {2, -2, 4, -1};  //Rooms to the North, South, and East.
-		
 		//South
-		Integer[] commonsRooms = {-2, 1, 3, 5}; //Rooms to the North, South, East, and West.
+		Integer[] chapelRooms = {-2, -1, -1, -1};  //Rooms to the North, South, and East.
 		
-		//East
-		Integer[] scienceBuildRooms0 = {-1, 1, 3, -2};  //First Room
-		Integer[] scienceBuildRooms1 = {0, -1, 2, -1};  //Second Room
-		Integer[] scienceBuildRooms2 = {3, -1, -1, 1};  //Third Room
-		Integer[] scienceBuildRooms3 = {-1, 2, -1, 0};  //Fourth Room
+		//North
+		Integer[] commonsRooms = {-1, -2, -1, -1}; //Rooms to the North, South, East, and West.
 		
 		//West
-		Integer[] hiemengaHallRooms = {1, 2, -2, 3}; //Rooms to the North, South, East, and West.
+		Integer[] scienceBuildRooms0 = {-1, -1, -2, 6};  //Room 0
+		Integer[] scienceBuildRooms1 = {-1, -1, -1, 7};  //Room 1
+		Integer[] scienceBuildRooms2 = {-1, 3, -1, 5};  //Room 2
+		Integer[] scienceBuildRooms3 = {2, -1, -1, 4};  //Room 3
+		Integer[] scienceBuildRooms4 = {-1, -1, 3, 11};  //Room 4
+		Integer[] scienceBuildRooms5 = {-1, -1, 2, 10};  //Room 5
+		Integer[] scienceBuildRooms6 = {7, -1, 0, 9};  //Room 6
+		Integer[] scienceBuildRooms7 = {-1, 6, 1, 8};  //Room 7
+		Integer[] scienceBuildRooms8 = {-1, -1, 7, 15};  //Room 8
+		Integer[] scienceBuildRooms9 = {-1, 10, 6, 14};  //Room 9
+		Integer[] scienceBuildRooms10 = {9, 11, 5, -1};  //Room 10
+		Integer[] scienceBuildRooms11 = {10, -1, 4, 12};  //Room 11
+		Integer[] scienceBuildRooms12 = {-1, -1, 11, -1};  //Room 12
+		Integer[] scienceBuildRooms13 = {14, -1, -1, -1};  //Room 13
+		Integer[] scienceBuildRooms14 = {15, 13, 9, -1};  //Room 14
+		Integer[] scienceBuildRooms15 = {-1, 14, 8, -1};  //Room 15
+		
+		//East
+		Integer[] hiemengaHallRooms = {-1, -1, -1, -2}; //Rooms to the North, South, East, and West.
 		
 		//Create the Rooms in the HashMap.
 		//North
-		myNHRooms.put(0, new Room(true, true, true, false, false, false, northHallRooms));  
-		myNHRooms.get(0).setDescriptor("First Room in North Hall.");
+		myCPRooms.put(0, new Room(true, true, true, false, false, false, chapelRooms));  
+		myCPRooms.get(0).setDescriptor("First Room in Chapel.");
 		
 		//South
-		myCommonsRooms.put(0, new Room(true, true, true, true, false, false, commonsRooms));
-		myCommonsRooms.get(0).setDescriptor("First Room in the Commons Annex.");
+		myCMRooms.put(0, new Room(true, true, true, true, false, false, commonsRooms));
+		myCMRooms.get(0).setDescriptor("First Room in the Commons Annex.");
 		
 		//East
-		//First Room
-		mySBRooms.put(0, new Room(false, true, true, true, false, false, scienceBuildRooms0));
-		mySBRooms.get(0).setDescriptor("First Room in the Science Building.");
+		//Room 0
+		mySBRooms.put(0, new Room(false, false, true, true, false, false, scienceBuildRooms0));
+		mySBRooms.get(0).setDescriptor(makeDescriptor("sb0.txt"));
 		
-		//Second Room
-		mySBRooms.put(1, new Room(true, false, true, false, false, false, scienceBuildRooms1));
-		mySBRooms.get(1).setDescriptor("Second Room in the Science Building.");
+		//Room1
+		mySBRooms.put(1, new Room(false, false, false, true, false, false, scienceBuildRooms1));
+		mySBRooms.get(1).setDescriptor(makeDescriptor("sb1.txt"));
 		
-		//Third Room
-		mySBRooms.put(2, new Room(true, false, false, true, false, false, scienceBuildRooms2));
-		mySBRooms.get(2).setDescriptor("Third Room in the Science Building.");
+		//Room 2
+		mySBRooms.put(2, new Room(false, true, false, true, false, false, scienceBuildRooms2));
+		mySBRooms.get(2).setDescriptor(makeDescriptor("sb2.txt"));
 		
-		//Fourth Room
-		mySBRooms.put(3, new Room(false, true, false, true, false, false, scienceBuildRooms3));
-		mySBRooms.get(3).setDescriptor("Fourth Room in the Science Building.");
+		//Room 3
+		mySBRooms.put(3, new Room(true, false, false, true, false, false, scienceBuildRooms3));
+		mySBRooms.get(3).setDescriptor(makeDescriptor("sb3.txt"));
+		//Room 4
+		mySBRooms.put(4, new Room(false, false, true, true, false, false, scienceBuildRooms4));
+		mySBRooms.get(4).setDescriptor(makeDescriptor("sb4.txt"));
+		//Room 5
+		mySBRooms.put(5, new Room(false, false, true, true, false, false, scienceBuildRooms5));
+		mySBRooms.get(5).setDescriptor(makeDescriptor("sb5.txt"));
+		//Room 6
+		mySBRooms.put(6, new Room(true, false, true, true, false, false, scienceBuildRooms6));
+		mySBRooms.get(6).setDescriptor(makeDescriptor("sb6.txt"));
+		//Room 7
+		mySBRooms.put(7, new Room(false, true, true, true, false, false, scienceBuildRooms7));
+		mySBRooms.get(7).setDescriptor(makeDescriptor("sb7.txt"));
+		//Room 8
+		mySBRooms.put(8, new Room(false, false, true, true, false, false, scienceBuildRooms8));
+		mySBRooms.get(8).setDescriptor(makeDescriptor("sb8.txt"));
+		//Room 9
+		mySBRooms.put(9, new Room(false, true, true, true, false, false, scienceBuildRooms9));
+		mySBRooms.get(9).setDescriptor(makeDescriptor("sb9.txt"));
+		//Room 10
+		mySBRooms.put(10, new Room(true, true, true, false, false, false, scienceBuildRooms10));
+		mySBRooms.get(10).setDescriptor(makeDescriptor("sb10.txt"));
+		//Room 11
+		mySBRooms.put(11, new Room(true, false, true, true, false, false, scienceBuildRooms11));
+		mySBRooms.get(11).setDescriptor(makeDescriptor("sb11.txt"));
+		//Room 12
+		mySBRooms.put(12, new Room(false, false, true, false, false, false, scienceBuildRooms12));
+		mySBRooms.get(12).setDescriptor(makeDescriptor("sb12.txt"));
+		//Room 13
+		mySBRooms.put(13, new Room(true, false, false, false, false, false, scienceBuildRooms13));
+		mySBRooms.get(13).setDescriptor(makeDescriptor("sb13.txt"));
+		//Room 14
+		mySBRooms.put(14, new Room(true, true, true, false, false, false, scienceBuildRooms14));
+		mySBRooms.get(14).setDescriptor(makeDescriptor("sb14.txt"));
+		//Room 15
+		mySBRooms.put(15, new Room(false, true, true, false, false, false, scienceBuildRooms15));
+		mySBRooms.get(15).setDescriptor(makeDescriptor("sb15.txt"));
 		
 		//West
 		myHHRooms.put(0, new Room(true, true, true, true, false, false, hiemengaHallRooms));
@@ -397,6 +394,12 @@ public class TestClass {
 	
 	public static Map<Integer, Room> getInstance() {
 		return mySBRooms;
+	}
+	
+	public static String makeDescriptor(String fileName){
+		ReadFile rf = new ReadFile(fileName);
+		rf.read();
+		return rf.output;
 	}
 		
 }
