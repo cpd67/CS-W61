@@ -62,11 +62,23 @@
  *    + Lastly, don't worry about making any NPCs and Monsters. Set the boolean flags
  *      when you create a Room to false for both. (loadNPCAndMonsters() isn't done yet).
  *      
+ * + Things to do still:
+ *    - Give, Talk, Fight, Unlock, and Throw.
+ *    - Update Look so that it prints out the Room's objects (using showObjects()).
+ *    - Code cleanup (documentation, porting over stuff from TestClass to Driver, 
+ *                    taking out multiple "dot-dot-dot" calls, etc.).
+ *    - Break?
+ *    - NPC interactions with the Player. (Talking, giving Items, etc.)
+ *    - Entire map, Quests and puzzles.
+ *    - Making sure that everything uses toLowerCase().
  */
 package edu.calvin.csw61.finalproject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import edu.calvin.csw61.fruit.*;
+import edu.calvin.csw61.food.*;
+import edu.calvin.csw61.weapons.*;
 
 public class TestClass {
 	//Maps of Rooms (Static and anyone can refer to them as long as we call Driver.mapOfRooms
@@ -88,6 +100,10 @@ public class TestClass {
 	static Integer[] outsideBuildings = {0, 0, 0, 0}; //The outside Room will have the first Room from the HashMap of Rooms.
 	static Room outsideRoom = new Room(true, true, true, true, true, false, outsideBuildings);
 	
+	//Factories for items
+	static ConcreteWeaponFactory weaponFactory = new ConcreteWeaponFactory();
+	static ConcreteFruitFactory fruitFactory = new ConcreteFruitFactory();
+	static ConcreteFoodFactory foodFactory = new ConcreteFoodFactory();
 	
 	public static void main(String[] args) {
 		System.out.println("Testbed for LostInKnightdale");
@@ -122,32 +138,32 @@ public class TestClass {
 		//checking if the Food object's name is valid or not :D
 		
 		//Non-poisoned item
-		ObjectInterface ob = new Food("apple");		
-		ObjectInterface ob2 = new Key("key");
-		ObjectInterface ob3 = new Food("pear");
-		ObjectInterface ob4 = new Food("orange");
-		ObjectInterface ob5 = new Food("orange");
-		ObjectInterface ob6 = new Treasure("ring");
-		ObjectInterface ob7 = new Treasure("bracelet");
-		ObjectInterface ob8 = new Treasure("gauntlet");
-		ObjectInterface ob9 = new Food("pineapple");
-		ObjectInterface ob10 = new Food("blueberry");
-		ObjectInterface ob11 = new Food("watermelon");
+	//	Fruit ob = fruitFactory.createFruit("apple");		
+//		ObjectInterface ob2 = new Key("key");
+//		Fruit ob3 = fruitFactory.createFruit("blueberry");
+//		Fruit ob4 = fruitFactory.createFruit("orange");
+//		Fruit ob5 = fruitFactory.createFruit("orange");
+//		ObjectInterface ob6 = new Treasure("ring");
+//		ObjectInterface ob7 = new Treasure("bracelet");
+//		ObjectInterface ob8 = new Treasure("gauntlet");
+	//	Food ob9 = foodFactory.createFood("cupcake");
+//		Food ob10 = foodFactory.createFood("pizza");
+//		Food ob11 = foodFactory.createFood("spinach");
 		
-		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself
+//		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself
 										//Reason is because we remove objects by name
 										//Just because two objects have the same name does NOT mean they are the same object
 										//At least in memory
-		p.addObject(ob2.getName(), ob2);
-		p.addObject(ob3.getName(), ob3);
-		p.addObject(ob4.getName(), ob4);
-		p.addObject(ob5.getName(), ob5);
-		p.addObject(ob6.getName(), ob6);
-		p.addObject(ob7.getName(), ob7);
-		p.addObject(ob8.getName(), ob8);
-		p.addObject(ob9.getName(), ob9);
-		p.addObject(ob10.getName(), ob10);
-		p.addObject(ob11.getName(), ob11);
+//		p.addObject(ob2.getName(), ob2);
+//		p.addObject(ob3.getName(), ob3);
+//		p.addObject(ob4.getName(), ob4);
+//		p.addObject(ob5.getName(), ob5);
+//		p.addObject(ob6.getName(), ob6);
+//		p.addObject(ob7.getName(), ob7);
+//		p.addObject(ob8.getName(), ob8);
+//		p.addObject(ob9.getName(), ob9);
+//		p.addObject(ob10.getName(), ob10);
+//		p.addObject(ob11.getName(), ob11);
 		
 //		ObjectInterface ob12 = new Treasure("emerald");
 		
@@ -176,7 +192,7 @@ public class TestClass {
 		//MULTI-Test: Rooms, Doors, and the Interactions between them.
 		
 		//Test 1: Outside Room. (WORKS).		
-		System.out.println(p.getRoom().getDescriptor());
+//		System.out.println(p.getRoom().getDescriptor());
 		
 		//Test 2: Transferring the Player to a new Room. (WORKS).
 //		System.out.println("Transferring to a new Room...");
@@ -191,17 +207,115 @@ public class TestClass {
 		//Test 4: In a Building, now you have to go Outside (WORKS).
 		
 		//Final Test: Navigate through a Building and then go Outside (OH. MY. NUGGETS. IT WORKS!).
-		//(Now you just have to incorporate Walls).
+		//(Now you just have to incorporate Walls). (DONE)
 		
-		System.out.println("You have an " + ob.getName() + " in your backpack.");
-		System.out.println("\n");
+//		System.out.println("You have an " + ob.getName() + " in your backpack.");
+//		System.out.println("\n");
 		
 		//Test: Food gives health to Players (WORKS)
 //		p.subtractHealth();
 //		p.subtractHealth();
 //		p.subtractHealth();
 		//eat apple, pear, and orange. Should be back to 100 hit points. (WORKS)
-				
+
+		//Test: Weapons! :D
+		//Knife
+		Weapon knife = weaponFactory.createWeapon("knife");
+	
+		//Sword
+		Weapon sword = weaponFactory.createWeapon("sword");
+		
+		//Shotgun
+		Weapon shotgun = weaponFactory.createWeapon("shotgun");
+
+		//Knife
+//		if(knife.getWeaponName().equals("knife")) {
+//			System.out.println("Knife (Weapon version)");
+//		}
+		
+		//Sword
+//		if(sword.getWeaponName().equals("sword")) {
+//			System.out.println("Sword (Weapon version)");
+//		}
+		
+		//Shotgun
+//		if(shotgun.getWeaponName().equals("shotgun")) {
+//			System.out.println("Shotgun (Weapon version)");
+//		}
+		
+		//Test: Player has a Weapon. (WORKS).
+//		p.setWeapon(knife);
+//		if(p.hasWeapon()) {
+//			String name = p.getWeapon().getWeaponName();
+//			System.out.println("Player has a " + name);
+//		} else {
+//			System.out.println("Didn't work");
+//		}
+		
+		//Test: Changing Weapons. (WORKS).
+//		p.setWeapon(null);
+//		p.setWeapon(shotgun);
+//		if(p.hasWeapon()) {
+//			String name = p.getWeapon().getWeaponName();
+//			System.out.println("Player now has a " + name);
+//		} else {
+//			System.out.println("Didn't work");
+//		}
+		
+		//Test: Have a Weapon, Drop it, change it, then drop it again.
+//		p.setWeapon(sword); //Have
+//		if(p.hasWeapon()) {
+//			String name = p.getWeapon().getWeaponName();
+//			System.out.println("Player now has a " + name);
+//		} else {
+//			System.out.println("Didn't work");
+//		}
+//		p.setHasNoWeapon(); //Drop
+//		if(p.hasWeapon()) { 
+//			System.out.println("Didn't work");
+//		} else {
+//			System.out.println("You dropped your weapon.");
+//		}
+//		p.setWeapon(shotgun); //Change
+//		if(p.hasWeapon()) {
+//			String name = p.getWeapon().getWeaponName();
+//			System.out.println("Player now has a " + name);
+//		} else {
+//			System.out.println("Didn't work");
+//		}
+//		p.setHasNoWeapon(); //Drop
+//		if(p.hasWeapon()) { 
+//			System.out.println("Didn't work");
+//		} else {
+///			System.out.println("You dropped your weapon.");
+//		}
+
+		//Test: Food, and the varying kinds of Fruit
+		p.subtractHealth(5);
+		p.subtractHealth(30);
+		p.subtractHealth(40);
+		
+		outsideRoom.addObject(fruitFactory.createFruit("apple"));
+		outsideRoom.addObject(fruitFactory.createFruit("blueberry"));
+		outsideRoom.addObject(fruitFactory.createFruit("orange"));
+		outsideRoom.addObject(foodFactory.createFood("cupcake"));
+		outsideRoom.addObject(foodFactory.createFood("pizza"));
+		outsideRoom.addObject(foodFactory.createFood("spinach"));
+		
+//		outsideRoom.showObjects();
+		//Test: Adding a Weapon to a Room. (WORKS).
+		WeaponAdapter knifeAdapt = new WeaponAdapter(knife);
+		WeaponAdapter swordAdapt = new WeaponAdapter(sword);
+		WeaponAdapter shotgunAdapt = new WeaponAdapter(shotgun);
+
+		outsideRoom.addObject(knifeAdapt);
+		outsideRoom.addObject(swordAdapt);
+		outsideRoom.addObject(shotgunAdapt);
+		
+		outsideRoom.showObjects();	
+		//Test: Taking a Weapon from a Room. (WORKS) :D
+		//Test: Drop a Weapon, pick up a new one, drop it, pick it up again. (WORKS).
+		
 		//infinite loop
 		while(true){
 			//new scanner to get user input
@@ -359,37 +473,130 @@ public class TestClass {
 	
 	//Test: Adding NPCs and Monsters (NOT DONE)
 	public static void loadNPCAndMonster() {
-		String[] names = {"V. Norman", "Yolanda", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
-		String[] monsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles" };
+		//SB Rooms
+		String[] sbNames = {"V. Norman", "Yolanda", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
+		String[] sbMonsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles", "Mr. Fantastic", "Troll", "Dwarf" };
+		
+		//Chapel Rooms
+		String[] cpNames = {"VicToddNorm", "CupLyd", "Mr. Castle", "Sumo"};
+		String[] cpMonsterNames = {"Hope student", "Panda", "Bear", "Hamster"};
+		
+		//Hiemenga Rooms
+		String[] hhNames = {"David Michelle", "Austy", "Mr. Dr. Squiggles", "Mrs. Dr. Squiggles"};
+		String[] hhMonsterNames = {"Hope student", "Evil Panda", "Total Depravity", "Needy Freshman" };
+		
+		//Commons
+		String[] commonsNames = {"Prof. Adams", "Hubert", "Harry", "Sherry"};
+		String[] commonsMonsterNames = {"Hope student", "Mr. Tofu", "Student Loans" };
 		
 		int npcI = 0, monsterI = 0;
-	   // Iterator<Map.Entry<Integer, Room>> it = mySBRooms.entrySet().iterator();
-	
-		System.out.println("Size of SB Rooms: " + mySBRooms.size()); //Get the size of SBRooms
+		
+		//SB Rooms
 		for(int i = 0; i < mySBRooms.size(); i++) {
 			if(mySBRooms.get(i).needNPC()) {  //Do I need an NPC?
 				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
-					mySBRooms.get(i).setMonster(monsterNames[monsterI]);  //Yes. Set the name of it.
+					mySBRooms.get(i).setMonster(sbMonsterNames[monsterI]);  //Yes. Set the name of it.
 					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
 					monsterI++;
 				} else {  //No, I only need an NPC
 					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
 				}
- 				mySBRooms.get(i).setNPC(names[npcI]);  //Set the name of the NPC.
+ 				mySBRooms.get(i).setNPC(sbNames[npcI]);  //Set the name of the NPC.
 				System.out.println("Room " + i + " has " + mySBRooms.get(i).getNPC().getName());
 				npcI++;
 			} else {
 				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
 				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
-					mySBRooms.get(i).setMonster(monsterNames[monsterI]);  //Yes. Set the name of it.
+					mySBRooms.get(i).setMonster(sbMonsterNames[monsterI]);  //Yes. Set the name of it.
 					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
 					monsterI++;
 				} else {  //I only need objects 
 					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
 				}
-			}
-			
-		}	
+			}	
+		}
+		
+		//Reset the index
+		npcI = monsterI = 0;
+		
+		//Chapel
+		for(int i = 0; i < myCPRooms.size(); i++) {
+			if(myCPRooms.get(i).needNPC()) {  //Do I need an NPC?
+				if(myCPRooms.get(i).needMonster()) {  //How about a Monster?
+					myCPRooms.get(i).setMonster(cpMonsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myCPRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //No, I only need an NPC
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+ 				myCPRooms.get(i).setNPC(cpNames[npcI]);  //Set the name of the NPC.
+				System.out.println("Room " + i + " has " + myCPRooms.get(i).getNPC().getName());
+				npcI++;
+			} else {
+				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
+				if(myCPRooms.get(i).needMonster()) {  //How about a Monster?
+					myCPRooms.get(i).setMonster(cpMonsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myCPRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //I only need objects 
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+			}	
+		}
+		
+		npcI = monsterI = 0;
+		
+		//Hiemenga
+		for(int i = 0; i < myHHRooms.size(); i++) {
+			if(myHHRooms.get(i).needNPC()) {  //Do I need an NPC?
+				if(myHHRooms.get(i).needMonster()) {  //How about a Monster?
+					myHHRooms.get(i).setMonster(hhMonsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myHHRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //No, I only need an NPC
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+ 				myHHRooms.get(i).setNPC(hhNames[npcI]);  //Set the name of the NPC.
+				System.out.println("Room " + i + " has " + myHHRooms.get(i).getNPC().getName());
+				npcI++;
+			} else {
+				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
+				if(myHHRooms.get(i).needMonster()) {  //How about a Monster?
+					myHHRooms.get(i).setMonster(hhMonsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myHHRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //I only need objects 
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+			}	
+		}
+		
+		npcI = monsterI = 0;
+		
+		//Commons
+		for(int i = 0; i < myCMRooms.size(); i++) {
+			if(myCMRooms.get(i).needNPC()) {  //Do I need an NPC?
+				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
+					myCMRooms.get(i).setMonster(commonsNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //No, I only need an NPC
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+ 				myCMRooms.get(i).setNPC(commonsNames[npcI]);  //Set the name of the NPC.
+				System.out.println("Room " + i + " has " + myCMRooms.get(i).getNPC().getName());
+				npcI++;
+			} else {
+				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
+				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
+					myCMRooms.get(i).setMonster(commonsMonsterNames[monsterI]);  //Yes. Set the name of it.
+					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
+					monsterI++;
+				} else {  //I only need objects 
+					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
+				}
+			}	
+		}
 	}
 	
 	public static Map<Integer, Room> getInstance() {

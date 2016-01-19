@@ -13,6 +13,9 @@ package edu.calvin.csw61.finalproject;
 import java.util.Hashtable;
 
 import edu.calvin.csw61.finalproject.playercommands.*;
+import edu.calvin.csw61.weapons.*;
+import edu.calvin.csw61.fruit.*;
+import edu.calvin.csw61.food.*;
 
 public class Player extends Character {
 	
@@ -28,6 +31,8 @@ public class Player extends Character {
 	private Room myCurrentRoom;
 	private String myCurrentBuilding; //I'm in a building (HashMap of Rooms)
 	private Integer myCurrentRoomNum;  //Number of the Room that the Player is currently in
+	private Weapon myWeapon;
+	private boolean hasWeapon;
 	
 	//Constructor
 	public Player(Room outsideRoom) {
@@ -42,6 +47,8 @@ public class Player extends Character {
 		myCurrentRoom = outsideRoom;  //Handle to outside Room...
 		myCurrentBuilding = "Outside";
 		myCurrentRoomNum = -2;  //Outside at start...
+		myWeapon = null;  //No Weapon at start :(
+		hasWeapon = false;  //No Weapon
 		//myMapPieces? 
 	}
 	
@@ -49,7 +56,7 @@ public class Player extends Character {
 	public void setCommand(String verb, String noun) {
 		Command command;  //This will be the executed command;
 		switch(verb.toLowerCase()) {
-			case "walk": case "go":  //Walk
+			case "walk": case "go": case "move": //Walk
 				if(noun.equals("")) {  //No direction set
 					System.out.println("Walk in which direction?");
 				} else {
@@ -60,19 +67,11 @@ public class Player extends Character {
 						if(this.getBuilding().equals("Outside")) {
 							TestClass.outsideRoom.setNoPlayer();
 						}
-						
-						//TESTING PURPOSES ONLY
-						System.out.println("Room # before walking: " + this.getRoomNum());			
-						
+											
 						command = new Walk(noun, this);
 						command.execute();
-					//	System.out.println(command.getResult());
-						
-						//TESTING PURPOSES ONLY!
-						//IF THE PLAYER WALKED, THEN THE ROOM SHOULD HAVE CHANGED
-						System.out.println("Room # after walking: " + this.getRoomNum());
+						System.out.println(command.getResult());
 						System.out.println(this.getRoom().getDescriptor());
-					
 					} else {  //Not a valid direction...
 						System.out.println("I can't walk there.");
 					}
@@ -83,16 +82,22 @@ public class Player extends Character {
 					System.out.println("Eat what?");
 				} else {
 					if(this.hasItem(noun)) {  //If the Player has the Object...
-						//Get the Object from the backpack
-						command = new Eat(this.myBackpack.get(noun.toLowerCase()), this); //Eat it
-						command.execute();  //Print out the returned String
-						System.out.println(command.getResult());
+						if(this.myHealth == 100) {
+							System.out.println("Already at full health");
+						} else {
+							//Get the Object from the backpack
+							command = new Eat(this.myBackpack.get(noun.toLowerCase()), this); //Eat it
+							command.execute();  //Print out the returned String
+							System.out.println(command.getResult());
+						}
 					} else {  
-						//Else, If the Object is in the Room that the Player is in...
-						//Eat the Object (Get the Object from the list of Objects that the Room has)
-						//If not, then...
-						//The Player does NOT have the Object nor is he around it
-						System.out.println("There is no " + noun + " around here."); 
+						if(this.myCurrentRoom.hasObject(noun)) {
+							command = new Eat(this.myCurrentRoom.getObject(noun), this);
+							command.execute();
+							System.out.println(command.getResult());
+						} else {
+							System.out.println("There is no " + noun + " around here.");
+						}
 					} 
 				}		
 				break;
@@ -107,17 +112,12 @@ public class Player extends Character {
 				if(noun.equals("")) {  //item not given...
 					System.out.println("Take what?");
 				} else {
-					//Check if we can put the Object in our backpack...(if we can't, the Player will output a message)
-					//if(this.checkItem(objectInRoom))...We can if it returns true
-					//Okay, we can. Now, check if it's actually in the Room.
-					//It's in the Room. Now check if it's already in our backpack...
 					if(this.hasItem(noun)) { //If so...
 						System.out.println("You can only have one " + noun.toLowerCase() + " in your backpack.");
 					} else {  //Find the Object in the room and pass it as the ObjectInterface parameter to the Take() constructor
-//						Key key = new Key("key");  //You would also have to remove the Object from the room.
-//						command = new Take(key, this);
-//						command.execute();
-						System.out.println("You took (NOT IMPLEMENTED (NO ROOM TO TAKE OBJECTS FROM YET))");
+						command = new Take(noun, this);
+						command.execute();
+						System.out.println(command.getResult());
 					}
 					//Not in the room, print "That Object isn't here."
 				}
@@ -127,19 +127,6 @@ public class Player extends Character {
 					System.out.println("Give what?");  //AND ALSO IF THE BENEFICIARY IS AN NPC!
 				} else {
 					System.out.println("you gave (NOT IMPLEMENTED)");
-				}
-				break;
-			case "lock": //Lock
-				if(noun.equals("")) {
-					System.out.println("Lock what?");
-				} else {
-					if(this.hasItem("key")) {  //Took out the check Object logic and brought it here
-						command = new Lock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
-						command.execute();
-						System.out.println(command.getResult());
-					} else {
-						System.out.println("You don't have a key.");
-					}
 				}
 				break;
 			case "unlock": //Unlock
@@ -162,23 +149,25 @@ public class Player extends Character {
 					System.out.println("you broke (NOT IMPLEMENTED)");
 				}
 				break;
-			case "use": //Use
-				if(noun.equals("")) {
-					System.out.println("Use what?");
-				} else {
-					System.out.println("you used (NOT IMPLMENETED)");
-				}
-				break;
 			case "drop": //Drop
 				if(noun.equals("")) {
 					System.out.println("Drop what?");
 				} else {
-					if(this.hasItem(noun)) { //Do we even have the item?
+					if(this.hasItem(noun.toLowerCase())) { //Do we even have the item?
 						Command drop = new Drop(this.myBackpack.get(noun.toLowerCase()), this); //Lower case the item (we have EVERYTHING lower case)
 						drop.execute();
 						System.out.println(drop.getResult());
-					} else {  //We don't...
-						System.out.println("You don't have " + noun);
+					} else if(this.hasWeapon) {  //Not a backpack item. Is it a Weapon?
+						if(this.getWeapon().getWeaponName().equals(noun.toLowerCase())) {
+							WeaponAdapter weapAdapt = new WeaponAdapter(this.getWeapon());
+							command = new Drop(weapAdapt, this);
+							command.execute();
+							System.out.println(command.getResult());
+						} else {
+							System.out.println("You don't have " + noun.toLowerCase());
+						}
+					} else { //You don't have anything applicable to drop.
+						System.out.println("You don't have " + noun.toLowerCase());
 					}
 				}
 				break;
@@ -192,16 +181,14 @@ public class Player extends Character {
 			case "talk": //Talk
 				System.out.println("you talked (NOT IMPLMENETED)");
 				break;
-			case "dig":  //Dig
-				System.out.println("you dug (NOT IMPLEMENTED)");
-				break;
 			case "look": //look at the room
 				command = new Look(this);
 				command.execute();
 				System.out.println(command.getResult());
 				break;
 			case "show":  //Show the backpack
-				printBackpack();
+				printBackpackAndWeapon();
+				System.out.println("You have " + this.myHealth + " hit points");
 				break;
 			case "help":
 				command = new Help();
@@ -214,15 +201,11 @@ public class Player extends Character {
 	
 	//Add an Object
 	public void addObject(String name, ObjectInterface ob) {
-		if(myNumberOfObjects == myLimit){  //We've reached the limit...
-			System.out.println("Backpack is full! Drop an item!");
-		} else {  //We can add Objects...
-			if(myBackpack.containsKey(name.toLowerCase())) {  //BUT, do we already have it?
-				System.out.println("You already have that item!");
-			} else {  //No. Add it as planned.
-				myBackpack.put(name.toLowerCase(), ob);
-				myNumberOfObjects++;  //Number of Objects in map
-			}
+		if(myBackpack.containsKey(name.toLowerCase())) {  //BUT, do we already have it?
+			System.out.println("You already have that item!");
+		} else {  //No. Add it as planned.
+			myBackpack.put(name.toLowerCase(), ob);
+			myNumberOfObjects++;  //Number of Objects in map
 		}
 	}
 	
@@ -241,7 +224,7 @@ public class Player extends Character {
 	}
 	
 	//In case a User wants to know what they currently have in their backpack
-	public void printBackpack() {
+	public void printBackpackAndWeapon() {
 		if(myNumberOfObjects == 0) { //Empty backpack = No items!
 			System.out.println("You have no items!");
 		} else {  //You have items! 
@@ -250,6 +233,11 @@ public class Player extends Character {
 				System.out.print(name.toLowerCase() + " ");  //Print the names
 			}
 			System.out.println(); 
+		}
+		if(hasWeapon) { //Do I have a Weapon?
+			System.out.println("You are equipped with a " + myWeapon.getWeaponName());
+		} else {
+			System.out.println("You have no weapon.");
 		}
 	}
 
@@ -298,15 +286,24 @@ public class Player extends Character {
 	}
 	
 	//Give life back to the Player (if not already full)
-	public void addHealth() {
-		myHealth += 10;
+	public void addHealth(int health) {
+		int holder, middle, result;
+		if((myHealth + health) <= 100) {  //Are we above 100?
+			myHealth += health; //Nope
+		} else {
+			//We are, so we have to do a little math.
+			holder = myHealth + health; //Take the Player's health and add the health to it.
+			middle = health + 100;   //Now, take 100 and add the health to it.
+			result = middle - holder;  //Subtract them.
+			myHealth += result; //Add the difference. Should be 100.
+		}
 	}
 	
 	//Take it away
-	public void subtractHealth() {
+	public void subtractHealth(int sub) {
 		if(myHealth > 0) {
-			myHealth -= 10;
-			System.out.println("You lost 10 hit points.");
+			myHealth -= sub;
+			System.out.println("You lost " + sub + " hit points.");
 		}//Check if it's 0 in Fight...Player dies at that point.
 	}
 	
@@ -365,4 +362,31 @@ public class Player extends Character {
 		return myCurrentRoomNum;
 	}
 
+	//Set my Weapon
+	public void setWeapon(Weapon w) {
+		myWeapon = w;
+		hasWeapon = true;  //We now have a Weapon
+	}
+	
+	//Does the Player have a Weapon?
+	public boolean hasWeapon() {
+		return hasWeapon;
+	}
+	
+	//Get my Weapon
+	public Weapon getWeapon() {
+		return myWeapon;
+	}
+	
+	//If a Player decides to drop a Weapon...
+	public void setHasNoWeapon() {
+		myWeapon = null;
+		hasWeapon = false;
+	}
+	
+	//Is my backpack full?
+	public boolean backpackFull() {
+		return myNumberOfObjects == myLimit;
+	}
+	
 }

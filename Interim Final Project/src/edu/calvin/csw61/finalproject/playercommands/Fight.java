@@ -21,7 +21,7 @@ public class Fight implements Command {
 		if(myOpponent instanceof NPC) {
 			result = "You can't fight " + myOpponent.getName() + "\n";
 		} else {
-			//Fight the Monster
+			
 			result = "You fought \n";
 		}
 	}

@@ -163,4 +163,9 @@ public class Door implements ApertureBehavior {
 		}
 	}
 	
+	//Am I unlocked?
+	public boolean isUnlocked() {
+		return isLocked;
+	}
+	
 }

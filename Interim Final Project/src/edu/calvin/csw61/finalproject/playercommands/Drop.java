@@ -2,6 +2,7 @@ package edu.calvin.csw61.finalproject.playercommands;
 
 import edu.calvin.csw61.finalproject.ObjectInterface;
 import edu.calvin.csw61.finalproject.Player;
+import edu.calvin.csw61.finalproject.WeaponAdapter;
 
 public class Drop implements Command {
 	private String result;
@@ -18,8 +19,17 @@ public class Drop implements Command {
 	}
 	
 	public void execute() {
-		myPlayer.removeObject(myObject.getName());
-		result = "You dropped the " + myObject.getName();
+		if(myObject instanceof WeaponAdapter) {
+			myPlayer.setHasNoWeapon();  //Player no longer has the Weapon.
+			myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
+			result += "You dropped your " + myObject.getName();
+			myPlayer.getRoom().showObjects();
+		} else { //Else, it's not a Weapon.
+			myPlayer.removeObject(myObject.getName().toLowerCase()); //Take the Object out of the backpack.
+			myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
+			result = "You dropped the " + myObject.getName();
+			myPlayer.getRoom().showObjects();
+		}
 	}
 	
 	public String getResult() {
