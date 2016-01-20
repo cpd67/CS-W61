@@ -5,10 +5,14 @@
  */
 package edu.calvin.csw61.finalproject;
 
+import edu.calvin.csw61.fruit.*;
+import edu.calvin.csw61.food.*;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+
 
 public class Driver {
 	
@@ -78,7 +82,8 @@ public class Driver {
 		noun = "";
 
 		//Non-poisoned item
-		ObjectInterface ob = new Food("apple");
+		FruitFactory fruitFactory = new ConcreteFruitFactory();
+		Fruit ob = fruitFactory.createFruit("apple");
 		
 		
 		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself

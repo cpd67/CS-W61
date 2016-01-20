@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Room {
 	
 	private String myDescriptor;
-	private ObjectInterface[] myObjects;
+	private ArrayList<ObjectInterface> myObjects;
 	private boolean myNorthDoor, mySouthDoor, myEastDoor, myWestDoor, hasNPC, hasMonster, playerPresent;
 	//bordering rooms
 	private ObjectInterface myMonster;
@@ -17,7 +17,7 @@ public class Room {
 	//Outside = -2
 		
 	public Room() {
-		myObjects = new ObjectInterface[2];
+		myObjects = new ArrayList<ObjectInterface>();
 		myNorthDoor = mySouthDoor = myEastDoor = myWestDoor = hasNPC = hasMonster = false;
 		myDescriptor = "";
 		playerPresent = false;
@@ -39,7 +39,7 @@ public class Room {
 		setDoors();
 		hasNPC = needNPC;  //Do I need an NPC? 
 		hasMonster = needMonster;  //How about a Monster?
-		myObjects = new ObjectInterface[2];  //I can store Objects
+		myObjects = new ArrayList<ObjectInterface>();  //I can store Objects
 	}
 	
 	public String getDescriptor() {
@@ -55,28 +55,39 @@ public class Room {
 		if(myNorthDoor) { //North
 			ApertureBehavior northDoor = new Door(this, myNextRoomNumbers[0], false, false, "north");
 			myApertures.add(northDoor);
-		} 
+		} else {
+			ApertureBehavior wall = new WallBehavior("wall", "north");
+			myApertures.add(wall);
+		}
 		
 		if(mySouthDoor) {  //South
 			ApertureBehavior southDoor = new Door(this, myNextRoomNumbers[1], false, false, "south");
 			myApertures.add(southDoor);
-		} 
+		} else {
+			ApertureBehavior wall = new WallBehavior("wall", "south");
+			myApertures.add(wall);
+		}
 		
 		if(myEastDoor) {  //East
 			ApertureBehavior eastDoor = new Door(this, myNextRoomNumbers[2], false, false, "east");
 			myApertures.add(eastDoor);
+		} else {
+			ApertureBehavior wall = new WallBehavior("wall", "east");
+			myApertures.add(wall);
 		}
 		
 		if(myWestDoor) {  //West
 			ApertureBehavior westDoor = new Door(this, myNextRoomNumbers[3], false, false, "west");
 			myApertures.add(westDoor);
+		} else {
+			ApertureBehavior wall = new WallBehavior("wall", "west");
+			myApertures.add(wall);
 		}
 	}
 	
-	//setObjects
-	public void setObjects(ObjectInterface o1, ObjectInterface o2){
-		myObjects[0] = o1;
-		myObjects[1] = o2;
+	//addObject
+	public void addObject(ObjectInterface ob) {
+		myObjects.add(ob);
 	}
 	
 	//setNPC
@@ -118,7 +129,7 @@ public class Room {
 	}
 	
 	//Get myObjects (If I have any)
-	public ObjectInterface[] getObjects() {
+	public ArrayList<ObjectInterface> getObjects() {
 		return myObjects;
 	}
 	
@@ -138,8 +149,47 @@ public class Room {
 	}
 	
 	//Take an Object from the Room (if the Player takes one).
-	public void removeObject(int number) {
-		myObjects[number] = null; //Make it null, check if it's null later.
+	public void removeObject(String name) {
+		for(int i = 0; i < myObjects.size(); i++) {
+			if(myObjects.get(i).getName().equals(name.toLowerCase())) {
+				myObjects.remove(i);
+				break;
+			}
+		}
+	}
+	
+	//Is the Object in the Room?
+	public boolean hasObject(String name) {
+		for(int i = 0; i < myObjects.size(); i++) {
+			if(myObjects.get(i).getName().equals(name.toLowerCase())) {
+				return true;
+			}
+		}
+		return false; 
+	}
+	
+	//Get a specific Object from the Room
+	public ObjectInterface getObject(String name) {
+		ObjectInterface holder = null;
+		for(int i = 0; i < myObjects.size(); i++) {
+			if(myObjects.get(i).getName().equals(name.toLowerCase())) {
+				holder = myObjects.get(i);
+				return holder;
+			}
+		}
+		return holder; //We don't have the object...
+	}
+	
+	//Show the Objects that are in the current Room.
+	public void showObjects() {
+		if(myObjects.size() == 0) {
+			System.out.println("There are no items in the room");
+		} else {
+			System.out.println("The room has the following items: ");
+			for(int i = 0; i < myObjects.size(); i++) {
+				System.out.print(myObjects.get(i).getName() + " ");
+			}
+			System.out.println();
+		}
 	}
 }
-
