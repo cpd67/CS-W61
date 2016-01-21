@@ -71,7 +71,7 @@ public class Player extends Character {
 						command = new Walk(noun, this);
 						command.execute();
 						System.out.println(command.getResult());
-						System.out.println(this.getRoom().getDescriptor());
+						//System.out.println(this.getRoom().getDescriptor());
 					} else {  //Not a valid direction...
 						System.out.println("I can't walk there.");
 					}

@@ -23,13 +23,12 @@ public class Walk implements Command{
 			if(myPlayer.getRoom().getAperatures().get(i).getName().equals("door")) {  //If the Aperature is a Door...
 				Door checker = (Door)myPlayer.getRoom().getAperatures().get(i);  //Typecast to a Door
 				//Check if the Door is locked...
-				if(checker.isUnlocked()) {
+				if(!checker.isUnlocked()) {
 					//Unlocked, so check if the Door's direction is equal to the Player's direction.
 					if(checker.getDir().equals(myPlayer.getDirection())) {  //Check the Direction
-						System.out.println("You walked through the door.");
 						checker.goThrough(myPlayer); //Go through the Door.
-						result = "You walked " + myDirection + "\n";
-						result += myPlayer.getRoom().getDescriptor();
+						//result = "You walked " + myDirection;
+						result = myPlayer.getRoom().getDescriptor(); //put the room description in result
 						break; //Only go through the Door once.
 					}
 				} else {
