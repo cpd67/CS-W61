@@ -375,7 +375,7 @@ public class TestClass {
 		//creating an array of Integers...
 	
 		//South
-		Integer[] chapelRooms = {-2, -1, -1, -1};  //Rooms to the North, South, and East.
+
 		
 		//North
 		Integer[] commonsRooms = {-1, -2, -1, -1}; //Rooms to the North, South, East, and West.
@@ -401,12 +401,9 @@ public class TestClass {
 		//East
 		Integer[] hiemengaHallRooms = {-1, -1, -1, -2}; //Rooms to the North, South, East, and West.
 		
-		//Create the Rooms in the HashMap.
-		//North
-		myCPRooms.put(0, new Room(true, true, true, false, false, false, chapelRooms));  
-		myCPRooms.get(0).setDescriptor("First Room in Chapel.");
-		
 		//South
+		setChapelRooms();
+		
 		myCMRooms.put(0, new Room(true, true, true, true, false, false, commonsRooms));
 		myCMRooms.get(0).setDescriptor("First Room in the Commons Annex.");
 		
@@ -468,6 +465,59 @@ public class TestClass {
 		myHHRooms.get(0).setDescriptor("First Room in Hiemenga Hall.");
 				
 		System.out.println("Rooms created.");
+		
+	}
+	
+	public static void setChapelRooms(){
+		Integer[] chapelRooms0 = {-2, 6, -1, -1};  //North, South, East, West
+		Integer[] chapelRooms1 = {-1, 4, 2, -1};  //North, South, East, West
+		Integer[] chapelRooms2 = {-1, -1, -1, 1};  //North, South, East, West
+		Integer[] chapelRooms3 = {-1, 7, -1, -1};  //North, South, East, West
+		Integer[] chapelRooms4 = {1, -1, 5, -1};  //North, South, East, West
+		Integer[] chapelRooms5 = {-1, 9, -1, 4};  //North, South, East, West
+		Integer[] chapelRooms6 = {0, 10, 7, -1};  //North, South, East, West
+		Integer[] chapelRooms7 = {3, 11, -1, 6};  //North, South, East, West
+		Integer[] chapelRooms8 = {-1, -1, 9, -1};  //North, South, East, West
+		Integer[] chapelRooms9 = {5, -1, 10, 8};  //North, South, East, West
+		Integer[] chapelRooms10 = {6, -1, -1, 9};  //North, South, East, West
+		Integer[] chapelRooms11 = {7, -1, -1, -1};  //North, South, East, West
+		
+		//Room 0
+		myCPRooms.put(0, new Room(true, true, false, false, false, false, chapelRooms0));  
+		myCPRooms.get(0).setDescriptor(makeDescriptor("cp0.txt"));
+		//Room 1
+		myCPRooms.put(1, new Room(false, true, true, false, false, false, chapelRooms1));  
+		myCPRooms.get(1).setDescriptor(makeDescriptor("cp1.txt"));
+		//Room 2
+		myCPRooms.put(2, new Room(false, false, false, true, false, false, chapelRooms2));  
+		myCPRooms.get(2).setDescriptor(makeDescriptor("cp2.txt"));
+		//Room 3
+		myCPRooms.put(3, new Room(false, true, false, false, false, false, chapelRooms3));  
+		myCPRooms.get(3).setDescriptor(makeDescriptor("cp3.txt"));
+		//Room 4
+		myCPRooms.put(4, new Room(true, false, true, false, false, false, chapelRooms4));  
+		myCPRooms.get(4).setDescriptor(makeDescriptor("cp4.txt"));
+		//Room 5
+		myCPRooms.put(5, new Room(false, true, false, true, false, false, chapelRooms5));  
+		myCPRooms.get(5).setDescriptor(makeDescriptor("cp5.txt"));
+		//Room 6
+		myCPRooms.put(6, new Room(true, true, true, false, false, false, chapelRooms6));  
+		myCPRooms.get(6).setDescriptor(makeDescriptor("cp6.txt"));
+		//Room 7
+		myCPRooms.put(7, new Room(true, true, false, true, false, false, chapelRooms7));  
+		myCPRooms.get(7).setDescriptor(makeDescriptor("cp7.txt"));
+		//Room 8
+		myCPRooms.put(8, new Room(false, false, true, false, false, false, chapelRooms8));  
+		myCPRooms.get(8).setDescriptor(makeDescriptor("cp8.txt"));
+		//Room 9
+		myCPRooms.put(9, new Room(true, false, true, true, false, false, chapelRooms9));  
+		myCPRooms.get(9).setDescriptor(makeDescriptor("cp9.txt"));
+		//Room 10
+		myCPRooms.put(10, new Room(true, false, false, true, false, false, chapelRooms10));  
+		myCPRooms.get(10).setDescriptor(makeDescriptor("cp10.txt"));
+		//Room 11
+		myCPRooms.put(11, new Room(true, false, false, false, false, false, chapelRooms11));  
+		myCPRooms.get(11).setDescriptor(makeDescriptor("cp11.txt"));
 		
 	}
 	
