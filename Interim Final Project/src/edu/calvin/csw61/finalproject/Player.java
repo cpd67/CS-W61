@@ -134,7 +134,7 @@ public class Player extends Character {
 					System.out.println("Unlock what?");
 				} else {
 					if(this.hasItem("key")) {
-						command = new Unlock(this);  //NEEDS TO TAKE IN A DOOR OBJECT
+						command = new Unlock(this, noun);  //NEEDS TO TAKE IN A DOOR OBJECT
 						command.execute();  //Execute the command
 						System.out.println(command.getResult());
 					} else {
