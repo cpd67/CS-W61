@@ -378,9 +378,128 @@ public class TestClass {
 
 		
 		//North
-		Integer[] commonsRooms = {-1, -2, -1, -1}; //Rooms to the North, South, East, and West.
+		setCMRooms();
 		
+		//East
+		setHHRooms();
+		
+		//South
+		setCPRooms();
+
 		//West
+		setSBRooms();
+		
+
+				
+		System.out.println("Rooms created.");
+		
+	}
+
+	private static void setCMRooms(){
+		Integer[] commonsRooms0 = {6, -2, -1, -1}; //North, South, East, and West.
+		Integer[] commonsRooms1 = {4, -1, -1, -1};
+		Integer[] commonsRooms2 = {5, -1, -1, -1};
+		Integer[] commonsRooms3 = {7, -1, -1, -1};
+		Integer[] commonsRooms4 = {8, 1, -1, -1};
+		Integer[] commonsRooms5 = {9, 2, 6, -1};
+		Integer[] commonsRooms6 = {10, 0, -1, 5};
+		Integer[] commonsRooms7 = {11, 3, -1, -1};
+		Integer[] commonsRooms8 = {-1, 4, 9, -1};
+		Integer[] commonsRooms9 = {-1, 5, -1, 8};
+		Integer[] commonsRooms10 = {-1, 6, 11, -1};
+		Integer[] commonsRooms11 = {-1, 7, -1, 10};
+	
+		//Room 0
+		myCMRooms.put(0, new Room(true, true, false, false, false, false, commonsRooms0));
+		myCMRooms.get(0).setDescriptor(makeDescriptor("cm0.txt"));
+		//Room 1
+		myCMRooms.put(1, new Room(true, false, false, false, false, false, commonsRooms1));
+		myCMRooms.get(1).setDescriptor(makeDescriptor("cm1.txt"));
+		//Room 2
+		myCMRooms.put(2, new Room(true, false, false, false, false, false, commonsRooms2));
+		myCMRooms.get(2).setDescriptor(makeDescriptor("cm2.txt"));
+		//Room 3
+		myCMRooms.put(3, new Room(true, false, false, false, false, false, commonsRooms3));
+		myCMRooms.get(3).setDescriptor(makeDescriptor("cm3.txt"));
+		//Room 4
+		myCMRooms.put(4, new Room(true, true, false, false, false, false, commonsRooms4));
+		myCMRooms.get(4).setDescriptor(makeDescriptor("cm4.txt"));
+		//Room 5
+		myCMRooms.put(5, new Room(true, true, true, false, false, false, commonsRooms5));
+		myCMRooms.get(5).setDescriptor(makeDescriptor("cm5.txt"));
+		//Room 6
+		myCMRooms.put(6, new Room(true, true, false, true, false, false, commonsRooms6));
+		myCMRooms.get(6).setDescriptor(makeDescriptor("cm6.txt"));
+		//Room 7
+		myCMRooms.put(7, new Room(true, true, false, false, false, false, commonsRooms7));
+		myCMRooms.get(7).setDescriptor(makeDescriptor("cm7.txt"));
+		//Room 8
+		myCMRooms.put(8, new Room(false, true, true, false, false, false, commonsRooms8));
+		myCMRooms.get(8).setDescriptor(makeDescriptor("cm8.txt"));
+		//Room 9
+		myCMRooms.put(9, new Room(false, true, false, true, false, false, commonsRooms9));
+		myCMRooms.get(9).setDescriptor(makeDescriptor("cm9.txt"));
+		//Room 10
+		myCMRooms.put(10, new Room(false, true, true, false, false, false, commonsRooms10));
+		myCMRooms.get(10).setDescriptor(makeDescriptor("cm10.txt"));
+		//Room 11
+		myCMRooms.put(11, new Room(false, true, false, true, false, false, commonsRooms11));
+		myCMRooms.get(11).setDescriptor(makeDescriptor("cm11.txt"));
+	}
+	
+	private static void setHHRooms() {
+		Integer[] hiemengaHallRooms0 = {-1, -1, 6, -2}; //Rooms to the North, South, East, and West.
+		Integer[] hiemengaHallRooms1 = {-1, 2, 4, -1};
+		Integer[] hiemengaHallRooms2 = {1, -1, -1, -1};
+		Integer[] hiemengaHallRooms3 = {-1, -1, 7, -1};
+		Integer[] hiemengaHallRooms4 = {-1, 5, 8, 1};
+		Integer[] hiemengaHallRooms5 = {4, -1, -1, -1};
+		Integer[] hiemengaHallRooms6 = {-1, 7, 10, 0};
+		Integer[] hiemengaHallRooms7 = {6, -1, -1, 3};
+		Integer[] hiemengaHallRooms8 = {-1, 9, -1, 4};
+		Integer[] hiemengaHallRooms9 = {8, 10, -1, -1};
+		Integer[] hiemengaHallRooms10 = {9, 11, -1, 6};
+		Integer[] hiemengaHallRooms11 = {10, -1, -1, -1};
+		
+		//Room 0
+		myHHRooms.put(0, new Room(false, false, true, true, false, false, hiemengaHallRooms0));
+		myHHRooms.get(0).setDescriptor(makeDescriptor("hh0.txt"));
+		//Room 1
+		myHHRooms.put(1, new Room(false, true, true, false, false, false, hiemengaHallRooms1));
+		myHHRooms.get(1).setDescriptor(makeDescriptor("hh1.txt"));
+		//Room 2
+		myHHRooms.put(2, new Room(true, false, false, false, false, false, hiemengaHallRooms2));
+		myHHRooms.get(2).setDescriptor(makeDescriptor("hh2.txt"));
+		//Room 3
+		myHHRooms.put(3, new Room(false, false, true, false, false, false, hiemengaHallRooms3));
+		myHHRooms.get(3).setDescriptor(makeDescriptor("hh3.txt"));
+		//Room 4
+		myHHRooms.put(4, new Room(false, true, true, true, false, false, hiemengaHallRooms4));
+		myHHRooms.get(4).setDescriptor(makeDescriptor("hh4.txt"));
+		//Room 5
+		myHHRooms.put(5, new Room(true, false, false, false, false, false, hiemengaHallRooms5));
+		myHHRooms.get(5).setDescriptor(makeDescriptor("hh5.txt"));
+		//Room 6
+		myHHRooms.put(6, new Room(false, true, true, true, false, false, hiemengaHallRooms6));
+		myHHRooms.get(6).setDescriptor(makeDescriptor("hh6.txt"));
+		//Room 7
+		myHHRooms.put(7, new Room(true, false, false, true, false, false, hiemengaHallRooms7));
+		myHHRooms.get(7).setDescriptor(makeDescriptor("hh7.txt"));
+		//Room 8
+		myHHRooms.put(8, new Room(false, true, false, true, false, false, hiemengaHallRooms8));
+		myHHRooms.get(8).setDescriptor(makeDescriptor("hh8.txt"));
+		//Room 9
+		myHHRooms.put(9, new Room(true, true, false, false, false, false, hiemengaHallRooms9));
+		myHHRooms.get(9).setDescriptor(makeDescriptor("hh9.txt"));
+		//Room 10
+		myHHRooms.put(10, new Room(true, true, false, true, false, false, hiemengaHallRooms10));
+		myHHRooms.get(10).setDescriptor(makeDescriptor("hh10.txt"));
+		//Room 11
+		myHHRooms.put(11, new Room(true, false, false, false, false, false, hiemengaHallRooms11));
+		myHHRooms.get(11).setDescriptor(makeDescriptor("hh11.txt"));
+	}
+	
+	private static void setSBRooms() {
 		Integer[] scienceBuildRooms0 = {-1, -1, -2, 6};  //Room 0
 		Integer[] scienceBuildRooms1 = {-1, -1, -1, 7};  //Room 1
 		Integer[] scienceBuildRooms2 = {-1, 3, -1, 5};  //Room 2
@@ -398,28 +517,15 @@ public class TestClass {
 		Integer[] scienceBuildRooms14 = {15, 13, 9, -1};  //Room 14
 		Integer[] scienceBuildRooms15 = {-1, 14, 8, -1};  //Room 15
 		
-		//East
-		Integer[] hiemengaHallRooms = {-1, -1, -1, -2}; //Rooms to the North, South, East, and West.
-		
-		//South
-		setChapelRooms();
-		
-		myCMRooms.put(0, new Room(true, true, true, true, false, false, commonsRooms));
-		myCMRooms.get(0).setDescriptor("First Room in the Commons Annex.");
-		
-		//East
 		//Room 0
 		mySBRooms.put(0, new Room(false, false, true, true, false, false, scienceBuildRooms0));
 		mySBRooms.get(0).setDescriptor(makeDescriptor("sb0.txt"));
-		
 		//Room1
 		mySBRooms.put(1, new Room(false, false, false, true, false, false, scienceBuildRooms1));
 		mySBRooms.get(1).setDescriptor(makeDescriptor("sb1.txt"));
-		
 		//Room 2
 		mySBRooms.put(2, new Room(false, true, false, true, false, false, scienceBuildRooms2));
 		mySBRooms.get(2).setDescriptor(makeDescriptor("sb2.txt"));
-		
 		//Room 3
 		mySBRooms.put(3, new Room(true, false, false, true, false, false, scienceBuildRooms3));
 		mySBRooms.get(3).setDescriptor(makeDescriptor("sb3.txt"));
@@ -459,16 +565,9 @@ public class TestClass {
 		//Room 15
 		mySBRooms.put(15, new Room(false, true, true, false, false, false, scienceBuildRooms15));
 		mySBRooms.get(15).setDescriptor(makeDescriptor("sb15.txt"));
-		
-		//West
-		myHHRooms.put(0, new Room(true, true, true, true, false, false, hiemengaHallRooms));
-		myHHRooms.get(0).setDescriptor("First Room in Hiemenga Hall.");
-				
-		System.out.println("Rooms created.");
-		
 	}
 	
-	public static void setChapelRooms(){
+	private static void setCPRooms(){
 		Integer[] chapelRooms0 = {-2, 6, -1, -1};  //North, South, East, West
 		Integer[] chapelRooms1 = {-1, 4, 2, -1};  //North, South, East, West
 		Integer[] chapelRooms2 = {-1, -1, -1, 1};  //North, South, East, West

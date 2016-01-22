@@ -85,6 +85,14 @@ public class Room {
 		}
 	}
 	
+	public boolean isNorthDoor() {
+		if(myNorthDoor){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//addObject
 	public void addObject(ObjectInterface ob) {
 		myObjects.add(ob);
@@ -147,7 +155,6 @@ public class Room {
 	public ArrayList<ApertureBehavior> getAperatures() {
 		return myApertures;
 	}
-	
 	//Take an Object from the Room (if the Player takes one).
 	public void removeObject(String name) {
 		for(int i = 0; i < myObjects.size(); i++) {
