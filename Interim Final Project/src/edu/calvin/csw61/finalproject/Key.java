@@ -5,7 +5,7 @@ public class Key implements ObjectInterface {
 	String instruction, objectToActOn;
 	
 	public Key(String name) {
-		myName = "Key";
+		myName = "key";
 		instruction = "";
 		objectToActOn = name;
 	}

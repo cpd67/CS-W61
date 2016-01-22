@@ -14,6 +14,12 @@ public class ConcreteWeaponFactory extends WeaponFactory {
 			return new Sword();
 		} else if(name.equals("shotgun")) {
 			return new Shotgun();
+		} else if(name.equals("lance")) {
+			return new Lance();
+		} else if(name.equals("chainsaw")) {
+			return new Chainsaw();
+		} else if(name.equals("bazooka")) {
+			return new Bazooka();
 		} else return null;
 	}
 	

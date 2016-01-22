@@ -20,14 +20,18 @@ public class Drop implements Command {
 	
 	public void execute() {
 		if(myObject instanceof WeaponAdapter) {
-			myPlayer.setHasNoWeapon();  //Player no longer has the Weapon.
-			myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
-			result += "You dropped your " + myObject.getName();
-			myPlayer.getRoom().showObjects();
+			if(myPlayer.getRoom().addObject(myObject)) { //If the weapon isn't already in the Room...
+				result += "You dropped your " + myObject.getName();
+				myPlayer.getRoom().showObjects();
+				myPlayer.setHasNoWeapon();  //Player no longer has the Weapon.
+			} else { //Else, the Weapon is already in the Room...
+				result += myObject.getName() + " is already in the room!";
+			}
+
 		} else { //Else, it's not a Weapon.
 			myPlayer.removeObject(myObject.getName().toLowerCase()); //Take the Object out of the backpack.
 			myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
-			result = "You dropped the " + myObject.getName();
+			result = "You dropped " + myObject.getName();
 			myPlayer.getRoom().showObjects();
 		}
 	}

@@ -1,16 +1,15 @@
 package edu.calvin.csw61.finalproject.playercommands;
 
-import edu.calvin.csw61.finalproject.Character;
-import edu.calvin.csw61.finalproject.NPC;
+import edu.calvin.csw61.finalproject.Monster;
 import edu.calvin.csw61.finalproject.Player;
 
 public class Fight implements Command {
 	
 	private String result; //result string
 	Player myPlayer; //Handle to Player
-	Character myOpponent; //Opponent
+	Monster myOpponent; //Opponent
 	
-	public Fight(Character m, Player p) {
+	public Fight(Monster m, Player p) {
 		myPlayer = p;
 		myOpponent = m;
 		result = "";
@@ -18,12 +17,32 @@ public class Fight implements Command {
 	
 	@Override
 	public void execute() {
-		if(myOpponent instanceof NPC) {
-			result = "You can't fight " + myOpponent.getName() + "\n";
+		//Player goes first
+		myPlayer.dealDamage(myOpponent);
+		
+		//Did you kill the Monster?
+		if(myOpponent.isDead()) {
+			//Get the weapon/object from the Monster
+			if(myOpponent.hasWeapon() || myOpponent.hasObject()) {
+				//If the Weapon is already equipped by the Player...
+				if(myPlayer.getWeapon().getWeaponName().equals(myOpponent.getWeapon().getWeaponName().toLowerCase())) {
+					myOpponent.setHasNoWeapon();
+				}
+				myPlayer.getRoom().addMonsterItem();
+			}
+			myPlayer.getRoom().removeMonster();
+			result += myOpponent.getName() + " is slain!\n";
+			result += "You killed " + myOpponent.getName() + "!\n";
 		} else {
-			
-			result = "You fought \n";
+			result += myOpponent.getName() + " has " + myOpponent.getHealth() + " hit points remaning\n";
+			System.out.println(myOpponent.getName() + "'s turn to attack");
+			//Monster's turn now
+			myOpponent.act(myPlayer);
 		}
+		
+		//Print out the Player's health if he/she hasn't died yet...
+		result += "You have " + myPlayer.getHealth() + " hit points remaining. \n";	
+	
 	}
 	
 	public String getResult() {

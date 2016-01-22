@@ -7,20 +7,18 @@ import edu.calvin.csw61.finalproject.Player;
 public class Talk implements Command {
 	
 	private Player myPlayer;
-	private ObjectInterface myConversationPartner;
+	private NPC myConversationPartner;
 	private String result;
 	
-	public Talk(ObjectInterface myObject) {
+	//In case we want to add Player lines, the Talk() constructor takes a handle
+	//to the Player
+	public Talk(NPC myObject, Player p) {
 		myConversationPartner = myObject;
 		result = "";
 	}
 	
 	public void execute() {
-		if(myConversationPartner instanceof NPC) {
-			//Spit out the lines for the NPC
-		} else {  //Can't talk to anyone else.
-			result = "There's no one to talk to.";
-		}
+		//Spit out the lines for the NPC
 	}
 	
 	public String getResult() {

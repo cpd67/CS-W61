@@ -17,7 +17,7 @@ import edu.calvin.csw61.weapons.*;
 import edu.calvin.csw61.fruit.*;
 import edu.calvin.csw61.food.*;
 
-public class Player extends Character {
+public class Player {
 	
 	//Give him some health
 	private int myHealth;
@@ -33,6 +33,7 @@ public class Player extends Character {
 	private Integer myCurrentRoomNum;  //Number of the Room that the Player is currently in
 	private Weapon myWeapon;
 	private boolean hasWeapon;
+	private String myName;
 	
 	//Constructor
 	public Player(Room outsideRoom) {
@@ -66,12 +67,11 @@ public class Player extends Character {
 						//Outside, the Player will no longer be in the Room.
 						if(this.getBuilding().equals("Outside")) {
 							TestClass.outsideRoom.setNoPlayer();
-						}
-											
+						}		
 						command = new Walk(noun, this);
 						command.execute();
 						System.out.println(command.getResult());
-						//System.out.println(this.getRoom().getDescriptor());
+//						System.out.println(this.getRoom().getDescriptor());
 					} else {  //Not a valid direction...
 						System.out.println("I can't walk there.");
 					}
@@ -88,13 +88,44 @@ public class Player extends Character {
 							//Get the Object from the backpack
 							command = new Eat(this.myBackpack.get(noun.toLowerCase()), this); //Eat it
 							command.execute();  //Print out the returned String
-							System.out.println(command.getResult());
+							if(this.myBackpack.get(noun.toLowerCase()) instanceof Key) {
+								System.out.println(command.getResult());
+								System.exit(1);
+							} else {
+								System.out.println(command.getResult());
+							}
 						}
 					} else {  
-						if(this.myCurrentRoom.hasObject(noun)) {
+						//Trying to eat a Weapon?
+						if(noun.toLowerCase().equals("knife")) {
+							System.out.println("NO! You can't eat a knife!");
+						} else if(noun.toLowerCase().equals("sword")) {
+							System.out.println("You're not trained to do that!");
+						} else if(noun.toLowerCase().equals("shotgun")) {
+							System.out.println("Really? A shotgun? Why don't you try eating a cactus?");	
+						} else if(noun.toLowerCase().equals("lance")) {
+							System.out.println("Do you really think a lance would fit down your throat?");
+						} else if(noun.toLowerCase().equals("chainsaw")) {
+							System.out.println("Unbelievable...NO!! You can't eat a chainsaw!");
+						} else if(noun.toLowerCase().equals("bazooka")) {
+							System.out.println("We should have never shown you that bazooka");
+							//How about an NPC or Monster?
+						} else if(this.getRoom().hasMonster() && this.getRoom().getMonster().getName().equals(noun.toLowerCase())){
+							System.out.println(this.getRoom().getMonster().getName() + " is NOT edible!");
+						} else if(this.getRoom().hasNPC() && this.getRoom().getNPC().getName().equals(noun.toLowerCase())) {
+							System.out.println("We have a word for that. It's called 'cannibalism'");
+							System.out.println(this.getRoom().getNPC().getName() + " is NOT edible!");
+						} else if(this.myCurrentRoom.hasObject(noun.toLowerCase())) {
 							command = new Eat(this.myCurrentRoom.getObject(noun), this);
 							command.execute();
-							System.out.println(command.getResult());
+							//Is it a Key?
+							if(this.myCurrentRoom.getObject(noun.toLowerCase()) instanceof Key) {
+								System.out.println(command.getResult());
+								System.exit(1);
+							} else {
+								//No, something else.
+								System.out.println(command.getResult());
+							}
 						} else {
 							System.out.println("There is no " + noun + " around here.");
 						}
@@ -105,7 +136,18 @@ public class Player extends Character {
 				if(noun.equals("")) {
 					System.out.println("Fight what?");
 				} else {
-					System.out.println("you fought (NOT IMPLEMENTED)");
+					if(this.getRoom().hasMonster() && this.getRoom().getMonster().getName().equals(noun.toLowerCase())) {
+						command = new Fight(this.getRoom().getMonster(), this);
+						command.execute();
+						System.out.println(command.getResult());
+					} else {
+						if(this.getRoom().hasNPC() && this.getRoom().getNPC().getName().equals(noun.toLowerCase())) {
+							System.out.println(this.getRoom().getNPC().getName() + " doesn't want to fight");
+						} else {
+							System.out.println("You can't fight " + noun.toLowerCase());
+						}
+					}
+					this.getRoom().showPeople();
 				}
 				break;
 			case "take": case "get": //Take
@@ -114,19 +156,35 @@ public class Player extends Character {
 				} else {
 					if(this.hasItem(noun)) { //If so...
 						System.out.println("You can only have one " + noun.toLowerCase() + " in your backpack.");
-					} else {  //Find the Object in the room and pass it as the ObjectInterface parameter to the Take() constructor
-						command = new Take(noun, this);
-						command.execute();
-						System.out.println(command.getResult());
+					} else { 
+						if(this.getRoom().hasMonster() && this.getRoom().getMonster().getName().equals(noun.toLowerCase())) {
+							System.out.println("Really? A Monster? NO!");
+						} else if(this.getRoom().hasNPC() && this.getRoom().getNPC().getName().equals(noun.toLowerCase())) {
+							System.out.println("We have a word for that. It's called 'kidnapping'.");
+						} else {
+							command = new Take(noun, this);
+							command.execute();
+							System.out.println(command.getResult());
+						}
 					}
-					//Not in the room, print "That Object isn't here."
 				}
 				break;
 			case "give": //Give
 				if(noun.equals("")) {  //HAVE TO CHECK IF THE NPC NEEDS THE OBJECT
 					System.out.println("Give what?");  //AND ALSO IF THE BENEFICIARY IS AN NPC!
-				} else {
-					System.out.println("you gave (NOT IMPLEMENTED)");
+				} else { //Give something to an NPC
+					if(this.getRoom().hasNPC()) { //Has NPC?
+						if(this.getRoom().getNPC().needsQuestOb()) { //Needs a QuestItem?
+							//Give the Object, see if it's the one needed.
+							command = new Give(this.getRoom().getNPC(), this.myBackpack.get(noun), this);
+							command.execute();
+							System.out.println(command.getResult());
+						} else { //No.
+							System.out.println(this.getRoom().getNPC().getName() + " doesn't need that!");
+						}
+					} else { //No NPC to give something to
+						System.out.println("There is no one in the room to give that to.");
+					}
 				}
 				break;
 			case "unlock": //Unlock
@@ -174,8 +232,17 @@ public class Player extends Character {
 			case "throw":  //Throw
 				if(noun.equals("")) {
 					System.out.println("Throw what?");
+				} else if(this.hasItem(noun.toLowerCase())) { //Player has the item?
+						command = new Throw(this.myBackpack.get(noun.toLowerCase()), this);
+						command.execute();
+						System.out.println(command.getResult());
+				} else if(this.hasWeapon() && this.getWeapon().getWeaponName().equals(noun.toLowerCase())){
+						WeaponAdapter weaponAdapt = new WeaponAdapter(this.getWeapon());
+						command = new Throw(weaponAdapt, this);
+						command.execute();
+						System.out.println(command.getResult());
 				} else {
-					System.out.println("you threw (NOT IMPLEMENTED)");
+					System.out.println("You absolutely don't have that item.");
 				}
 				break;
 			case "talk": //Talk
@@ -253,16 +320,6 @@ public class Player extends Character {
 		return false;   //We don't have it
 	}
 	
-	//Can we put an item in our backpack?
-	public boolean checkItem(ObjectInterface ob) {
-		if(ob instanceof NPC) {
-			return false;  //Can't put NPCs in backpack
-		} else if(ob instanceof Monster) {
-			return false;  //Can't put Monsters in backpack
-		}
-		return true; //You can put it in your backpack
-	}
-	
 	//Check the possible direction please
 	public boolean checkDir(String dir) {
 		for(int i = 0; i < myDirections.length; i++) {
@@ -275,6 +332,7 @@ public class Player extends Character {
 	
 	//Put me on a Quest!
 	public void setQuest(Quest q) {
+		System.out.println("Quest added! - " + q.getName());
 		myCurrentQuest = q;
 		onQuest = true;
 	}
@@ -296,15 +354,23 @@ public class Player extends Character {
 			middle = health + 100;   //Now, take 100 and add the health to it.
 			result = middle - holder;  //Subtract them.
 			myHealth += result; //Add the difference. Should be 100.
+			System.out.println("You are at full health");
 		}
 	}
 	
 	//Take it away
 	public void subtractHealth(int sub) {
-		if(myHealth > 0) {
-			myHealth -= sub;
-			System.out.println("You lost " + sub + " hit points.");
-		}//Check if it's 0 in Fight...Player dies at that point.
+		myHealth -= sub;
+		System.out.println("You lost " + sub + " hit points.");
+		if(myHealth <= 0) {
+			System.out.println("You have die.");
+			System.exit(1);
+		}
+	}
+	
+	//Get the Player's name
+	public String getName() {
+		return myName;
 	}
 	
 	//Get my current direction
@@ -389,4 +455,17 @@ public class Player extends Character {
 		return myNumberOfObjects == myLimit;
 	}
 	
+	//Inflict pain on a Monster :D
+	public void dealDamage(Monster m) {
+		System.out.println("You attack first");
+		if(hasWeapon) {  //If the Player has a Weapon...
+			int damage = this.getWeapon().getWeaponDamage();
+			m.subtractHealth(damage);
+			System.out.println(m.getName() + " lost " + damage + " hit points");
+		} else {  //Else, do 5 hit points of damage
+			m.subtractHealth(5);
+			System.out.println(m.getName() + " lost 5 hit points");
+			//Else, print out the health
+		}
+	}
 }

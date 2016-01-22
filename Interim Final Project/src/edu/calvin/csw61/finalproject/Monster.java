@@ -7,7 +7,10 @@ public class Monster extends Character implements ObjectInterface, ActionBehavio
 	
 	private boolean hasWeapon; //Does the Monster have a Weapon?
 	private Weapon myWeapon;
+	private boolean hasObject;
 	private int myHealth;  //Health of the Monster
+	private boolean isDead;
+	private int myDamage;
 	
 	//Instance variables are inheirted from the superclass, Character
 	//Constructor for a Monster without an Object
@@ -17,6 +20,9 @@ public class Monster extends Character implements ObjectInterface, ActionBehavio
 		this.myWeapon = null;
 		this.hasWeapon = false; //Fight with their claws
 		this.myHealth = 10; //10 at start
+		this.isDead = false; //Not dead
+		this.hasObject = false;
+		this.myDamage = 5; //5 at start
 	}
 
 	//Constructor for a Monster with an Object
@@ -26,6 +32,9 @@ public class Monster extends Character implements ObjectInterface, ActionBehavio
 		this.myWeapon = null; //No Weapon
 		this.hasWeapon = false;
 		this.myHealth = 10;
+		this.isDead = false; 
+		this.hasObject = true;
+		this.myDamage = 5;
 	}
 	
 	//Does the Monster have a Weapon?
@@ -41,7 +50,28 @@ public class Monster extends Character implements ObjectInterface, ActionBehavio
 	//Set the Weapon
 	public void setWeapon(Weapon w) {
 		this.myWeapon = w;
+		this.myDamage += this.myWeapon.getWeaponDamage(); //Add the weapon damage
 		this.hasWeapon = true;
+	}
+	
+	//No Weapon 
+	public void setHasNoWeapon() {
+		if(hasWeapon) { //If it even has a Weapon in the first place...
+			this.myDamage -= this.myWeapon.getWeaponDamage(); //Subtract the damage from the Weapon
+			this.myWeapon = null;
+			this.hasWeapon = false;	
+		}		
+	}
+	
+	//Give the Monster a new Object.
+	public void setObject(ObjectInterface ob) {
+		myObj = ob;
+		hasObject = true;
+	}
+	
+	//Does the Monster have an Object?
+	public boolean hasObject() {
+		return hasObject;
 	}
 	
 	//Get the Health of the Monster
@@ -54,22 +84,26 @@ public class Monster extends Character implements ObjectInterface, ActionBehavio
 		this.myHealth = newHealth;
 	}
 	
+	//Take away health
 	public void subtractHealth(int health) {
-		if(myHealth > 0) {
-			this.myHealth -= health;
-		} else {
-			System.out.println(myName + " is slain!");
+		this.myHealth -= health;
+		if(this.myHealth <= 0) {
+			this.isDead = true;
 		}
+	}
+	
+	//Set the damage of the Monster
+	public void setDamage(int damage) {
+		this.myDamage = damage;
 	}
 	
 	//Acting is just fighting.
 	public void act(Player p) {
-		if(hasWeapon) {  //If the Monster has a Weapon...
-			int damage = myWeapon.getWeaponDamage();
-			p.subtractHealth(damage); 
-		} else {
-			p.subtractHealth(10); //Automatically attacks with claws.
-		}
+		p.subtractHealth(myDamage); //Attack the Player!
 	}
 	
+	//Is the Monster dead?
+	public boolean isDead() {
+		return isDead;
+	}
 }

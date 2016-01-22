@@ -24,37 +24,39 @@ public class Take implements Command {
 			//Is the Object in the Current Room that the Player is in?
 			if(myPlayer.getRoom().hasObject(myObName.toLowerCase())) {
 				//It is
-				if(myPlayer.backpackFull()) { //Is the Player's backpack full?
-					result += "Backpack full! Drop an Item!"; 
-				} else {
+				//Is it a Weapon?
+				 if(myPlayer.getRoom().getObject(myObName.toLowerCase()) instanceof WeaponAdapter){
+					 //Yes
+					 //Get the weapon from the adapter
 					ObjectInterface checker = myPlayer.getRoom().getObject(myObName.toLowerCase());
-					if(checker instanceof WeaponAdapter) {
-						WeaponAdapter weaponAdapt = (WeaponAdapter)checker; //Typecast
-						Weapon takenWeapon = weaponAdapt.getWrappedWeapon(); //Get the weapon
-						if(myPlayer.hasWeapon()) {
-							result += "You already have a weapon!" + "\n";
-							result += "Drop your weapon if you want this one!";
-							myPlayer.getRoom().showObjects();
-						} else {
-							myPlayer.setWeapon(takenWeapon);
-							result += "You picked up " + takenWeapon.getWeaponName();
-							myPlayer.getRoom().removeObject(myObName.toLowerCase());  //Remove the Object from the Room.
-							myPlayer.getRoom().showObjects();
-						}
-						//Not a Weapon
+					WeaponAdapter weaponAdapt = (WeaponAdapter)checker; //Typecast
+					Weapon takenWeapon = weaponAdapt.getWrappedWeapon(); //Get the weapon
+					if(myPlayer.hasWeapon()) { //Does the Player have a Weapon?
+						//Yes
+						result += "You already have a weapon!" + "\n";
+						result += "Drop your weapon if you want this one!";
+						myPlayer.getRoom().showObjects();
 					} else {
-						if(myPlayer.checkItem(checker)) { //Check if we can put the item in our backpack...
-							myPlayer.addObject(myObName.toLowerCase(), checker);
+						//No
+						myPlayer.setWeapon(takenWeapon);
+						result += "You picked up " + takenWeapon.getWeaponName();
+						myPlayer.getRoom().removeObject(myObName.toLowerCase());  //Remove the Object from the Room.
+						myPlayer.getRoom().showObjects();
+					}
+				 } else {
+					//Is is not a Weapon
+					 if(myPlayer.backpackFull()) { //Is the Player's backpack full?
+							result += "Backpack full! Drop an Item!"; 
+						} else {
+							//No. Add the Object
+							myPlayer.addObject(myObName.toLowerCase(), myPlayer.getRoom().getObject(myObName.toLowerCase()));
 							myPlayer.getRoom().removeObject(myObName.toLowerCase());  //Remove the Object from the Room.
 							result += "You took " + myObName.toLowerCase();
 							myPlayer.getRoom().showObjects();
-						} else {
-							result += "You can't put " + myObName + " in your backpack!";
-						}	
-					}
-				}
-			
-		} else {
+						}
+				 }
+		//Object is NOT in the Room
+		} else { 
 			result = myObName.toLowerCase() + " is not in this room.";
 		}		
 	}

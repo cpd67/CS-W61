@@ -10,6 +10,10 @@ public class ConcreteFruitFactory extends FruitFactory {
 			return new Blueberry();
 		} else if(fruitName.equals("orange")) {
 			return new Orange();
+		} else if(fruitName.equals("papaya")) {
+			return new Papaya();
+		} else if(fruitName.equals("watermelon")) {
+			return new Watermelon();
 		} else return null;
 	}
 	
