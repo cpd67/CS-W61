@@ -1,6 +1,10 @@
 package edu.calvin.csw61.finalproject;
 
+/**
+ * ActionBehavior is the Interface that NPCs and Monsters will implement in order to
+ * perform a certain action.
+ */
 public interface ActionBehavior {
-	public void act(Player p);  //NPC and Monsters do this instead of CommandBehavior
-						//Fight can have this and CommandBehavior
+	//Act on the Player
+	public void act(Player p); 
 }

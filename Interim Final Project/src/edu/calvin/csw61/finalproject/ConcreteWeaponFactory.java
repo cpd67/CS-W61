@@ -2,25 +2,33 @@ package edu.calvin.csw61.finalproject;
 
 import edu.calvin.csw61.weapons.*;
 
+/**
+ * ConcreteWeaponFactory is a subclass of the abstract WeaponFactory class.
+ * It allows the creation of different Weapon objects.
+ * (Implements the Factory pattern).
+ */
 public class ConcreteWeaponFactory extends WeaponFactory {
 	
-	ObjectInterface myKnifeObject;  //Weapons are also considered Objects, so we need a way
-								   //to convert them to Objects
-	//Create a Weapon
-	public Weapon createWeapon(String name) {
-		if(name.equals("knife")) {
+	/**
+	 * createWeapon() creates a Weapon object specified via parameter.
+	 * @param: weaponName, a String representing the name of the Weapon object to create.
+	 * @return: The Weapon object specified by the weaponName parameter, 
+	 *          or null if not a valid parameter.
+	 */
+	public Weapon createWeapon(String weaponName) {
+		if(weaponName.equals("knife")) {  //Knife, 10 hit points
 			return new Knife();
-		} else if(name.equals("sword")) {
+		} else if(weaponName.equals("sword")) {  //Sword, 20 hit points
 			return new Sword();
-		} else if(name.equals("shotgun")) {
+		} else if(weaponName.equals("shotgun")) { //Shotgun, 30 hit points
 			return new Shotgun();
-		} else if(name.equals("lance")) {
+		} else if(weaponName.equals("lance")) {  //Lance, 40 hit points
 			return new Lance();
-		} else if(name.equals("chainsaw")) {
+		} else if(weaponName.equals("chainsaw")) {  //Chainsaw, 50 hit points
 			return new Chainsaw();
-		} else if(name.equals("bazooka")) {
+		} else if(weaponName.equals("bazooka")) {  //Bazooka, 100 hit points
 			return new Bazooka();
-		} else return null;
+		} else return null;  //Invalid parameter name
 	}
 	
 }

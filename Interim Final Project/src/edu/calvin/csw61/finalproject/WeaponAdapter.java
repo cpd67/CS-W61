@@ -1,27 +1,40 @@
 package edu.calvin.csw61.finalproject;
-import edu.calvin.csw61.weapons.*;
 
+import edu.calvin.csw61.weapons.Weapon;
+
+/**
+ * WeaponAdapter allows a Weapon object to be stored in a Room and given to an NPC, 
+ * who are both only able to handle ObjectInterface objects.
+ * (Implements the Adapter pattern, where the target interface is the ObjectInterface Interface).
+ */
 public class WeaponAdapter implements ObjectInterface {
+	//Wrapped Weapon
 	Weapon myWeapon;
 	
-	//We need this so we can store it in a Room.
-	//Rooms only expect Objects.
-	//This circumvents having to change the code in the Room. ;)
+	/** 
+	 * Constructor for the WeaponAdapter class.
+	 * @param w, a Weapon object representing the Weapon object to adapt.
+	 */
 	public WeaponAdapter(Weapon w) {
 		myWeapon = w;
 	}
 	
-	//Gets the Name of the Weapon
+	/**
+	 * Accessor for the Weapon's name.
+	 * @return: myWeapon.getWeaponName(), a String representing the name of the 
+	 *          Weapon object.
+	 */
 	public String getName() {
 		return myWeapon.getWeaponName();
 	}
 	
-	//Gets the wrapped up Weapon
+	/**
+	 * Accessor for the wrapped up Weapon.
+	 * (Needed whenever a Player gets a WeaponAdapter so that we can his/her
+	 *  Weapon, which a Player can only have one of).
+	 * @return: myWeapon, the Weapon that was wrapped by the WeaponAdapter.
+	 */
 	public Weapon getWrappedWeapon() {
 		return myWeapon;
 	}
-	
-	//Take now has to figure out if the Object we're taking is a WeaponAdapter.
-	//If so, we need to get the actual Weapon that the WeaponAdapter wraps (so the
-	//Player can fill the Weapon slot with it).
 }

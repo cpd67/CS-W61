@@ -1,17 +1,28 @@
 package edu.calvin.csw61.finalproject;
 
+/**
+ * Character class is the superclass for the NPC and Monster classes.
+ */
 public class Character {
 	
-	//Public instance variable
+	//Public instance variables
+	//Name of the Character
 	String myName;
-	ObjectInterface myObj; //A Character can have an Item. Even Monsters (Keys and Treasure).
+	//ObjectInterface that the Character can have
+	ObjectInterface myObj; 
 	
-	//Public getter method
+	/**
+	 * Accessor method for the Character's name.
+	 * @return myName, a String representing the name of the Character.
+	 */
 	public String getName() {
 		return myName;
 	}
 	
-	//Get the object
+	/**
+	 * Accessor method for the ObjectInterface that the Character has.
+	 * @return myObj, a 
+	 */
 	public ObjectInterface getObject() {
 		return myObj;
 	}

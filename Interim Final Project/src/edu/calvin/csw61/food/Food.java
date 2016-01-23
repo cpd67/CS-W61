@@ -1,30 +1,32 @@
 package edu.calvin.csw61.food;
 
-import java.util.ArrayList;
-import edu.calvin.csw61.finalproject.*;
+import edu.calvin.csw61.finalproject.ObjectInterface;
 
+/**
+ * Food is the abstract superclass of all Food objects that implements the ObjectInterface
+ * so that Food objects can be stored in Rooms, held by NPCs and Monsters, and stored
+ * in a Player's backpack.
+ */
 public abstract class Food implements ObjectInterface {
+	//Name of the Food object
 	String myName;
+	//Health that it gives the Player
 	int myHealth;
-	//The reason why we can't just check if the noun is a valid food item 
-	//is because the noun is considered as an ObjectInterface. It can be 
-	//anything. We have to method call check what kind of ObjectInterface it is.
-	//We could check if it is a valid food name using a static array list of 
-	//food items and seeing if the noun is in there. If not, we still have to 
-	//determine what the heck it is and handle it accordingly.
 	
-	//How much health do I give?
+	/**
+	 * Accessor for the health that the Food object gives to the Player.
+	 * @return: myHealth, an int representing how much health is given to the Player
+	 *          when the Food object is consumed.
+	 */
 	public int getHealth() {
 		return myHealth; 
 	}
 
-	//Something I learned: You can have an abstract class implement an interface.
-	//You also don't have to implement ALL of the methods of the interface in the 
-	//abstract class.
-	//The subclasses will be forced to implement the methods that the abstract superclas
-	//left out, however. 
+	/**
+	 * Accessor for the name of the Food object.
+	 * @return: myName, a String representing the name of the Food object.
+	 */
 	public String getName() {
 		return myName;
 	}
-	
 }
