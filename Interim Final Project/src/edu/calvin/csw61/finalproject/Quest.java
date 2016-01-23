@@ -3,28 +3,20 @@ package edu.calvin.csw61.finalproject;
 public class Quest {
 	
 	private String myDescriptor;
-	private boolean isActive, isCompleted;
 	private int myId;
-	private ObjectInterface myNeededItem; //The Object needed
+	private String myNeededItem; //The Object needed
 	private String myName; 
 	
 	//A Quest takes a description, id, Object, and a name
-	public Quest(String descriptor, int id, ObjectInterface ob, String name) {
+	public Quest(String name, String descriptor, int id, String obName) {
 		myDescriptor = descriptor;
 		myId = id;
-		isActive = false;
-		isCompleted = false;
-		myNeededItem = ob; //The Object needed
+		myNeededItem = obName.toLowerCase(); //The Object needed
 		myName = name;
  	}
-	
-	//Is the Quest done?
-	public boolean isCompleted() {
-		return isCompleted;
-	}
-	
+
 	//Get the Quest's needed Object
-	public ObjectInterface getItem() {
+	public String getItem() {
 		return myNeededItem;
 	}
 	
@@ -41,23 +33,5 @@ public class Quest {
 	//Get the name of the Quest
 	public String getName() {
 		return myName;
-	}
-	
-	//Is the Quest still active?
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	//Sets the active state to true
-	public void setActive() {
-		isActive = true;
-		isCompleted = false;
-	}
-	
-	//Sets the completed state to true
-	public void setCompleted() {
-		isCompleted = true;
-		isActive = false;
-	}
-	
+	}	
 }

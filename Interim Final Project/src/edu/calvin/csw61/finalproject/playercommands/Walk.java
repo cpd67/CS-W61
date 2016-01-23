@@ -26,8 +26,9 @@ public class Walk implements Command{
 				if(!checker.isLocked()) {
 					//Unlocked, so check if the Door's direction is equal to the Player's direction.
 					if(checker.getDir().equals(myPlayer.getDirection())) {  //Check the Direction
+
 						checker.goThrough(myPlayer); //Go through the Door.
-						//result = "You walked " + myDirection;
+//						result = "You walked " + myDirection + "\n";
 						result = myPlayer.getRoom().getDescriptor(); //put the room description in result
 						break; //Only go through the Door once.
 					}

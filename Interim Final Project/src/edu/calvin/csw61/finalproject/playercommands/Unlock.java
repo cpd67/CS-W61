@@ -1,21 +1,22 @@
 package edu.calvin.csw61.finalproject.playercommands;
 
 import edu.calvin.csw61.finalproject.Key;
-import edu.calvin.csw61.finalproject.Player;
-
 import java.util.ArrayList;
 
 import edu.calvin.csw61.finalproject.ApertureBehavior;
+import edu.calvin.csw61.finalproject.Player;
 import edu.calvin.csw61.finalproject.Door;
 
 public class Unlock implements Command {
 	
 	Player myPlayer;
 	Key myKey;
-	private String myDirection;  //Door to unlock
+	private String myDirection;
 	private String result;
 	
-	public Unlock(Player p, String direction) { //which direction to unlock
+	//Door myDoor;
+	
+	public Unlock(Player p, String direction) { //Door door
 		myPlayer = p;
 		myKey = new Key("key");
 		myDirection = direction;
