@@ -25,7 +25,7 @@ public class Fight implements Command {
 			//Get the weapon/object from the Monster
 			if(myOpponent.hasWeapon() || myOpponent.hasObject()) {
 				//If the Weapon is already equipped by the Player...
-				if(myPlayer.getWeapon().getWeaponName().equals(myOpponent.getWeapon().getWeaponName().toLowerCase())) {
+				if(myPlayer.hasWeapon() && myPlayer.getWeapon().getWeaponName().equals(myOpponent.getWeapon().getWeaponName().toLowerCase())) {
 					myOpponent.setHasNoWeapon();
 				}
 				myPlayer.getRoom().addMonsterItem();

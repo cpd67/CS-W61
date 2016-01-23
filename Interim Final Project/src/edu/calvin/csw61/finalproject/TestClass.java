@@ -1,9 +1,11 @@
 /**
  * We implement these patterns:
- * 	- Strategy
+ * 	- State
  * 	- Command
- *  - Singleton? (For the Map and Player).
- * 
+ *  - Singleton (For the Map and Player).
+ *  - Adapter
+ *  - Facade
+ *  
  * Making a Map:
  * 	- Do it in the TestClass; It makes it easier to test things out and not bloat the Driver.
  *  - Notes:
@@ -63,11 +65,10 @@
  *      when you create a Room to false for both. (loadNPCAndMonsters() isn't done yet).
  *      
  * + Things to do still:
- *    - Give, Talk, Fight, Unlock, and Throw.
+ *    - Give, Talk, Unlock.
  *    - Update Look so that it prints out the Room's objects (using showObjects()).
  *    - Code cleanup (documentation, porting over stuff from TestClass to Driver, 
  *                    taking out multiple "dot-dot-dot" calls, etc.).
- *    - Break?
  *    - NPC interactions with the Player. (Talking, giving Items, etc.)
  *    - Entire map, Quests and puzzles.
  *    - Making sure that everything uses toLowerCase().
@@ -83,28 +84,28 @@ import edu.calvin.csw61.weapons.*;
 public class TestClass {
 	//Maps of Rooms (Static and anyone can refer to them as long as we call Driver.mapOfRooms
 	//This makes it a LOT easier to determine where we are
-	
+
 	//Each room will instead be numbered. This allows us to add NPCs and Monsters in the 
 	//order in which we add the Rooms. (Effectively giving us control over adding them
 	//to specific Rooms).
 	//The reason why it wasn't working before was because Rooms are not Comparable.
 	//There is no way to compare them as a Key in the HashMap.
 	//Therefore, we need to number them.
-	
+
 	static Map<Integer, Room> mySBRooms = new HashMap<Integer, Room>();  //Science Building, East.	
 	static Map<Integer, Room> myHHRooms = new HashMap<Integer, Room>();  //Hiemenga Hall, West
 	static Map<Integer, Room> myCPRooms = new HashMap<Integer, Room>();  //Chapel, North
 	static Map<Integer, Room> myCMRooms = new HashMap<Integer, Room>();  //Commons, South
-	
+
 	//Only one outside Room
 	static Integer[] outsideBuildings = {0, 0, 0, 0}; //The outside Room will have the first Room from the HashMap of Rooms.
 	static Room outsideRoom = new Room(true, true, true, true, true, false, outsideBuildings);
-	
+
 	//Factories for items
 	static ConcreteWeaponFactory weaponFactory = new ConcreteWeaponFactory();
 	static ConcreteFruitFactory fruitFactory = new ConcreteFruitFactory();
 	static ConcreteFoodFactory foodFactory = new ConcreteFoodFactory();
-	
+
 	public static void main(String[] args) {
 		System.out.println("Testbed for LostInKnightdale");
 		//Load the game
@@ -112,221 +113,298 @@ public class TestClass {
 		story();
 		String verb, noun;  //Holders for the words of the command
 		outsideRoom.setDescriptor(makeDescriptor("centerRoomDescription.txt"));  //For now. We may want to implement a loadDescriptions() method that sets the descriptions for every Room in the HashMap.
-		
+
 		Player p = new Player(outsideRoom);  //Player
-		
+
 		//Test: Poisoning the Player (WORKS)
-//		ObjectInterface bidoof = new Food("bidoof");
-//		Food.addPoisonedFood("bidoof");  
-		
-//		p.addObject(bidoof.getName(), bidoof);
-				
+		//		ObjectInterface bidoof = new Food("bidoof");
+		//		Food.addPoisonedFood("bidoof");  
+
+		//		p.addObject(bidoof.getName(), bidoof);
+
 		//Test: Can I eat a Monster? (NOPE) 
-//		ObjectInterface m = new Monster("Harry");
+		//		ObjectInterface m = new Monster("Harry");
 		//Since we don't have Rooms (yet), I have to add him to the backpack and see if I can eat him
-//		p.addObject(m.getName(), m);
-		
+		//		p.addObject(m.getName(), m);
+
 		//How about an NPC? (ALSO NOPE)
-//		ObjectInterface n = new NPC("Mary");
+		//		ObjectInterface n = new NPC("Mary");
 		//Since we don't have Rooms (yet), I have to add her to the backpack and see if I can eat her
-//		p.addObject(n.getName(), n);
-		
+		//		p.addObject(n.getName(), n);
+
 		verb = "";
 		noun = "";
-		
+
 		//Since we are adding the food items ourselves, we don't have to worry about
 		//checking if the Food object's name is valid or not :D
-		
+
 		//Non-poisoned item
-	//	Fruit ob = fruitFactory.createFruit("apple");		
-		ObjectInterface ob2 = new Key("key");
-//		Fruit ob3 = fruitFactory.createFruit("blueberry");
-//		Fruit ob4 = fruitFactory.createFruit("orange");
-//		Fruit ob5 = fruitFactory.createFruit("orange");
-//		ObjectInterface ob6 = new Treasure("ring");
-//		ObjectInterface ob7 = new Treasure("bracelet");
-//		ObjectInterface ob8 = new Treasure("gauntlet");
-	//	Food ob9 = foodFactory.createFood("cupcake");
-//		Food ob10 = foodFactory.createFood("pizza");
-//		Food ob11 = foodFactory.createFood("spinach");
-		
-//		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself
-										//Reason is because we remove objects by name
-										//Just because two objects have the same name does NOT mean they are the same object
-										//At least in memory
-		p.addObject(ob2.getName(), ob2);
-//		p.addObject(ob3.getName(), ob3);
-//		p.addObject(ob4.getName(), ob4);
-//		p.addObject(ob5.getName(), ob5);
-//		p.addObject(ob6.getName(), ob6);
-//		p.addObject(ob7.getName(), ob7);
-//		p.addObject(ob8.getName(), ob8);
-//		p.addObject(ob9.getName(), ob9);
-//		p.addObject(ob10.getName(), ob10);
-//		p.addObject(ob11.getName(), ob11);
-		
-//		ObjectInterface ob12 = new Treasure("emerald");
-		
-//		p.addObject(ob12.getName(), ob12);
-		
+		//	Fruit ob = fruitFactory.createFruit("apple");		
+				ObjectInterface ob2 = new Key("key");
+		//		Fruit ob3 = fruitFactory.createFruit("blueberry");
+		//		Fruit ob4 = fruitFactory.createFruit("orange");
+		//		Fruit ob5 = fruitFactory.createFruit("orange");
+		//		ObjectInterface ob6 = new Treasure("ring");
+		//		ObjectInterface ob7 = new Treasure("bracelet");
+		//		ObjectInterface ob8 = new Treasure("gauntlet");
+		//	Food ob9 = foodFactory.createFood("cupcake");
+		//		Food ob10 = foodFactory.createFood("pizza");
+		//		Food ob11 = foodFactory.createFood("spinach");
+
+		//		p.addObject(ob.getName(), ob); //Has to be the name of the object and the object itself
+		//Reason is because we remove objects by name
+		//Just because two objects have the same name does NOT mean they are the same object
+		//At least in memory
+				p.addObject(ob2.getName(), ob2);
+		//		p.addObject(ob3.getName(), ob3);
+		//		p.addObject(ob4.getName(), ob4);
+		//		p.addObject(ob5.getName(), ob5);
+		//		p.addObject(ob6.getName(), ob6);
+		//		p.addObject(ob7.getName(), ob7);
+		//		p.addObject(ob8.getName(), ob8);
+		//		p.addObject(ob9.getName(), ob9);
+		//		p.addObject(ob10.getName(), ob10);
+		//		p.addObject(ob11.getName(), ob11);
+
+		//		ObjectInterface ob12 = new Treasure("emerald");
+
+		//		p.addObject(ob12.getName(), ob12);
+
 		//Test: Get the NPC from a Room. (Works)
-//		ObjectInterface checker = mySBRooms.get(0).getNPC();
-//		System.out.println();
-//		System.out.println("Room 0 should have " + checker.getName());
-		
+		//		ObjectInterface checker = mySBRooms.get(0).getNPC();
+		//		System.out.println();
+		//		System.out.println("Room 0 should have " + checker.getName());
+
 		//Test: No NPC in the Room (Works).
-//		ObjectInterface checker2 = mySBRooms.get(4).getNPC();
-//		System.out.println();
-//		System.out.println("Room 4 = " + checker2);  //No NPC. Throws a NullPointerException if I try to get the name.
-		
+		//		ObjectInterface checker2 = mySBRooms.get(4).getNPC();
+		//		System.out.println();
+		//		System.out.println("Room 4 = " + checker2);  //No NPC. Throws a NullPointerException if I try to get the name.
+
 		//Test: Get the Monster from a Room. (Works).
-//		ObjectInterface checker3 = mySBRooms.get(5).getMonster();
-//		System.out.println();
-//		System.out.println("Room 5 should have " + checker3.getName());
-		
+		//		ObjectInterface checker3 = mySBRooms.get(5).getMonster();
+		//		System.out.println();
+		//		System.out.println("Room 5 should have " + checker3.getName());
+
 		//Test: No Monster in the Room. (Works).
-//		ObjectInterface checker4 = mySBRooms.get(1).getMonster();
-//		System.out.println();  
-//		System.out.println("Room 1 = " + checker4);  //No Monster.
-		
+		//		ObjectInterface checker4 = mySBRooms.get(1).getMonster();
+		//		System.out.println();  
+		//		System.out.println("Room 1 = " + checker4);  //No Monster.
+
 		//MULTI-Test: Rooms, Doors, and the Interactions between them.
-		
+
 		//Test 1: Outside Room. (WORKS).		
-//		System.out.println(p.getRoom().getDescriptor());
-		
+		//		System.out.println(p.getRoom().getDescriptor());
+
 		//Test 2: Transferring the Player to a new Room. (WORKS).
-//		System.out.println("Transferring to a new Room...");
-//		p.setCurrentRoom(mySBRooms.get(0));
-//		System.out.println(p.getRoom().getDescriptor());
-		
+		//		System.out.println("Transferring to a new Room...");
+		//		p.setCurrentRoom(mySBRooms.get(0));
+		//		System.out.println(p.getRoom().getDescriptor());
+
 		//Test 3: Going inside of a building.
 		//Fire up the Game.
 		//Type, "walk north"
 		//Should tell you that you are now in North Hall, first Room. (WORKS)
-		
+
 		//Test 4: In a Building, now you have to go Outside (WORKS).
-		
+
 		//Final Test: Navigate through a Building and then go Outside (OH. MY. NUGGETS. IT WORKS!).
 		//(Now you just have to incorporate Walls). (DONE)
-		
-//		System.out.println("You have an " + ob.getName() + " in your backpack.");
-//		System.out.println("\n");
-		
-		//Test: Food gives health to Players (WORKS)
-//		p.subtractHealth();
-//		p.subtractHealth();
-//		p.subtractHealth();
-		//eat apple, pear, and orange. Should be back to 100 hit points. (WORKS)
+
+		//		System.out.println("You have an " + ob.getName() + " in your backpack.");
+		//		System.out.println("\n");
 
 		//Test: Weapons! :D
 		//Knife
 		Weapon knife = weaponFactory.createWeapon("knife");
-	
+
 		//Sword
 		Weapon sword = weaponFactory.createWeapon("sword");
-		
+
 		//Shotgun
 		Weapon shotgun = weaponFactory.createWeapon("shotgun");
 
+		//Lance
+		Weapon lance = weaponFactory.createWeapon("lance");
+
+		//Chainsaw
+		Weapon chainsaw = weaponFactory.createWeapon("chainsaw");
+
+		//Bazooka
+		Weapon bazooka = weaponFactory.createWeapon("bazooka");
+		
+		//Chainsaw
 		//Knife
-//		if(knife.getWeaponName().equals("knife")) {
-//			System.out.println("Knife (Weapon version)");
-//		}
-		
+		//		if(knife.getWeaponName().equals("knife")) {
+		//			System.out.println("Knife (Weapon version)");
+		//		}
+
 		//Sword
-//		if(sword.getWeaponName().equals("sword")) {
-//			System.out.println("Sword (Weapon version)");
-//		}
-		
+		//		if(sword.getWeaponName().equals("sword")) {
+		//			System.out.println("Sword (Weapon version)");
+		//		}
+
 		//Shotgun
-//		if(shotgun.getWeaponName().equals("shotgun")) {
-//			System.out.println("Shotgun (Weapon version)");
-//		}
-		
+		//		if(shotgun.getWeaponName().equals("shotgun")) {
+		//			System.out.println("Shotgun (Weapon version)");
+		//		}
+
 		//Test: Player has a Weapon. (WORKS).
-//		p.setWeapon(knife);
-//		if(p.hasWeapon()) {
-//			String name = p.getWeapon().getWeaponName();
-//			System.out.println("Player has a " + name);
-//		} else {
-//			System.out.println("Didn't work");
-//		}
-		
+		//		p.setWeapon(knife);
+		//		if(p.hasWeapon()) {
+		//			String name = p.getWeapon().getWeaponName();
+		//			System.out.println("Player has a " + name);
+		//		} else {
+		//			System.out.println("Didn't work");
+		//		}
+
 		//Test: Changing Weapons. (WORKS).
-//		p.setWeapon(null);
-//		p.setWeapon(shotgun);
-//		if(p.hasWeapon()) {
-//			String name = p.getWeapon().getWeaponName();
-//			System.out.println("Player now has a " + name);
-//		} else {
-//			System.out.println("Didn't work");
-//		}
-		
+		//		p.setWeapon(null);
+		//		p.setWeapon(shotgun);
+		//		if(p.hasWeapon()) {
+		//			String name = p.getWeapon().getWeaponName();
+		//			System.out.println("Player now has a " + name);
+		//		} else {
+		//			System.out.println("Didn't work");
+		//		}
+
 		//Test: Have a Weapon, Drop it, change it, then drop it again.
-//		p.setWeapon(sword); //Have
-//		if(p.hasWeapon()) {
-//			String name = p.getWeapon().getWeaponName();
-//			System.out.println("Player now has a " + name);
-//		} else {
-//			System.out.println("Didn't work");
-//		}
-//		p.setHasNoWeapon(); //Drop
-//		if(p.hasWeapon()) { 
-//			System.out.println("Didn't work");
-//		} else {
-//			System.out.println("You dropped your weapon.");
-//		}
-//		p.setWeapon(shotgun); //Change
-//		if(p.hasWeapon()) {
-//			String name = p.getWeapon().getWeaponName();
-//			System.out.println("Player now has a " + name);
-//		} else {
-//			System.out.println("Didn't work");
-//		}
-//		p.setHasNoWeapon(); //Drop
-//		if(p.hasWeapon()) { 
-//			System.out.println("Didn't work");
-//		} else {
-///			System.out.println("You dropped your weapon.");
-//		}
+		//		p.setWeapon(sword); //Have
+		//		if(p.hasWeapon()) {
+		//			String name = p.getWeapon().getWeaponName();
+		//			System.out.println("Player now has a " + name);
+		//		} else {
+		//			System.out.println("Didn't work");
+		//		}
+		//		p.setHasNoWeapon(); //Drop
+		//		if(p.hasWeapon()) { 
+		//			System.out.println("Didn't work");
+		//		} else {
+		//			System.out.println("You dropped your weapon.");
+		//		}
+		//		p.setWeapon(shotgun); //Change
+		//		if(p.hasWeapon()) {
+		//			String name = p.getWeapon().getWeaponName();
+		//			System.out.println("Player now has a " + name);
+		//		} else {
+		//			System.out.println("Didn't work");
+		//		}
+		//		p.setHasNoWeapon(); //Drop
+		//		if(p.hasWeapon()) { 
+		//			System.out.println("Didn't work");
+		//		} else {
+		///			System.out.println("You dropped your weapon.");
+		//		}
 
 		//Test: Food, and the varying kinds of Fruit
-		p.subtractHealth(5);
-		p.subtractHealth(30);
-		p.subtractHealth(40);
-		
+//		p.subtractHealth(5);
+//		p.subtractHealth(30);
+//		p.subtractHealth(40);
+
+		//Fruit
 		outsideRoom.addObject(fruitFactory.createFruit("apple"));
 		outsideRoom.addObject(fruitFactory.createFruit("blueberry"));
 		outsideRoom.addObject(fruitFactory.createFruit("orange"));
+		outsideRoom.addObject(fruitFactory.createFruit("papaya"));
+		outsideRoom.addObject(fruitFactory.createFruit("watermelon"));
+
+		//Food
+		outsideRoom.addObject(foodFactory.createFood("bagel"));
 		outsideRoom.addObject(foodFactory.createFood("cupcake"));
 		outsideRoom.addObject(foodFactory.createFood("pizza"));
 		outsideRoom.addObject(foodFactory.createFood("spinach"));
-		
-//		outsideRoom.showObjects();
+		outsideRoom.addObject(foodFactory.createFood("taco"));
+
+		//		outsideRoom.showObjects();
 		//Test: Adding a Weapon to a Room. (WORKS).
 		WeaponAdapter knifeAdapt = new WeaponAdapter(knife);
 		WeaponAdapter swordAdapt = new WeaponAdapter(sword);
 		WeaponAdapter shotgunAdapt = new WeaponAdapter(shotgun);
-
+		WeaponAdapter lanceAdapt = new WeaponAdapter(lance);
+		WeaponAdapter chainsawAdapt = new WeaponAdapter(chainsaw);
+		WeaponAdapter bazookaAdapt = new WeaponAdapter(bazooka);
+		
+		//Add the adapter, NOT the weapon
 		outsideRoom.addObject(knifeAdapt);
 		outsideRoom.addObject(swordAdapt);
 		outsideRoom.addObject(shotgunAdapt);
+		outsideRoom.addObject(lanceAdapt);
+		outsideRoom.addObject(chainsawAdapt);
+		outsideRoom.addObject(bazookaAdapt);
 		
-		outsideRoom.showObjects();	
+		//		outsideRoom.showObjects();	
 		//Test: Taking a Weapon from a Room. (WORKS) :D
 		//Test: Drop a Weapon, pick up a new one, drop it, pick it up again. (WORKS).
+
+		//Test: Fight system. (Seems to work)
+		//First, create a Monster and NPC
+		outsideRoom.setMonster("Jeremy");
+		//		if(outsideRoom.hasMonster() && !outsideRoom.needMonster()) {  //Check if the Monster was actually created...
+		//			System.out.println(outsideRoom.getMonster().getName() + " is in this room.");
+		//		} else {
+		//			System.out.println("Something went wrong...");
+		//		}
+		outsideRoom.setNPC("Yolanda"); //Check if the NPC was actually created...
+		//		if(outsideRoom.hasNPC() && !outsideRoom.needMonster()) {
+		//			System.out.println(outsideRoom.getNPC().getName() + " is also in this room.");
+		//		} else {
+		//			System.out.println("Something went wrong...");
+		//		}
+
+		//Beef up the Monster and give him a sword (Works).
+		outsideRoom.getMonster().setHealth(30);
+		outsideRoom.getMonster().setWeapon(knife);
+		ObjectInterface key = new Key("door");
+		outsideRoom.getMonster().setObject(key); //Jeremy has a key
+		outsideRoom.addObject(key);
+
+		//Test: NPCs now have Objects.
+		outsideRoom.getNPC().setObject(fruitFactory.createFruit("papaya"));
+
+		//Test: Quest system (Works)
+		Quest q = new Quest("Get the person a tomato", "Tomato blues", 0, "tomato");
+		//NPC has a Quest...(Works)
+//		outsideRoom.getNPC().setQuest(q);
+
+//		if(outsideRoom.getNPC().hasQuest()) {
+//			System.out.println(outsideRoom.getNPC().getName() + " has a Quest");
+//		} else {
+//			System.out.println("Didn't work!");
+//		}
+		
+		//NPC doesn't have a Quest (Works)
+//		outsideRoom.getNPC().setHasNoQuest();
+		
+		//Now they do, and need an ACTUAL QuestItem
+		//Get the Item in the Room
+		ObjectInterface questItem = new QuestItem("bible");
+		ObjectInterface questItem2 = new QuestItem("tomato");
+		outsideRoom.addObject(questItem);
+		outsideRoom.addObject(questItem2);
+		
+		Quest q2 = new Quest("Yolanda needs her bible!", "Bible", 1, "bible");
+		outsideRoom.getNPC().setQuest(q2);
+		
+		//Test: Have the QuestItem for one Quest, but not the other. (Works)
+		mySBRooms.get(0).setNPC("Sarah");
+		mySBRooms.get(0).getNPC().setQuest(q);
+		
+		
+		outsideRoom.showPeople();
+		outsideRoom.showObjects();	
 		
 		//infinite loop
 		while(true){
+			//			System.out.println("What do you do?");
+
 			//new scanner to get user input
 			Scanner scanner = new Scanner(System.in);
 
 			//read in the line
 			String string = scanner.nextLine();
-			
+
 			//get the number of words in the string
 			int wordCount = wordCount(string);
-			
+
 			if(wordCount >= 3){ //if the count is 3 or more
 				System.out.println("Too many words"); //too many words
 			} else if(wordCount == 1){ //else if the count is one,
@@ -342,7 +420,7 @@ public class TestClass {
 
 		} 
 	} 
-	
+
 	/*
 	 * This method counts the number of words in a string.
 	 * (Adapted from StackOverflow)
@@ -360,12 +438,12 @@ public class TestClass {
 		ReadFile readFile = new ReadFile("story.txt"); //new readFile with story.txt as the file to be read
 		readFile.readAndPrint(); //read in the file and print it
 	}
-	
+
 	public static void loadGame() {
 		loadRooms();  //Rooms, NPCs, and Monsters in that order.
 		loadNPCAndMonster();
 	}
-	
+
 	public static void loadRooms() {
 		
 		//EXAMPLE MAP:
@@ -392,9 +470,8 @@ public class TestClass {
 
 				
 		System.out.println("Rooms created.");
-
+		
 	}
-
 	private static void setCMRooms(){
 		Integer[] commonsRooms0 = {6, -2, -1, -1}; //North, South, East, and West.
 		Integer[] commonsRooms1 = {4, -1, -1, -1};
@@ -445,8 +522,6 @@ public class TestClass {
 		//Room 11
 		myCMRooms.put(11, new Room(false, true, false, true, false, false, commonsRooms11));
 		myCMRooms.get(11).setDescriptor(makeDescriptor("cm11.txt"));
-
-		myCMRooms.get(0).getDoor("north").setLocked();
 	}
 	
 	private static void setHHRooms() {

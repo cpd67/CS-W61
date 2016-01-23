@@ -2,31 +2,47 @@ package edu.calvin.csw61.finalproject;
 
 import edu.calvin.csw61.weapons.Weapon;
 
-public class NPC extends Character implements ObjectInterface, ActionBehavior {
+/**
+ * NPC is a subclass of Character and can talk to a Player, give them ObjectInterfaces,
+ * and give them Quests.
+ * It implements the ActionBehavior Interface so that it can perform an Action on the Player.
+ * (In this case, it would be talking to the Player).
+ */
+public class NPC extends Character implements ActionBehavior {
 	
+	//Determines if the NPC has an ObjectInterface to give
 	private boolean hasObject;
+	//Determines if the NPC has a Quest to give
 	private boolean hasQuest;
+	//Determines if the NPC still needs a QuestItem
 	private boolean needsQuestOb;
+	//The needed QuestItem for the corresponding Quest
 	private String myNeededOb;
+	//The Quest to give to the Player
 	private Quest myQuest;
 	
-	//Instance variables are inheirted from the superclass, Character
-	
-	//Constructor for an NPC who doesn't have an Object
+	/**
+	 * Constructor for an NPC who doesn't have an ObjectInterface to give.
+	 * @param: name, a String representing the name of the NPC.
+	 */
 	public NPC(String name) {
 		this.myName = name;
-		this.myObj = null; 
+		this.myObj = null;   //No ObjectInterface to give
 		this.hasObject = false;
-		this.myQuest = null; //No Quest
+		this.myQuest = null; //No Quest..yet
 		this.hasQuest = false;
 		this.needsQuestOb = false;
 		this.myNeededOb = ""; //Doesn't need an object...yet
 	}
 	
-	//Constructor for an NPC who has an Object
+	/**
+	 * Constructor for an NPC who does have an ObjectInterface to give.
+	 * @param: name, a String representing the name of the NPC.
+	 * @param: ob, the ObjectInterface to give to the Player.
+	 */
 	public NPC(String name, ObjectInterface ob) {
-		this.myName = name;
-		this.myObj = ob;
+		this.myName = name;  
+		this.myObj = ob;  //It has an ObjectInterace to give now
 		this.hasObject = true;
 		this.myQuest = null; 
 		this.hasQuest = false;
@@ -34,90 +50,163 @@ public class NPC extends Character implements ObjectInterface, ActionBehavior {
 		this.myNeededOb = "";
 	}
 	
-	//Acting is talking
-	public void act(Player p) {
-		Quest q = myQuest; 
-		if(hasQuest) {
+	/**
+	 * act() allows the NPC to interact with the Player.
+	 * @param: p, the handle to the Player. 
+	 */
+	public void act(Player p) { 
+		if(hasQuest) { //If the NPC has a Quest...
+			Quest q = myQuest;
 			//Talk to the Player...
 			//(Will change to reading lines from a file)
-			System.out.println("Hello! Here is a Quest!");
-			p.setQuest(q);  //Set the Quest
-		}
-		give(p);  //Give the Player the Object (Try to)
-	}
-	
-	//Give an Object to the Player (if we have one).
-	public void give(Player p) {
-		if(p.hasItem(myObj.getName())) {  //Can't have multiple items in a backpack...
-			System.out.println("But...you already " + myObj.getName() + "!");
-			System.out.println("Come back when you don't have it!");
-		} else { //Player doesn't have the Object
-			if(myObj instanceof WeaponAdapter) { //Is it a Weapon?
-				if(p.hasWeapon()) {
-					//Can't give the Weapon until the Player drops his/hers.
-				} else { //Can give the Weapon, should be wrapped in a WeaponAdapter
-					WeaponAdapter weaponAdapt = (WeaponAdapter)myObj;
-					Weapon givenWeapon = weaponAdapt.getWrappedWeapon();
-					p.setWeapon(givenWeapon); //Give the Weapon to the Player
-				}
+			System.out.println("'Hello! Here is a Quest!'");
+			
+			//Try to give them the Quest.
+			//If the NPC already gave the Player a Quest and the Player 
+			//hasn't found the necessary QuestItem...
+			String qName = p.getQuestName();
+			if(qName.equals(q.getName()) && !p.hasItem(myNeededOb.toLowerCase())) {
+				System.out.println("'I already gave you that Quest!'");
+				System.out.println("'Come back when you've found my item!'");
+			//Else, if the Player has the necessary QuestItem and is in either the 
+			//OnQuestState or HasQuestItemState...
+			} else if(p.hasItem(q.getItem()) && p.hasItem()){ 
+				System.out.println("What's that? You already have a missing item?");
+				System.out.println("You do! Hand it over!");
+				//Give the NPC the QuestItem
+				System.out.println("You gave " + getName() + " the " + myNeededOb);
+				p.removeObject(myNeededOb.toLowerCase());
+				//The NPC no longer has a Quest to give
+				setHasNoQuest(); 
+				//Reset the State of the Player
+				p.setQuestState(p.getNoQuestState()); 
+				System.out.println("Quest complete!");
+				//Increment the max health allotment for the Player
+				p.addMaxHealth();  
 			} else {
-				p.addObject(myObj.getName(), myObj);
+				//Try to set the Quest
+				p.setNewQuest(q);  
 			}
+		} else {
+			//The NPC doesn't have a Quest to give
+			System.out.println("I have no Quest!");
+		}
+		//Attempt to give the Player the ObjectInterface 
+		give(p);  
+	}
+	
+	/**
+	 * give() allows the NPC to give the Player an ObjectInterface.
+	 * @param: p, the handle to the Player.
+	 */
+	public void give(Player p) {
+		if(hasObject) { //If the NPC has an ObjectInterface to give...
+			 //If the Player already has the ObjectInterface...
+			if(p.hasItem(myObj.getName())) { 
+				//You can't have more than one of each ObjectInterface
+				System.out.println("But...you already " + myObj.getName() + "!");
+				System.out.println("Come back when you don't have it!");
+			} else { 
+				//Player doesn't have the Object
+				if(myObj instanceof WeaponAdapter) { //Is it a Weapon?
+					//Does the Player already have a Weapon?
+					if(p.hasWeapon()) {
+						//The Player can only have one Weapon at a time.
+						System.out.println("You already have a Weapon!");
+						System.out.println("Come back when you've gotten rid of it!");
+					} else { 
+						//Can give the Weapon, should be wrapped in a WeaponAdapter
+						WeaponAdapter weaponAdapt = (WeaponAdapter)myObj;
+						Weapon givenWeapon = weaponAdapt.getWrappedWeapon();
+						p.setWeapon(givenWeapon); //Give the Weapon to the Player
+					}
+				} else {
+					//It's a generic ObjectInterface
+					System.out.println("'Please, take this!'");
+					System.out.println("You recieved a " + myObj.getName() + "!");
+					p.addObject(myObj.getName(), myObj);
+					myObj = null;  //The NPC no longer has an ObjectInterface
+					hasObject = false;
+				}
+			}
+			//No ObjectInterface to give
+		} else {
+			System.out.println("I am sorry...but I have no item to give!");
 		}
 	}
 	
-	//Do I need an Quest item?
+	/**
+	 * Determines if an NPC needs a QuestItem.
+	 * @return: a boolean indicating whether the NPC still needs the QuestItem or not.
+	 */
 	public boolean needsQuestOb() {
 		return needsQuestOb;
 	}
 	
-	//Recieve an Item from the Player
-	public boolean recieve(ObjectInterface ob) {
-		//Adhere to the Principle of Least Knowledge
-		String givenObject = ob.getName().toLowerCase();
-		String neededObject = myNeededOb;
-		if(neededObject.equals(givenObject)) {
-			setHasNoQuest();
-			return true; //Quest complete, set that in the Give Command.
-		}
-		return false;
+	/**
+	 * recieve() allows an NPC to recieve a QuestItem from the Player.
+	 * (Called in Give).
+	 * @param: p, the handle to the Player.
+	 * @return: a boolean indicating whether or not the Player has a QuestItem to give.
+	 *          (And if it's the one that the NPC needs!)
+	 */
+	public boolean recieve(Player p) {
+		return p.hasItem();
 	}
 	
-	//Does the NPC have a Quest?
+	/**
+	 * Determines if the NPC has a Quest to give or not.
+	 * @return: A boolean indicating whether the NPC has a Quest or not.
+	 */
 	public boolean hasQuest() {
 		return hasQuest;
 	}
 		
-	//Do I have an Object?
+	/**
+	 * Determines if the NPC has an ObjectInterface to give or not.
+	 * @return: A boolean indicating whether the NPC has an ObjectInterface or not.
+	 */
 	public boolean hasOb() {
 		return hasObject;
 	}
 	
-	//Get the Quest
+	/**
+	 * Accessor for the Quest that the NPC has.
+	 * @return: myQuest, a Quest object.
+	 */
 	public Quest getQuest() {
 		return myQuest;
 	}
 	
-	//Set the Quest that the NPC can give to the Player
+	/**
+	 * Mutator for the Quest that the NPC has.
+	 * @param: q, a new Quest object to give to the NPC.
+	 */
 	public void setQuest(Quest q) {
-		ObjectInterface ob = q.getItem();
-		myQuest = q;  //Set the Quest
-		myNeededOb = ob.getName().toLowerCase(); //Get the name of the needed Quest Item
-		needsQuestOb = true; //We now need a Quest Item
-		hasQuest = true;
+		String name = q.getItem();
+		this.myQuest = q;  //Set the Quest
+		this.myNeededOb = name.toLowerCase(); //Get the name of the needed Quest Item
+		this.needsQuestOb = true; //We now need a Quest Item
+		this.hasQuest = true;
 	}
 	
-	//Quest complete
+	/**
+	 * Mutator that is called when the NPC's Quest is completed by the Player.
+	 */
 	public void setHasNoQuest() {
-		myQuest = null;
+		myQuest = null; //We no longer have a Quest now
 		myNeededOb = null;
 		needsQuestOb = false;
 		hasQuest = false;
 	}
 	
+	/**
+	 * Mutator for the held ObjectInterface of the NPC. 
+	 * @param: ob, an ObjectInterface indicating the new ObjectInterface to give to the
+	 *         NPC.
+	 */
 	public void setObject(ObjectInterface ob) {
 		myObj = ob;
-		hasObject = true; //Automatically has an Object
-	}
-	
+		hasObject = true; //Has an ObjectInterface now
+	}	
 }

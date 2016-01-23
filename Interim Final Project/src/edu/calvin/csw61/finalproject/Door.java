@@ -167,5 +167,4 @@ public class Door implements ApertureBehavior {
 	public boolean isLocked() {
 		return isLocked;
 	}
-	
 }
