@@ -1,16 +1,15 @@
 package edu.calvin.csw61.finalproject;
 
 import java.util.ArrayList;
-import edu.calvin.csw61.weapons.Weapon;
 
 public class Room {
 	
 	private String myDescriptor;
 	private ArrayList<ObjectInterface> myObjects;
-	private boolean myNorthDoor, mySouthDoor, myEastDoor, myWestDoor, hasNPC, hasMonster, needsNPC, needsMonster, playerPresent;
+	private boolean myNorthDoor, mySouthDoor, myEastDoor, myWestDoor, hasNPC, hasMonster, playerPresent;
 	//bordering rooms
-	private Monster myMonster;
-	private NPC myNPC;
+	private ObjectInterface myMonster;
+	private ObjectInterface myNPC;
 	private ArrayList<ApertureBehavior> myApertures;
 	private Integer[] myNextRoomNumbers;  //Store a reference to the next Room number
 	//myNextRoomNumbers = {North Room, South Room, East Room, West Room};
@@ -24,8 +23,6 @@ public class Room {
 		playerPresent = false;
 		hasNPC = false;
 		hasMonster = false;
-		needsMonster = false;
-		needsNPC = false;
 		myApertures = new ArrayList<ApertureBehavior>(); //List of Apertures
 		myNextRoomNumbers = new Integer[4]; //Four Doors = four possible Rooms
 	}
@@ -40,10 +37,8 @@ public class Room {
 		myApertures = new ArrayList<ApertureBehavior>(); //List of Apertures
 		myNextRoomNumbers = nextRooms;
 		setDoors();
-		needsNPC = needNPC;  //Do I need an NPC? 
-		needsMonster = needMonster;  //How about a Monster?
-		hasMonster = false;
-		hasNPC = false;
+		hasNPC = needNPC;  //Do I need an NPC? 
+		hasMonster = needMonster;  //How about a Monster?
 		myObjects = new ArrayList<ObjectInterface>();  //I can store Objects
 	}
 	
@@ -93,56 +88,60 @@ public class Room {
 	public boolean isNorthDoor() {
 		return myNorthDoor;
 	}
-		 
-	//addObject
-	public boolean addObject(ObjectInterface ob) {
-		if(ob instanceof WeaponAdapter) { //If the Object to add is a WeaponAdapter...
-			if(hasObject(ob.getName().toLowerCase())) { //Only one weapon at a time.
-				return false; //Don't add it.
+	
+	public boolean isSouthDoor() {
+		return mySouthDoor;
+	}
+	
+	public boolean isEastDoor() {
+		return myEastDoor;
+	}
+	
+	public boolean isWestDoor() {
+		return myWestDoor;
+	}
+	
+	public Door getDoor(String direction){
+		for(int i = 0; i < myApertures.size(); i++){
+			if(myApertures.get(i).getName().equals("door")){
+				Door door = (Door)myApertures.get(i);
+				if(door.getDir().equals(direction)) {
+					return door;
+				}
 			}
 		}
-		myObjects.add(ob);  //Else, add the Object
-		return true;
+		return null;
+	}
+	
+	//addObject
+	public void addObject(ObjectInterface ob) {
+		myObjects.add(ob);
 	}
 	
 	//setNPC
 	public void setNPC(String name){
-		NPC npc = new NPC(name.toLowerCase());
+		ObjectInterface npc = new NPC(name);
 		myNPC = npc;
-		hasNPC = true;
-		needsNPC = false; //No longer needs an NPC
 	}
 	
 	//setMonster
 	public void setMonster(String name){
-		Monster monster = new Monster(name.toLowerCase());
+		ObjectInterface monster = new Monster(name);
 		myMonster = monster;
-		hasMonster = true;
-		needsMonster = false; //No longer needs a Monster
 	}
 	
 	//DO I need an NPC?
 	public boolean needNPC() {
-		return needsNPC;
+		return hasNPC;
 	}
 	
 	//How about a Monster?
 	public boolean needMonster() {
-		return needsMonster;
-	}
-	
-	//Do I even have a Monster?
-	public boolean hasMonster() {
 		return hasMonster;
 	}
 	
-	//Do I even have an NPC?
-	public boolean hasNPC() {
-		return hasNPC;
-	}
-	
 	//Get my NPC (If I have one)
-	public NPC getNPC() {
+	public ObjectInterface getNPC() {
 		if(hasNPC) {  //I do have an NPC
 			return myNPC;
 		}
@@ -150,7 +149,7 @@ public class Room {
 	}
 	
 	//Get my NPC (If I have one)
-	public Monster getMonster() {
+	public ObjectInterface getMonster() {
 		if(hasMonster) {  //I do have a Monster
 			return myMonster;
 		}
@@ -176,7 +175,6 @@ public class Room {
 	public ArrayList<ApertureBehavior> getAperatures() {
 		return myApertures;
 	}
-	
 	//Take an Object from the Room (if the Player takes one).
 	public void removeObject(String name) {
 		for(int i = 0; i < myObjects.size(); i++) {
@@ -219,59 +217,6 @@ public class Room {
 				System.out.print(myObjects.get(i).getName() + " ");
 			}
 			System.out.println();
-		}
-	}
-	
-	//Show the people in the Room and their objects.
-	public void showPeople() {
-		if(hasMonster) {
-			System.out.println(myMonster.getName() + " is in the room");
-			if(myMonster.hasWeapon()) { //Does the Monster have a weapon?
-				System.out.println(myMonster.getName() + " has a " + myMonster.getWeapon().getWeaponName().toLowerCase());
-			} else {
-				System.out.println(myMonster.getName() + " doesn't have a weapon");
-			}
-			
-			if(myMonster.hasObject()) { //Does the Monster have an object?
-				System.out.println(myMonster.getName() + " has a " + myMonster.getObject().getName().toLowerCase());
-			} else {
-				System.out.println(myMonster.getName() + " doesn't have an object");
-			}
-		}
-		
-		if(hasNPC) {
-			System.out.println(myNPC.getName() + " is in the room");
-			if(myNPC.hasOb()) { //Does the NPC have an object?
-				System.out.println(myNPC.getName() + " has an object");				
-			} else {
-				System.out.println(myNPC.getName() + " doesn't have an object");
-			}
-		}
-	}
-	
-	//Add the Monster's Object if he's dead.
-	public void addMonsterItem() {
-		if(myMonster.hasWeapon()) { //If the Monster has a weapon...
-			WeaponAdapter weaponAdapt = new WeaponAdapter(myMonster.getWeapon());
-			addObject(weaponAdapt); //Use our addObject() method to avoid repeats
-		}
-		
-		if(myMonster.hasObject()) { //If the Monster has an object...
-			addObject(myMonster.getObject());  //Get the Object, use our addObject() method to avoid repeats
-		}
-	}
-	
-	//Give the Monster a Weapon
-	public void setMonWeapon(Weapon w) {
-		myMonster.setWeapon(w);
-	}
-	
-	//Take out the Monster
-	public void removeMonster() {
-		if(hasMonster) {
-			myMonster = null;
-			hasMonster = false;
-			needsMonster = true;
 		}
 	}
 }
