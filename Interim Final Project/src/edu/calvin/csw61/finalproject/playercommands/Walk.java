@@ -30,6 +30,8 @@ public class Walk implements Command{
 						checker.goThrough(myPlayer); //Go through the Door.
 //						result = "You walked " + myDirection + "\n";
 						result = myPlayer.getRoom().getDescriptor(); //put the room description in result
+						result += myPlayer.getRoom().showObjects();
+						result += myPlayer.getRoom().showPeople();
 						break; //Only go through the Door once.
 					}
 				} else {

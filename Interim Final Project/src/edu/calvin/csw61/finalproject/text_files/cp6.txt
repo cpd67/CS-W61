@@ -1,2 +1,2 @@
 You enter an auditorium. It is a spacious room with a large organ on one side.
-There are doors to your north, south, and east.
+There are doors to the north, south, and east.

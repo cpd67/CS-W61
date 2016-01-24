@@ -389,8 +389,8 @@ public class TestClass {
 		mySBRooms.get(0).getNPC().setQuest(q);
 		
 		
-		outsideRoom.showPeople();
-		outsideRoom.showObjects();	
+		System.out.println(outsideRoom.showPeople());
+		System.out.println(outsideRoom.showObjects());
 		
 		//infinite loop
 		while(true){
@@ -659,61 +659,84 @@ public class TestClass {
 		Integer[] chapelRooms11 = {7, -1, -1, -1};  //North, South, East, West
 		
 		//Room 0
-		myCPRooms.put(0, new Room(true, true, false, false, false, false, chapelRooms0));  
+		myCPRooms.put(0, new Room(true, true, false, false, false, true, chapelRooms0));  
 		myCPRooms.get(0).setDescriptor(makeDescriptor("cp0.txt"));
+		myCPRooms.get(0).getDoor("south").setLocked(); //lock the south door
 		//Room 1
-		myCPRooms.put(1, new Room(false, true, true, false, false, false, chapelRooms1));  
+		myCPRooms.put(1, new Room(false, true, true, false, false, true, chapelRooms1));  
 		myCPRooms.get(1).setDescriptor(makeDescriptor("cp1.txt"));
+		myCPRooms.get(1).getDoor("east").setLocked(); //lock the east door
 		//Room 2
-		myCPRooms.put(2, new Room(false, false, false, true, false, false, chapelRooms2));  
+		myCPRooms.put(2, new Room(false, false, false, true, false, true, chapelRooms2));  
 		myCPRooms.get(2).setDescriptor(makeDescriptor("cp2.txt"));
 		//Room 3
-		myCPRooms.put(3, new Room(false, true, false, false, false, false, chapelRooms3));  
+		myCPRooms.put(3, new Room(false, true, false, false, true, false, chapelRooms3));  
 		myCPRooms.get(3).setDescriptor(makeDescriptor("cp3.txt"));
 		//Room 4
 		myCPRooms.put(4, new Room(true, false, true, false, false, false, chapelRooms4));  
 		myCPRooms.get(4).setDescriptor(makeDescriptor("cp4.txt"));
 		//Room 5
-		myCPRooms.put(5, new Room(false, true, false, true, false, false, chapelRooms5));  
+		myCPRooms.put(5, new Room(false, true, false, true, true, false, chapelRooms5));  
 		myCPRooms.get(5).setDescriptor(makeDescriptor("cp5.txt"));
+		myCPRooms.get(5).getDoor("west").setLocked(); //lock the east door
 		//Room 6
-		myCPRooms.put(6, new Room(true, true, true, false, false, false, chapelRooms6));  
+		myCPRooms.put(6, new Room(true, true, true, false, true, false, chapelRooms6));  
 		myCPRooms.get(6).setDescriptor(makeDescriptor("cp6.txt"));
 		//Room 7
-		myCPRooms.put(7, new Room(true, true, false, true, false, false, chapelRooms7));  
+		myCPRooms.put(7, new Room(true, true, false, true, false, true, chapelRooms7));  
 		myCPRooms.get(7).setDescriptor(makeDescriptor("cp7.txt"));
 		//Room 8
-		myCPRooms.put(8, new Room(false, false, true, false, false, false, chapelRooms8));  
+		myCPRooms.put(8, new Room(false, false, true, false, false, true, chapelRooms8));  
 		myCPRooms.get(8).setDescriptor(makeDescriptor("cp8.txt"));
 		//Room 9
-		myCPRooms.put(9, new Room(true, false, true, true, false, false, chapelRooms9));  
+		myCPRooms.put(9, new Room(true, false, true, true, false, true, chapelRooms9));  
 		myCPRooms.get(9).setDescriptor(makeDescriptor("cp9.txt"));
 		//Room 10
-		myCPRooms.put(10, new Room(true, false, false, true, false, false, chapelRooms10));  
+		myCPRooms.put(10, new Room(true, false, false, true, false, true, chapelRooms10));  
 		myCPRooms.get(10).setDescriptor(makeDescriptor("cp10.txt"));
 		//Room 11
-		myCPRooms.put(11, new Room(true, false, false, false, false, false, chapelRooms11));  
+		myCPRooms.put(11, new Room(true, false, false, false, true, false, chapelRooms11));  
 		myCPRooms.get(11).setDescriptor(makeDescriptor("cp11.txt"));
 		
+		addCPObjects();
+	}
+	
+	public static void addCPObjects() {
+		//add keys
+		ObjectInterface key1 = new Key("key");
+		ObjectInterface key2 = new Key("key");
+		ObjectInterface key3 = new Key("key");
+		myCPRooms.get(0).addObject(key1);
+		myCPRooms.get(11).addObject(key2);
+		//myCPRooms.get(8).getMonster().setObject(key3); //give the big demon a key
+		
+		//add food and fruit
+		myCPRooms.get(3).addObject(foodFactory.createFood("taco")); //add a taco to room 3
+		myCPRooms.get(4).addObject(fruitFactory.createFruit("apple")); //add apple
+		myCPRooms.get(9).addObject(fruitFactory.createFruit("blueberry"));
+		
+		//add knife
+		ObjectInterface knife = new WeaponAdapter(weaponFactory.createWeapon("knife"));
+		myCPRooms.get(10).addObject(knife);
 	}
 	
 	//Test: Adding NPCs and Monsters (NOT DONE)
 	public static void loadNPCAndMonster() {
-		//SB Rooms
+		//SB
 		String[] sbNames = {"V. Norman", "Yolanda", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
 		String[] sbMonsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles", "Mr. Fantastic", "Troll", "Dwarf" };
 		
-		//Chapel Rooms
-		String[] cpNames = {"VicToddNorm", "CupLyd", "Mr. Castle", "Sumo"};
-		String[] cpMonsterNames = {"Hope student", "Panda", "Bear", "Hamster"};
+		//Chapel
+		String[] cpNames = {"David Michelle", "Tyler", "Pastor Paul", "Kelvyn"};
+		String[] cpMonsterNames = {"Demon", "Demon", "Boss Demon", "Demon", "Big Demon", "Demon", "Demon"};
 		
-		//Hiemenga Rooms
+		//Hiemenga
 		String[] hhNames = {"David Michelle", "Austy", "Mr. Dr. Squiggles", "Mrs. Dr. Squiggles"};
 		String[] hhMonsterNames = {"Hope student", "Evil Panda", "Total Depravity", "Needy Freshman" };
 		
 		//Commons
-		String[] commonsNames = {"Prof. Adams", "Hubert", "Harry", "Sherry"};
-		String[] commonsMonsterNames = {"Hope student", "Mr. Tofu", "Student Loans" };
+		String[] cmNames = {"Prof. Adams", "Hubert", "Harry", "Sherry"};
+		String[] cmMonsterNames = {"Hope student", "Mr. Tofu", "Student Loans" };
 		
 		int npcI = 0, monsterI = 0;
 		
@@ -803,19 +826,19 @@ public class TestClass {
 		for(int i = 0; i < myCMRooms.size(); i++) {
 			if(myCMRooms.get(i).needNPC()) {  //Do I need an NPC?
 				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
-					myCMRooms.get(i).setMonster(commonsNames[monsterI]);  //Yes. Set the name of it.
+					myCMRooms.get(i).setMonster(cmNames[monsterI]);  //Yes. Set the name of it.
 					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
 					monsterI++;
 				} else {  //No, I only need an NPC
 					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
 				}
- 				myCMRooms.get(i).setNPC(commonsNames[npcI]);  //Set the name of the NPC.
+ 				myCMRooms.get(i).setNPC(cmNames[npcI]);  //Set the name of the NPC.
 				System.out.println("Room " + i + " has " + myCMRooms.get(i).getNPC().getName());
 				npcI++;
 			} else {
 				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
 				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
-					myCMRooms.get(i).setMonster(commonsMonsterNames[monsterI]);  //Yes. Set the name of it.
+					myCMRooms.get(i).setMonster(cmMonsterNames[monsterI]);  //Yes. Set the name of it.
 					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
 					monsterI++;
 				} else {  //I only need objects 
