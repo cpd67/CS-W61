@@ -11,4 +11,6 @@ public interface ApertureBehavior {
 	public boolean isBreakable();
 	//Get the name of the ApertureBehavior
 	public String getName(); 
+	//Get the direction of the ApertureBehavior in the Room
+	public String getDir();
 }

@@ -18,6 +18,8 @@ public class NPC extends Character implements ActionBehavior {
 	private boolean needsQuestOb;
 	//The needed QuestItem for the corresponding Quest
 	private String myNeededOb;
+	//The gender of the NPC
+	private String myGender;
 	//The Quest to give to the Player
 	private Quest myQuest;
 	
@@ -33,6 +35,7 @@ public class NPC extends Character implements ActionBehavior {
 		this.hasQuest = false;
 		this.needsQuestOb = false;
 		this.myNeededOb = ""; //Doesn't need an object...yet
+		this.myGender = "";
 	}
 	
 	/**
@@ -48,6 +51,7 @@ public class NPC extends Character implements ActionBehavior {
 		this.hasQuest = false;
 		this.needsQuestOb = false;
 		this.myNeededOb = "";
+		this.myGender = "";
 	}
 	
 	/**
@@ -57,6 +61,7 @@ public class NPC extends Character implements ActionBehavior {
 	public void act(Player p) { 
 		if(hasQuest) { //If the NPC has a Quest...
 			Quest q = myQuest;
+			//Name + "beforeLines.txt"
 			//Talk to the Player...
 			//(Will change to reading lines from a file)
 			System.out.println("'Hello! Here is a Quest!'");
@@ -70,7 +75,7 @@ public class NPC extends Character implements ActionBehavior {
 				System.out.println("'Come back when you've found my item!'");
 			//Else, if the Player has the necessary QuestItem and is in either the 
 			//OnQuestState or HasQuestItemState...
-			} else if(p.hasItem(q.getItem()) && p.hasItem()){ 
+			} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
 				System.out.println("What's that? You already have a missing item?");
 				System.out.println("You do! Hand it over!");
 				//Give the NPC the QuestItem
@@ -88,7 +93,7 @@ public class NPC extends Character implements ActionBehavior {
 				p.setNewQuest(q);  
 			}
 		} else {
-			//The NPC doesn't have a Quest to give
+			//The NPC has no Quest to give
 			ReadFile rf = new ReadFile(myName + ".txt");
 			rf.readAndPrint();
 		}
@@ -210,4 +215,20 @@ public class NPC extends Character implements ActionBehavior {
 		myObj = ob;
 		hasObject = true; //Has an ObjectInterface now
 	}	
+	
+	/**
+	 * Mutator for the gender of the NPC.
+	 * @param: gen, a String representing the gender of the NPC.
+	 */
+	public void setGender(String gen) {
+		myGender = gen.toLowerCase();
+	}
+	
+	/**
+	 * Accessor for the gender of the NPC.
+	 * @return: myGender, a String representing the gender of the NPC.
+	 */
+	public String getGender() {
+		return myGender;
+	}
 }

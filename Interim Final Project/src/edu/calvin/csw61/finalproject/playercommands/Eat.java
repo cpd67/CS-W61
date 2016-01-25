@@ -11,12 +11,12 @@ import edu.calvin.csw61.food.Food;
 
 /**
  * Eat allows a Player to eat an edible ObjectInterface.
- * (Implements the Command pattern).
+ * (Implements the Command Interface).
  */
 public class Eat implements Command {
 	private String result;  //Result of executing the command
-	ObjectInterface myObject;  //Handle to Object that we should eat 
-	Player myPlayer; //Handle to Player
+	private ObjectInterface myObject;  //Handle to Object that we should eat 
+	private Player myPlayer; //Handle to Player
 	
 	/**
 	 * Constructor for the Eat command object.
@@ -67,7 +67,7 @@ public class Eat implements Command {
 			//(Can't go anywhere if you eat the only Key in the room)
 			result = "You forcibly shove the " + myObject.getName().toLowerCase() + " down your throat, killing yourself.\n";
 			result += "You have died.\n";
-			//End the game...
+			//End the game in the Player class
 		} else if(myObject instanceof Treasure) {  //If Treasure, can't eat it
 			result = "You can't eat a " + myObject.getName() + "\n";
 		} else if(myObject instanceof QuestItem) { //Can't eat QuestItems either
