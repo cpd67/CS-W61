@@ -4,47 +4,62 @@ import edu.calvin.csw61.finalproject.ObjectInterface;
 import edu.calvin.csw61.finalproject.Player;
 import edu.calvin.csw61.finalproject.WeaponAdapter;
 
+/**
+ * Drop allows a Player to drop something.
+ * (Implements the Command Interface).
+ */
 public class Drop implements Command {
-	private String result;
-	
-	Player myPlayer;
-	ObjectInterface myObject;
+	private String result; //Result of executing the Command
+	private Player myPlayer;  //Handle to the Player
+	private ObjectInterface myObject; //The ObjectInterface to drop
 
-	//Takes the Object to drop and a handle to the Player.
-	//Check if the Object is in the backpack...
+	/**
+	 * Constructor for the Drop class.s
+	 * @param: ob, the ObjectInterface to drop.
+	 * @param: p, a handle to the Player.
+	 */
 	public Drop(ObjectInterface ob, Player p) {
-		myObject = ob;
-		myPlayer = p;
-		result = "";
+		this.myObject = ob;
+		this.myPlayer = p;
+		this.result = "";
 	}
 	
+	/**
+	 * execute() executes the act of dropping something in the game.
+	 */
 	public void execute() {
+		//Check if it's a WeaponAdapter
+		//(You CAN put Weapons in your backpack, since they are 
+		//ObjectInterfaces)
 		if(myObject instanceof WeaponAdapter) {
-			if(myPlayer.getRoom().addObject(myObject)) { //If the weapon isn't already in the Room...
+			//If the weapon isn't already in the Room...
+			if(myPlayer.getRoom().addObject(myObject)) { 
 				result = "You dropped your " + myObject.getName();
-				myPlayer.getRoom().showObjects();
 				myPlayer.setHasNoWeapon();  //Player no longer has the Weapon.
 			} else { //Else, the Weapon is already in the Room...
 				result = myObject.getName() + " is already in the room!";
 			}
 
 		} else { //Else, it's not a Weapon.
-			myPlayer.removeObject(myObject.getName().toLowerCase()); //Take the Object out of the backpack.
+			//Take the Object out of the backpack.
+			myPlayer.removeObject(myObject.getName().toLowerCase());
+			//If it's a QuestItem...
 			if(myObject.getName().toLowerCase().equals(myPlayer.getActualQuest().getItem())) {
-				//Reset the state back to 2
-				result = "You lost the missing item!";
+				//Reset the state back to OnQuestState
+				result = "You lost the missing item!\n";
 				myPlayer.setQuestState(myPlayer.getOnQuestState());
 				myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
-				result = "You dropped " + myObject.getName();
-				myPlayer.getRoom().showObjects();
-			} else {
+				result += "You dropped " + myObject.getName();
+			} else { //Else, it's a regular ObjectInterfaces
 				myPlayer.getRoom().addObject(myObject);  //Add it to the Room.
 				result = "You dropped " + myObject.getName();
-				myPlayer.getRoom().showObjects();
 			}
 		}
 	}
 	
+	/**
+	 * Accessor for the result of executing the command.
+	 */
 	public String getResult() {
 		return result;
 	}
