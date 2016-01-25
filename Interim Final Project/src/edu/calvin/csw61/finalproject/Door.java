@@ -119,21 +119,21 @@ public class Door implements ApertureBehavior {
 					//The Player is now Outside
 					p.setBuilding("Outside"); 
 					//The Player has left the Room.
-					TestClass.myCPRooms.get(p.getRoomNum()).setNoPlayer();
+					GameMap.myCPRooms.get(p.getRoomNum()).setNoPlayer();
 					//The outside Room has the Player
-					TestClass.outsideRoom.hasPlayer();  
+					GameMap.outsideRoom.hasPlayer();  
 					//Set the Player's current handle to a Room
-					p.setCurrentRoom(TestClass.outsideRoom);
+					p.setCurrentRoom(GameMap.outsideRoom);
 					//Set the current Room number
 					p.setRoomNum(myNextRoomNumber);  
 				} else {
 					//We are still in the Chapel
 					//The Player has left the Room
-					TestClass.myCPRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.myCPRooms.get(p.getRoomNum()).setNoPlayer();  
 					//The Player is now in the next Room
-					TestClass.myCPRooms.get(myNextRoomNumber).hasPlayer();  
+					GameMap.myCPRooms.get(myNextRoomNumber).hasPlayer();  
 					//And gets a new handle to the next Room
-					p.setCurrentRoom(TestClass.myCPRooms.get(myNextRoomNumber));
+					p.setCurrentRoom(GameMap.myCPRooms.get(myNextRoomNumber));
 					//Set the current Room number
 					p.setRoomNum(myNextRoomNumber);  
 				}
@@ -142,43 +142,43 @@ public class Door implements ApertureBehavior {
 			case "Commons":  //Commons
 				if(myNextRoomNumber == -2) {  
 					p.setBuilding("Outside"); 
-					TestClass.myCMRooms.get(p.getRoomNum()).setNoPlayer();  
-					TestClass.outsideRoom.hasPlayer();  
-					p.setCurrentRoom(TestClass.outsideRoom); 
+					GameMap.myCMRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.outsideRoom.hasPlayer();  
+					p.setCurrentRoom(GameMap.outsideRoom); 
 					p.setRoomNum(myNextRoomNumber); 
 				} else {
-					TestClass.myCMRooms.get(p.getRoomNum()).setNoPlayer();  
-					TestClass.myCMRooms.get(myNextRoomNumber).hasPlayer();  
-					p.setCurrentRoom(TestClass.myCMRooms.get(myNextRoomNumber));  
+					GameMap.myCMRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.myCMRooms.get(myNextRoomNumber).hasPlayer();  
+					p.setCurrentRoom(GameMap.myCMRooms.get(myNextRoomNumber));  
 					p.setRoomNum(myNextRoomNumber);
 				}
 				break;
 			case "Hiemenga Hall": //Hiemenga Hall
 				if(myNextRoomNumber == -2) {  
 					p.setBuilding("Outside");  
-					TestClass.myHHRooms.get(p.getRoomNum()).setNoPlayer(); 
-					TestClass.outsideRoom.hasPlayer(); 
-					p.setCurrentRoom(TestClass.outsideRoom);
+					GameMap.myHHRooms.get(p.getRoomNum()).setNoPlayer(); 
+					GameMap.outsideRoom.hasPlayer(); 
+					p.setCurrentRoom(GameMap.outsideRoom);
 					p.setRoomNum(myNextRoomNumber);  
 				} else {
-					TestClass.myHHRooms.get(p.getRoomNum()).setNoPlayer();  
-					TestClass.myHHRooms.get(myNextRoomNumber).hasPlayer();  
-					p.setCurrentRoom(TestClass.myHHRooms.get(myNextRoomNumber)); 
+					GameMap.myHHRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.myHHRooms.get(myNextRoomNumber).hasPlayer();  
+					p.setCurrentRoom(GameMap.myHHRooms.get(myNextRoomNumber)); 
 					p.setRoomNum(myNextRoomNumber);  
 				}
 				break;
 			case "Science Building": //Science Building
 				if(myNextRoomNumber == -2) {  
 					p.setBuilding("Outside");  
-					TestClass.mySBRooms.get(p.getRoomNum()).setNoPlayer();  
-					TestClass.outsideRoom.hasPlayer();
-					p.setCurrentRoom(TestClass.outsideRoom); 
+					GameMap.mySBRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.outsideRoom.hasPlayer();
+					p.setCurrentRoom(GameMap.outsideRoom); 
 					p.setRoomNum(myNextRoomNumber);  
 					break;
 				} else {
-					TestClass.mySBRooms.get(p.getRoomNum()).setNoPlayer();  
-					TestClass.mySBRooms.get(myNextRoomNumber).hasPlayer();  
-					p.setCurrentRoom(TestClass.mySBRooms.get(myNextRoomNumber)); 
+					GameMap.mySBRooms.get(p.getRoomNum()).setNoPlayer();  
+					GameMap.mySBRooms.get(myNextRoomNumber).hasPlayer();  
+					p.setCurrentRoom(GameMap.mySBRooms.get(myNextRoomNumber)); 
 					p.setRoomNum(myNextRoomNumber);
 				}
 				break;
@@ -191,29 +191,29 @@ public class Door implements ApertureBehavior {
 					//Set the Player's "building" to the Chapel
 					p.setBuilding("Chapel");  
 					//The Player is now in the "building"
-					TestClass.myCPRooms.get(myNextRoomNumber).hasPlayer();  	
+					GameMap.myCPRooms.get(myNextRoomNumber).hasPlayer();  	
 					//And gets a handle to the first Room of the "building"
-					p.setCurrentRoom(TestClass.myCPRooms.get(myNextRoomNumber));
+					p.setCurrentRoom(GameMap.myCPRooms.get(myNextRoomNumber));
 					//As well as the next Room number
 					p.setRoomNum(myNextRoomNumber);  
 					break;
 					//The pattern is the same for the other three directions
 				case "north":  //North = Commons
 					p.setBuilding("Commons");
-					TestClass.myCMRooms.get(myNextRoomNumber).hasPlayer(); 		
-					p.setCurrentRoom(TestClass.myCMRooms.get(myNextRoomNumber)); 
+					GameMap.myCMRooms.get(myNextRoomNumber).hasPlayer(); 		
+					p.setCurrentRoom(GameMap.myCMRooms.get(myNextRoomNumber)); 
 					p.setRoomNum(myNextRoomNumber);
 					break;
 				case "west": //West = Science Building
 					p.setBuilding("Science Building"); 
-					TestClass.mySBRooms.get(myNextRoomNumber).hasPlayer(); 		
-					p.setCurrentRoom(TestClass.mySBRooms.get(myNextRoomNumber)); 
+					GameMap.mySBRooms.get(myNextRoomNumber).hasPlayer(); 		
+					p.setCurrentRoom(GameMap.mySBRooms.get(myNextRoomNumber)); 
 					p.setRoomNum(myNextRoomNumber); 
 					break;
 				case "east":  //East = Hiemenga Hall
 					p.setBuilding("Hiemenga Hall");
-					TestClass.myHHRooms.get(myNextRoomNumber).hasPlayer(); 
-					p.setCurrentRoom(TestClass.myHHRooms.get(myNextRoomNumber));
+					GameMap.myHHRooms.get(myNextRoomNumber).hasPlayer(); 
+					p.setCurrentRoom(GameMap.myHHRooms.get(myNextRoomNumber));
 					p.setRoomNum(myNextRoomNumber);  
 					break;
 					//Something went wrong...

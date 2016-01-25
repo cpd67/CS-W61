@@ -103,7 +103,7 @@ public class Player {
 						this.setDirection(noun); 
 						//If Outside, the Player will no longer be in the outsideRoom
 						if(this.getBuilding().equals("Outside")) {
-							TestClass.outsideRoom.setNoPlayer();
+							GameMap.outsideRoom.setNoPlayer();
 						}
 						//Create the Command object (Walk)
 						command = new Walk(noun, this);

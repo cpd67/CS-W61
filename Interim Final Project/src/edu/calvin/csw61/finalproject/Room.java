@@ -364,7 +364,7 @@ public class Room {
 			for(int i = 0; i < myObjects.size(); i++) {
 				result += myObjects.get(i).getName() + " ";
 			}
-			result += ".\n";
+			result += "\n";
 		}
 		return result;
 	}
@@ -416,6 +416,7 @@ public class Room {
 		}
 		
 		if(myMonster.hasObject()) { //If the Monster has an object...
+			System.out.println(capitalizeLetter(myMonster.getName()) + " has dropped a " + myMonster.getObject().getName());
 			this.addObject(myMonster.getObject());  //Get the ObjectInterface, use our addObject() method to avoid repeats
 		}
 	}
