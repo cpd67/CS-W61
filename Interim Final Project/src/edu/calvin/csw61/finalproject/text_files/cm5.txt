@@ -1,2 +1,3 @@
 CM5
-There are doors to your north, south, and east.
+You walk up to a soft serve ice cream machine.
+There is a hot line to the north. South of you is a room full of tables. The card swipe desk is to the east. 

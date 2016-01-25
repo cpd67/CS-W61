@@ -487,41 +487,46 @@ public class TestClass {
 		Integer[] commonsRooms11 = {-1, 7, -1, 10};
 	
 		//Room 0
-		myCMRooms.put(0, new Room(true, true, false, false, false, false, commonsRooms0));
+		myCMRooms.put(0, new Room(true, true, false, false, false, true, commonsRooms0));
 		myCMRooms.get(0).setDescriptor(makeDescriptor("cm0.txt"));
+		myCMRooms.get(0).getDoor("north").setLocked(); //lock the north door
 		//Room 1
-		myCMRooms.put(1, new Room(true, false, false, false, false, false, commonsRooms1));
+		myCMRooms.put(1, new Room(true, false, false, false, true, false, commonsRooms1));
 		myCMRooms.get(1).setDescriptor(makeDescriptor("cm1.txt"));
 		//Room 2
-		myCMRooms.put(2, new Room(true, false, false, false, false, false, commonsRooms2));
+		myCMRooms.put(2, new Room(true, false, false, false, true, false, commonsRooms2));
 		myCMRooms.get(2).setDescriptor(makeDescriptor("cm2.txt"));
 		//Room 3
-		myCMRooms.put(3, new Room(true, false, false, false, false, false, commonsRooms3));
+		myCMRooms.put(3, new Room(true, false, false, false, false, true, commonsRooms3));
 		myCMRooms.get(3).setDescriptor(makeDescriptor("cm3.txt"));
 		//Room 4
-		myCMRooms.put(4, new Room(true, true, false, false, false, false, commonsRooms4));
+		myCMRooms.put(4, new Room(true, true, false, false, false, true, commonsRooms4));
 		myCMRooms.get(4).setDescriptor(makeDescriptor("cm4.txt"));
+		myCPRooms.get(4).getDoor("south").setLocked(); //lock the south door
 		//Room 5
-		myCMRooms.put(5, new Room(true, true, true, false, false, false, commonsRooms5));
+		myCMRooms.put(5, new Room(true, true, true, false, false, true, commonsRooms5));
 		myCMRooms.get(5).setDescriptor(makeDescriptor("cm5.txt"));
 		//Room 6
-		myCMRooms.put(6, new Room(true, true, false, true, false, false, commonsRooms6));
+		myCMRooms.put(6, new Room(true, true, false, true, false, true, commonsRooms6));
 		myCMRooms.get(6).setDescriptor(makeDescriptor("cm6.txt"));
 		//Room 7
-		myCMRooms.put(7, new Room(true, true, false, false, false, false, commonsRooms7));
+		myCMRooms.put(7, new Room(true, true, false, false, false, true, commonsRooms7));
 		myCMRooms.get(7).setDescriptor(makeDescriptor("cm7.txt"));
+		myCPRooms.get(7).getDoor("south").setLocked(); //lock the south door
 		//Room 8
-		myCMRooms.put(8, new Room(false, true, true, false, false, false, commonsRooms8));
+		myCMRooms.put(8, new Room(false, true, true, false, false, true, commonsRooms8));
 		myCMRooms.get(8).setDescriptor(makeDescriptor("cm8.txt"));
 		//Room 9
-		myCMRooms.put(9, new Room(false, true, false, true, false, false, commonsRooms9));
+		myCMRooms.put(9, new Room(false, true, false, true, true, false, commonsRooms9));
 		myCMRooms.get(9).setDescriptor(makeDescriptor("cm9.txt"));
 		//Room 10
-		myCMRooms.put(10, new Room(false, true, true, false, false, false, commonsRooms10));
+		myCMRooms.put(10, new Room(false, true, true, false, false, true, commonsRooms10));
 		myCMRooms.get(10).setDescriptor(makeDescriptor("cm10.txt"));
 		//Room 11
-		myCMRooms.put(11, new Room(false, true, false, true, false, false, commonsRooms11));
+		myCMRooms.put(11, new Room(false, true, false, true, true, false, commonsRooms11));
 		myCMRooms.get(11).setDescriptor(makeDescriptor("cm11.txt"));
+		
+		addCMObjects();
 	}
 	
 	private static void setHHRooms() {
@@ -539,41 +544,46 @@ public class TestClass {
 		Integer[] hiemengaHallRooms11 = {10, -1, -1, -1};
 		
 		//Room 0
-		myHHRooms.put(0, new Room(false, false, true, true, false, false, hiemengaHallRooms0));
+		myHHRooms.put(0, new Room(false, false, true, true, false, true, hiemengaHallRooms0));
 		myHHRooms.get(0).setDescriptor(makeDescriptor("hh0.txt"));
+		myCPRooms.get(0).getDoor("east").setLocked(); //lock the east door
 		//Room 1
 		myHHRooms.put(1, new Room(false, true, true, false, false, false, hiemengaHallRooms1));
 		myHHRooms.get(1).setDescriptor(makeDescriptor("hh1.txt"));
+		myCPRooms.get(1).getDoor("south").setLocked(); //lock the south door
 		//Room 2
-		myHHRooms.put(2, new Room(true, false, false, false, false, false, hiemengaHallRooms2));
+		myHHRooms.put(2, new Room(true, false, false, false, false, true, hiemengaHallRooms2));
 		myHHRooms.get(2).setDescriptor(makeDescriptor("hh2.txt"));
 		//Room 3
-		myHHRooms.put(3, new Room(false, false, true, false, false, false, hiemengaHallRooms3));
+		myHHRooms.put(3, new Room(false, false, true, false, false, true, hiemengaHallRooms3));
 		myHHRooms.get(3).setDescriptor(makeDescriptor("hh3.txt"));
 		//Room 4
-		myHHRooms.put(4, new Room(false, true, true, true, false, false, hiemengaHallRooms4));
+		myHHRooms.put(4, new Room(false, true, true, true, true, false, hiemengaHallRooms4));
 		myHHRooms.get(4).setDescriptor(makeDescriptor("hh4.txt"));
 		//Room 5
-		myHHRooms.put(5, new Room(true, false, false, false, false, false, hiemengaHallRooms5));
+		myHHRooms.put(5, new Room(true, false, false, false, false, true, hiemengaHallRooms5));
 		myHHRooms.get(5).setDescriptor(makeDescriptor("hh5.txt"));
 		//Room 6
-		myHHRooms.put(6, new Room(false, true, true, true, false, false, hiemengaHallRooms6));
+		myHHRooms.put(6, new Room(false, true, true, true, false, true, hiemengaHallRooms6));
 		myHHRooms.get(6).setDescriptor(makeDescriptor("hh6.txt"));
 		//Room 7
-		myHHRooms.put(7, new Room(true, false, false, true, false, false, hiemengaHallRooms7));
+		myHHRooms.put(7, new Room(true, false, false, true, true, false, hiemengaHallRooms7));
 		myHHRooms.get(7).setDescriptor(makeDescriptor("hh7.txt"));
 		//Room 8
 		myHHRooms.put(8, new Room(false, true, false, true, false, false, hiemengaHallRooms8));
 		myHHRooms.get(8).setDescriptor(makeDescriptor("hh8.txt"));
 		//Room 9
-		myHHRooms.put(9, new Room(true, true, false, false, false, false, hiemengaHallRooms9));
+		myHHRooms.put(9, new Room(true, true, false, false, false, true, hiemengaHallRooms9));
 		myHHRooms.get(9).setDescriptor(makeDescriptor("hh9.txt"));
 		//Room 10
-		myHHRooms.put(10, new Room(true, true, false, true, false, false, hiemengaHallRooms10));
+		myHHRooms.put(10, new Room(true, true, false, true, true, false, hiemengaHallRooms10));
 		myHHRooms.get(10).setDescriptor(makeDescriptor("hh10.txt"));
+		myCPRooms.get(10).getDoor("south").setLocked(); //lock the south door
 		//Room 11
-		myHHRooms.put(11, new Room(true, false, false, false, false, false, hiemengaHallRooms11));
+		myHHRooms.put(11, new Room(true, false, false, false, false, true, hiemengaHallRooms11));
 		myHHRooms.get(11).setDescriptor(makeDescriptor("hh11.txt"));
+		
+		addHHObjects();
 	}
 	
 	private static void setSBRooms() {
@@ -706,7 +716,7 @@ public class TestClass {
 		ObjectInterface key1 = new Key("key");
 		ObjectInterface key2 = new Key("key");
 		ObjectInterface key3 = new Key("key");
-		myCPRooms.get(0).addObject(key1);
+		//myCPRooms.get(0).getMonster().setObject(key1);
 		myCPRooms.get(11).addObject(key2);
 		//myCPRooms.get(8).getMonster().setObject(key3); //give the big demon a key
 		
@@ -720,6 +730,47 @@ public class TestClass {
 		myCPRooms.get(10).addObject(knife);
 	}
 	
+	public static void addHHObjects() {
+		//add keys
+		ObjectInterface key1 = new Key("key");
+		ObjectInterface key2 = new Key("key");
+		ObjectInterface key3 = new Key("key");
+		
+		//myHHRooms.get(0).getMonster().setObject(key1);
+		myHHRooms.get(6).addObject(key2);
+		//myHHRooms.get(8).getMonster().setObject(key2);
+		
+		//add food and fruit
+		myHHRooms.get(1).addObject(foodFactory.createFood("spinach"));
+		myHHRooms.get(8).addObject(fruitFactory.createFruit("papaya"));
+		myHHRooms.get(10).addObject(fruitFactory.createFruit("blueberry"));
+	}
+	
+	public static void addCMObjects(){
+		//add keys
+		ObjectInterface key1 = new Key("key");
+		ObjectInterface key2 = new Key("key");
+		ObjectInterface key3 = new Key("key");
+		
+		//myCMRooms.get(0).getMonster().setObject(key1);
+		myCMRooms.get(2).addObject(key2);
+		//myCMRooms.get(10).getMonster().setObject(key3);
+		
+		//add food and fruit
+		myCMRooms.get(1).addObject(foodFactory.createFood("bagel"));
+		myCMRooms.get(2).addObject(foodFactory.createFood("pizza"));
+		myCMRooms.get(4).addObject(foodFactory.createFood("cupcake"));
+		myCMRooms.get(6).addObject(foodFactory.createFood("taco"));
+		myCMRooms.get(7).addObject(fruitFactory.createFruit("orange"));
+		myCMRooms.get(9).addObject(foodFactory.createFood("spinach"));
+		myCMRooms.get(11).addObject(foodFactory.createFood("pizza"));
+		
+	}
+	
+	public static void addSBObjects() {
+		
+	}
+	
 	//Test: Adding NPCs and Monsters (NOT DONE)
 	public static void loadNPCAndMonster() {
 		//SB
@@ -727,7 +778,7 @@ public class TestClass {
 		String[] sbMonsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles", "Mr. Fantastic", "Troll", "Dwarf" };
 		
 		//Chapel
-		String[] cpNames = {"David Michelle", "Tyler", "Pastor Paul", "Kelvyn"};
+		String[] cpNames = {"David Michelle", "Tyler", "Man", "Kelvyn"};
 		String[] cpMonsterNames = {"Demon", "Demon", "Boss Demon", "Demon", "Big Demon", "Demon", "Demon"};
 		
 		//Hiemenga

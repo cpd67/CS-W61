@@ -1,2 +1,3 @@
 CM1
-There is a door to your north.
+You enter the private room. There is one table in here. Looks like this room is only for important people.
+The food bar is to the north.
