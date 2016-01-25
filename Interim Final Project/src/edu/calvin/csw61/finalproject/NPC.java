@@ -132,7 +132,7 @@ public class NPC extends Character implements ActionBehavior {
 			}
 			//No ObjectInterface to give
 		} else {
-			System.out.println("I am sorry...but I have no item to give!");
+			//System.out.println("I am sorry...but I have no item to give!");
 		}
 	}
 	

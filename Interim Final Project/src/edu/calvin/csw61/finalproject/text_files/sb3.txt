@@ -1,2 +1,3 @@
 SB 3
-There are doors to your north and west.
+You are in a small classroom with a chalkboard on one side.
+There is a psychology lab to the west. To the north is a classroom.

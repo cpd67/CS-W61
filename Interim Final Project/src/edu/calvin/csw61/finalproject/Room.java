@@ -243,7 +243,7 @@ public class Room {
 			for(int i = 0; i < myObjects.size(); i++) {
 				result += myObjects.get(i).getName() + " ";
 			}
-			result += ".\n";
+			result += "\n";
 		}
 		return result;
 	}

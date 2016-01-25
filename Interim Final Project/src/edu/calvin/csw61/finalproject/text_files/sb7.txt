@@ -1,2 +1,3 @@
 SB 7
-There are doors to your south, east, and west.
+You enter a small room. There is a pop machine in the corner. It says Pepsi, but it looks like it dispenses Coke products. Knightdale is weird.
+The computer lab lies to the west. There is a room to the east, and a hallway to the south.

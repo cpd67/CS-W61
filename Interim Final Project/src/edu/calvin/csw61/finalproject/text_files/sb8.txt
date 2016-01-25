@@ -1,2 +1,3 @@
 SB 8
-There are doors to your east and west.
+You enter a large computer lab. Everything looks new, like it has been recently updated.
+To the west lies a small room. The hallway is back to the east.

@@ -442,6 +442,10 @@ public class TestClass {
 	public static void loadGame() {
 		loadRooms();  //Rooms, NPCs, and Monsters in that order.
 		loadNPCAndMonster();
+		addCPObjects();
+		addHHObjects();
+		addCMObjects();
+		addSBObjects();
 	}
 
 	public static void loadRooms() {
@@ -502,17 +506,17 @@ public class TestClass {
 		//Room 4
 		myCMRooms.put(4, new Room(true, true, false, false, false, true, commonsRooms4));
 		myCMRooms.get(4).setDescriptor(makeDescriptor("cm4.txt"));
-		myCPRooms.get(4).getDoor("south").setLocked(); //lock the south door
+		myCMRooms.get(4).getDoor("south").setLocked(); //lock the south door
 		//Room 5
 		myCMRooms.put(5, new Room(true, true, true, false, false, true, commonsRooms5));
 		myCMRooms.get(5).setDescriptor(makeDescriptor("cm5.txt"));
 		//Room 6
-		myCMRooms.put(6, new Room(true, true, false, true, false, true, commonsRooms6));
+		myCMRooms.put(6, new Room(true, true, false, true, true, false, commonsRooms6));
 		myCMRooms.get(6).setDescriptor(makeDescriptor("cm6.txt"));
 		//Room 7
 		myCMRooms.put(7, new Room(true, true, false, false, false, true, commonsRooms7));
 		myCMRooms.get(7).setDescriptor(makeDescriptor("cm7.txt"));
-		myCPRooms.get(7).getDoor("south").setLocked(); //lock the south door
+		myCMRooms.get(7).getDoor("south").setLocked(); //lock the south door
 		//Room 8
 		myCMRooms.put(8, new Room(false, true, true, false, false, true, commonsRooms8));
 		myCMRooms.get(8).setDescriptor(makeDescriptor("cm8.txt"));
@@ -526,7 +530,6 @@ public class TestClass {
 		myCMRooms.put(11, new Room(false, true, false, true, true, false, commonsRooms11));
 		myCMRooms.get(11).setDescriptor(makeDescriptor("cm11.txt"));
 		
-		addCMObjects();
 	}
 	
 	private static void setHHRooms() {
@@ -546,11 +549,11 @@ public class TestClass {
 		//Room 0
 		myHHRooms.put(0, new Room(false, false, true, true, false, true, hiemengaHallRooms0));
 		myHHRooms.get(0).setDescriptor(makeDescriptor("hh0.txt"));
-		myCPRooms.get(0).getDoor("east").setLocked(); //lock the east door
+		myHHRooms.get(0).getDoor("east").setLocked(); //lock the east door
 		//Room 1
 		myHHRooms.put(1, new Room(false, true, true, false, false, false, hiemengaHallRooms1));
 		myHHRooms.get(1).setDescriptor(makeDescriptor("hh1.txt"));
-		myCPRooms.get(1).getDoor("south").setLocked(); //lock the south door
+		myHHRooms.get(1).getDoor("south").setLocked(); //lock the south door
 		//Room 2
 		myHHRooms.put(2, new Room(true, false, false, false, false, true, hiemengaHallRooms2));
 		myHHRooms.get(2).setDescriptor(makeDescriptor("hh2.txt"));
@@ -578,12 +581,11 @@ public class TestClass {
 		//Room 10
 		myHHRooms.put(10, new Room(true, true, false, true, true, false, hiemengaHallRooms10));
 		myHHRooms.get(10).setDescriptor(makeDescriptor("hh10.txt"));
-		myCPRooms.get(10).getDoor("south").setLocked(); //lock the south door
+		myHHRooms.get(10).getDoor("south").setLocked(); //lock the south door
 		//Room 11
 		myHHRooms.put(11, new Room(true, false, false, false, false, true, hiemengaHallRooms11));
 		myHHRooms.get(11).setDescriptor(makeDescriptor("hh11.txt"));
 		
-		addHHObjects();
 	}
 	
 	private static void setSBRooms() {
@@ -599,59 +601,67 @@ public class TestClass {
 		Integer[] scienceBuildRooms9 = {-1, 10, 6, 14};  //Room 9
 		Integer[] scienceBuildRooms10 = {9, 11, 5, -1};  //Room 10
 		Integer[] scienceBuildRooms11 = {10, -1, 4, 12};  //Room 11
-		Integer[] scienceBuildRooms12 = {-1, -1, 11, -1};  //Room 12
+		Integer[] scienceBuildRooms12 = {-1, -1, 11, 16};  //Room 12
 		Integer[] scienceBuildRooms13 = {14, -1, -1, -1};  //Room 13
 		Integer[] scienceBuildRooms14 = {15, 13, 9, -1};  //Room 14
 		Integer[] scienceBuildRooms15 = {-1, 14, 8, -1};  //Room 15
+		Integer[] scienceBuildRooms16 = {-1, -1, 12, -1};  //Room 16
 		
 		//Room 0
-		mySBRooms.put(0, new Room(false, false, true, true, false, false, scienceBuildRooms0));
+		mySBRooms.put(0, new Room(false, false, true, true, true, true, scienceBuildRooms0));
 		mySBRooms.get(0).setDescriptor(makeDescriptor("sb0.txt"));
+		mySBRooms.get(0).getDoor("west").setLocked(); //lock west door
 		//Room1
-		mySBRooms.put(1, new Room(false, false, false, true, false, false, scienceBuildRooms1));
+		mySBRooms.put(1, new Room(false, false, false, true, false, true, scienceBuildRooms1));
 		mySBRooms.get(1).setDescriptor(makeDescriptor("sb1.txt"));
 		//Room 2
-		mySBRooms.put(2, new Room(false, true, false, true, false, false, scienceBuildRooms2));
+		mySBRooms.put(2, new Room(false, true, false, true, true, false, scienceBuildRooms2));
 		mySBRooms.get(2).setDescriptor(makeDescriptor("sb2.txt"));
 		//Room 3
-		mySBRooms.put(3, new Room(true, false, false, true, false, false, scienceBuildRooms3));
+		mySBRooms.put(3, new Room(true, false, false, true, true, false, scienceBuildRooms3));
 		mySBRooms.get(3).setDescriptor(makeDescriptor("sb3.txt"));
 		//Room 4
-		mySBRooms.put(4, new Room(false, false, true, true, false, false, scienceBuildRooms4));
+		mySBRooms.put(4, new Room(false, false, true, true, false, true, scienceBuildRooms4));
 		mySBRooms.get(4).setDescriptor(makeDescriptor("sb4.txt"));
 		//Room 5
-		mySBRooms.put(5, new Room(false, false, true, true, false, false, scienceBuildRooms5));
+		mySBRooms.put(5, new Room(false, false, true, true, false, true, scienceBuildRooms5));
 		mySBRooms.get(5).setDescriptor(makeDescriptor("sb5.txt"));
 		//Room 6
-		mySBRooms.put(6, new Room(true, false, true, true, false, false, scienceBuildRooms6));
+		mySBRooms.put(6, new Room(true, false, true, true, false, true, scienceBuildRooms6));
 		mySBRooms.get(6).setDescriptor(makeDescriptor("sb6.txt"));
 		//Room 7
-		mySBRooms.put(7, new Room(false, true, true, true, false, false, scienceBuildRooms7));
+		mySBRooms.put(7, new Room(false, true, true, true, false, true, scienceBuildRooms7));
 		mySBRooms.get(7).setDescriptor(makeDescriptor("sb7.txt"));
+		mySBRooms.get(7).getDoor("east").setLocked(); //lock east door
 		//Room 8
-		mySBRooms.put(8, new Room(false, false, true, true, false, false, scienceBuildRooms8));
+		mySBRooms.put(8, new Room(false, false, true, true, true, false, scienceBuildRooms8));
 		mySBRooms.get(8).setDescriptor(makeDescriptor("sb8.txt"));
 		//Room 9
-		mySBRooms.put(9, new Room(false, true, true, true, false, false, scienceBuildRooms9));
+		mySBRooms.put(9, new Room(false, true, true, true, true, false, scienceBuildRooms9));
 		mySBRooms.get(9).setDescriptor(makeDescriptor("sb9.txt"));
 		//Room 10
-		mySBRooms.put(10, new Room(true, true, true, false, false, false, scienceBuildRooms10));
+		mySBRooms.put(10, new Room(true, true, true, false, false, true, scienceBuildRooms10));
 		mySBRooms.get(10).setDescriptor(makeDescriptor("sb10.txt"));
 		//Room 11
-		mySBRooms.put(11, new Room(true, false, true, true, false, false, scienceBuildRooms11));
+		mySBRooms.put(11, new Room(true, false, true, true, true, false, scienceBuildRooms11));
 		mySBRooms.get(11).setDescriptor(makeDescriptor("sb11.txt"));
+		mySBRooms.get(11).getDoor("west").setLocked(); //lock west door
 		//Room 12
-		mySBRooms.put(12, new Room(false, false, true, false, false, false, scienceBuildRooms12));
+		mySBRooms.put(12, new Room(false, false, true, true, false, true, scienceBuildRooms12));
 		mySBRooms.get(12).setDescriptor(makeDescriptor("sb12.txt"));
+		mySBRooms.get(12).getDoor("west").setLocked(); //lock west door
 		//Room 13
-		mySBRooms.put(13, new Room(true, false, false, false, false, false, scienceBuildRooms13));
+		mySBRooms.put(13, new Room(true, false, false, false, true, false, scienceBuildRooms13));
 		mySBRooms.get(13).setDescriptor(makeDescriptor("sb13.txt"));
 		//Room 14
-		mySBRooms.put(14, new Room(true, true, true, false, false, false, scienceBuildRooms14));
+		mySBRooms.put(14, new Room(true, true, true, false, false, true, scienceBuildRooms14));
 		mySBRooms.get(14).setDescriptor(makeDescriptor("sb14.txt"));
 		//Room 15
-		mySBRooms.put(15, new Room(false, true, true, false, false, false, scienceBuildRooms15));
+		mySBRooms.put(15, new Room(false, true, true, false, false, true, scienceBuildRooms15));
 		mySBRooms.get(15).setDescriptor(makeDescriptor("sb15.txt"));
+		//Room 16
+		mySBRooms.put(16, new Room(false, false, true, false, true, false, scienceBuildRooms16));
+		mySBRooms.get(16).setDescriptor(makeDescriptor("sb16.txt"));
 	}
 	
 	private static void setCPRooms(){
@@ -708,7 +718,6 @@ public class TestClass {
 		myCPRooms.put(11, new Room(true, false, false, false, true, false, chapelRooms11));  
 		myCPRooms.get(11).setDescriptor(makeDescriptor("cp11.txt"));
 		
-		addCPObjects();
 	}
 	
 	public static void addCPObjects() {
@@ -716,9 +725,9 @@ public class TestClass {
 		ObjectInterface key1 = new Key("key");
 		ObjectInterface key2 = new Key("key");
 		ObjectInterface key3 = new Key("key");
-		//myCPRooms.get(0).getMonster().setObject(key1);
+		myCPRooms.get(0).getMonster().setObject(key1);
 		myCPRooms.get(11).addObject(key2);
-		//myCPRooms.get(8).getMonster().setObject(key3); //give the big demon a key
+		myCPRooms.get(8).getMonster().setObject(key3); //give the big demon a key
 		
 		//add food and fruit
 		myCPRooms.get(3).addObject(foodFactory.createFood("taco")); //add a taco to room 3
@@ -728,6 +737,10 @@ public class TestClass {
 		//add knife
 		ObjectInterface knife = new WeaponAdapter(weaponFactory.createWeapon("knife"));
 		myCPRooms.get(10).addObject(knife);
+		
+		//ID card
+		ObjectInterface bible = new QuestItem("bible");
+		myCPRooms.get(2).getMonster().setObject(bible);
 	}
 	
 	public static void addHHObjects() {
@@ -736,14 +749,20 @@ public class TestClass {
 		ObjectInterface key2 = new Key("key");
 		ObjectInterface key3 = new Key("key");
 		
-		//myHHRooms.get(0).getMonster().setObject(key1);
-		myHHRooms.get(6).addObject(key2);
-		//myHHRooms.get(8).getMonster().setObject(key2);
+		myHHRooms.get(0).getMonster().setObject(key1);
+		myHHRooms.get(5).getMonster().setObject(key2);
+		myHHRooms.get(6).getMonster().setObject(key3);
 		
 		//add food and fruit
 		myHHRooms.get(1).addObject(foodFactory.createFood("spinach"));
 		myHHRooms.get(8).addObject(fruitFactory.createFruit("papaya"));
 		myHHRooms.get(10).addObject(fruitFactory.createFruit("blueberry"));
+
+		myHHRooms.get(6).getMonster().setWeapon(weaponFactory.createWeapon("shotgun"));
+		
+		//ID card
+		ObjectInterface idcard = new QuestItem("idcard");
+		myHHRooms.get(2).getMonster().setObject(idcard);
 	}
 	
 	public static void addCMObjects(){
@@ -752,9 +771,9 @@ public class TestClass {
 		ObjectInterface key2 = new Key("key");
 		ObjectInterface key3 = new Key("key");
 		
-		//myCMRooms.get(0).getMonster().setObject(key1);
+		myCMRooms.get(0).getMonster().setObject(key1);
 		myCMRooms.get(2).addObject(key2);
-		//myCMRooms.get(10).getMonster().setObject(key3);
+		myCMRooms.get(10).getMonster().setObject(key3);
 		
 		//add food and fruit
 		myCMRooms.get(1).addObject(foodFactory.createFood("bagel"));
@@ -764,140 +783,106 @@ public class TestClass {
 		myCMRooms.get(7).addObject(fruitFactory.createFruit("orange"));
 		myCMRooms.get(9).addObject(foodFactory.createFood("spinach"));
 		myCMRooms.get(11).addObject(foodFactory.createFood("pizza"));
+	
+		myCMRooms.get(5).getMonster().setWeapon(weaponFactory.createWeapon("lance"));
+		
+		//the pi
+		ObjectInterface pi = new QuestItem("pi");
+		myCMRooms.get(3).getMonster().setObject(pi);
 		
 	}
 	
 	public static void addSBObjects() {
+		//add keys
+		ObjectInterface key1 = new Key("key");
+		ObjectInterface key2 = new Key("key");
+		ObjectInterface specialkey = new Key("special key");
+		
+		mySBRooms.get(0).getMonster().setObject(key1);
+		mySBRooms.get(14).getMonster().setObject(key2);
+		mySBRooms.get(13).getNPC().setObject(specialkey);
+		
+		//add food and fruit
+		mySBRooms.get(2).addObject(foodFactory.createFood("cupcake"));
+		mySBRooms.get(6).addObject(foodFactory.createFood("bagel"));
+		mySBRooms.get(14).addObject(foodFactory.createFood("pizza"));
+		mySBRooms.get(3).addObject(fruitFactory.createFruit("watermelon"));
+		mySBRooms.get(8).addObject(fruitFactory.createFruit("orange"));
+		mySBRooms.get(12).addObject(fruitFactory.createFruit("apple"));
+		
+		//Moses supposes his toeses are roses but Moses supposes erroneously. Moses, he knowses his toeses aren't roses, as Moses supposes his toeses to be!
+		ObjectInterface moses = new QuestItem("moses");
+		mySBRooms.get(1).getMonster().setObject(moses);
 		
 	}
-	
-	//Test: Adding NPCs and Monsters (NOT DONE)
+
 	public static void loadNPCAndMonster() {
-		//SB
-		String[] sbNames = {"V. Norman", "Yolanda", "Andrew", "Austin", "Professor Porpoise", "Dr. Professor Patrick", "Bubba" };
-		String[] sbMonsterNames = {"Hope student", "A. Bickle", "H. Plantinga", "Dr. Squiggles", "Mr. Fantastic", "Troll", "Dwarf" };
-		
 		//Chapel
-		String[] cpNames = {"David Michelle", "Tyler", "Man", "Kelvyn"};
-		String[] cpMonsterNames = {"Demon", "Demon", "Boss Demon", "Demon", "Big Demon", "Demon", "Demon"};
+		//monsters
+		myCPRooms.get(0).setMonster("Demon");
+		myCPRooms.get(1).setMonster("Demon");
+		myCPRooms.get(2).setMonster("Ganondorf");
+		myCPRooms.get(7).setMonster("Demon");
+		myCPRooms.get(8).setMonster("Demon");
+		myCPRooms.get(9).setMonster("Demon");
+		myCPRooms.get(10).setMonster("Demon");
+		//npcs
+		myCPRooms.get(3).setNPC("David Michelle");
+		myCPRooms.get(5).setNPC("Tyler");
+		myCPRooms.get(6).setNPC("Pastor Paul");
+		myCPRooms.get(11).setNPC("Kelvyn");
 		
-		//Hiemenga
-		String[] hhNames = {"David Michelle", "Austy", "Mr. Dr. Squiggles", "Mrs. Dr. Squiggles"};
-		String[] hhMonsterNames = {"Hope student", "Evil Panda", "Total Depravity", "Needy Freshman" };
+		//Hieminga 
+		//monsters
+		myHHRooms.get(0).setMonster("Bookworm");
+		myHHRooms.get(2).setMonster("Plantinga");
+		myHHRooms.get(3).setMonster("Bookworm");
+		myHHRooms.get(5).setMonster("Bookworm");
+		myHHRooms.get(6).setMonster("Bookworm");
+		myHHRooms.get(9).setMonster("Bookworm");
+		myHHRooms.get(11).setMonster("Bookworm");
+		//npcs
+		myHHRooms.get(4).setNPC("Lia");
+		myHHRooms.get(7).setNPC("Librarian");
+		myHHRooms.get(10).setNPC("Beka");
 		
 		//Commons
-		String[] cmNames = {"Prof. Adams", "Hubert", "Harry", "Sherry"};
-		String[] cmMonsterNames = {"Hope student", "Mr. Tofu", "Student Loans" };
+		//monsters
+		myCMRooms.get(0).setMonster("Squirrel");
+		myCMRooms.get(3).setMonster("Steve");
+		myCMRooms.get(4).setMonster("Squirrel");
+		myCMRooms.get(5).setMonster("Squirrel");
+		myCMRooms.get(7).setMonster("Squirrel");
+		myCMRooms.get(8).setMonster("Squirrel");
+		myCMRooms.get(10).setMonster("Squirrel");
+		//npcs
+		myCMRooms.get(1).setNPC("President LeRoy");
+		myCMRooms.get(2).setNPC("Keith");
+		myCMRooms.get(6).setNPC("Card Swiper");
+		myCMRooms.get(9).setNPC("Peter");
+		myCMRooms.get(11).setNPC("Spencer");
 		
-		int npcI = 0, monsterI = 0;
-		
-		//SB Rooms
-		for(int i = 0; i < mySBRooms.size(); i++) {
-			if(mySBRooms.get(i).needNPC()) {  //Do I need an NPC?
-				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
-					mySBRooms.get(i).setMonster(sbMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //No, I only need an NPC
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
- 				mySBRooms.get(i).setNPC(sbNames[npcI]);  //Set the name of the NPC.
-				System.out.println("Room " + i + " has " + mySBRooms.get(i).getNPC().getName());
-				npcI++;
-			} else {
-				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
-				if(mySBRooms.get(i).needMonster()) {  //How about a Monster?
-					mySBRooms.get(i).setMonster(sbMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + mySBRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //I only need objects 
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
-			}	
+		//Science Building
+		//monsters
+		mySBRooms.get(0).setMonster("Zombie");
+		mySBRooms.get(1).setMonster("Brainz");
+		mySBRooms.get(4).setMonster("Zombie");
+		mySBRooms.get(5).setMonster("Zombie");
+		mySBRooms.get(6).setMonster("Zombie");
+		mySBRooms.get(7).setMonster("Zombie");
+		mySBRooms.get(10).setMonster("Zombie");
+		mySBRooms.get(12).setMonster("Luther");
+		mySBRooms.get(14).setMonster("Zombie");
+		mySBRooms.get(15).setMonster("Zombie");
+		//npcs
+		mySBRooms.get(0).setNPC("Joel");
+		mySBRooms.get(2).setNPC("Harry");
+		mySBRooms.get(3).setNPC("Pat");
+		mySBRooms.get(8).setNPC("Lydia");
+		mySBRooms.get(9).setNPC("Andrew");
+		mySBRooms.get(11).setNPC("VicToddNorm");
+		mySBRooms.get(13).setNPC("Serita");
 		}
-		
-		//Reset the index
-		npcI = monsterI = 0;
-		
-		//Chapel
-		for(int i = 0; i < myCPRooms.size(); i++) {
-			if(myCPRooms.get(i).needNPC()) {  //Do I need an NPC?
-				if(myCPRooms.get(i).needMonster()) {  //How about a Monster?
-					myCPRooms.get(i).setMonster(cpMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myCPRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //No, I only need an NPC
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
- 				myCPRooms.get(i).setNPC(cpNames[npcI]);  //Set the name of the NPC.
-				System.out.println("Room " + i + " has " + myCPRooms.get(i).getNPC().getName());
-				npcI++;
-			} else {
-				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
-				if(myCPRooms.get(i).needMonster()) {  //How about a Monster?
-					myCPRooms.get(i).setMonster(cpMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myCPRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //I only need objects 
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
-			}	
-		}
-		
-		npcI = monsterI = 0;
-		
-		//Hiemenga
-		for(int i = 0; i < myHHRooms.size(); i++) {
-			if(myHHRooms.get(i).needNPC()) {  //Do I need an NPC?
-				if(myHHRooms.get(i).needMonster()) {  //How about a Monster?
-					myHHRooms.get(i).setMonster(hhMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myHHRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //No, I only need an NPC
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
- 				myHHRooms.get(i).setNPC(hhNames[npcI]);  //Set the name of the NPC.
-				System.out.println("Room " + i + " has " + myHHRooms.get(i).getNPC().getName());
-				npcI++;
-			} else {
-				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
-				if(myHHRooms.get(i).needMonster()) {  //How about a Monster?
-					myHHRooms.get(i).setMonster(hhMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myHHRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //I only need objects 
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
-			}	
-		}
-		
-		npcI = monsterI = 0;
-		
-		//Commons
-		for(int i = 0; i < myCMRooms.size(); i++) {
-			if(myCMRooms.get(i).needNPC()) {  //Do I need an NPC?
-				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
-					myCMRooms.get(i).setMonster(cmNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //No, I only need an NPC
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
- 				myCMRooms.get(i).setNPC(cmNames[npcI]);  //Set the name of the NPC.
-				System.out.println("Room " + i + " has " + myCMRooms.get(i).getNPC().getName());
-				npcI++;
-			} else {
-				System.out.println("Room " + i + " doesn't need an NPC."); //Nope.
-				if(myCMRooms.get(i).needMonster()) {  //How about a Monster?
-					myCMRooms.get(i).setMonster(cmMonsterNames[monsterI]);  //Yes. Set the name of it.
-					System.out.println("Room " + i + " has " + myCMRooms.get(i).getMonster().getName());
-					monsterI++;
-				} else {  //I only need objects 
-					System.out.println("Room " + i + " doesn't need a Monster."); //Nope.
-				}
-			}	
-		}
-	}
 	
 	public static Map<Integer, Room> getInstance() {
 		return mySBRooms;
