@@ -13,7 +13,9 @@ public class Look implements Command {
 	@Override
 	public void execute() {
 		// needs to show the room the player is in.
-		result = myPlayer.getRoom().getDescriptor();
+		result = myPlayer.getRoom().getDescriptor(); //the room description
+		result += myPlayer.getRoom().showObjects(); //plus the list of objects
+		result += myPlayer.getRoom().showPeople();
 	}
 	
 	public String getResult() {

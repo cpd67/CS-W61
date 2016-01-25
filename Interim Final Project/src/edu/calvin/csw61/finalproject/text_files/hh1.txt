@@ -1,3 +1,3 @@
 HH1
 You are in a receptionist's office. There is a desk on one side of the room and chairs on the other.
-There are doors to your east and south.
+There are doors to the east and south.

@@ -234,43 +234,51 @@ public class Room {
 	}
 	
 	//Show the Objects that are in the current Room.
-	public void showObjects() {
+	public String showObjects() {
+		String result;
 		if(myObjects.size() == 0) {
-			System.out.println("There are no items in the room");
+			result = "";
 		} else {
-			System.out.println("The room has the following items: ");
+			result = "The room has the following items: ";
 			for(int i = 0; i < myObjects.size(); i++) {
-				System.out.print(myObjects.get(i).getName() + " ");
+				result += myObjects.get(i).getName() + " ";
 			}
-			System.out.println();
+			result += ".\n";
 		}
+		return result;
 	}
 	
 	//Show the people in the Room and their objects.
-	public void showPeople() {
+	public String showPeople() {
+		String result = "";
 		if(hasMonster) {
-			System.out.println(myMonster.getName() + " is in the room");
+			result = "A " + myMonster.getName() + " is in the room. ";
 			if(myMonster.hasWeapon()) { //Does the Monster have a weapon?
-				System.out.println(myMonster.getName() + " has a " + myMonster.getWeapon().getWeaponName().toLowerCase());
+				result += "It has a " + myMonster.getWeapon().getWeaponName().toLowerCase() + ".\n";
 			} else {
-				System.out.println(myMonster.getName() + " doesn't have a weapon");
+				result += "It doesn't have a weapon.\n";
 			}
 			
-			if(myMonster.hasObject()) { //Does the Monster have an object?
+			//commenting out because player doesn't need to know this
+			/*if(myMonster.hasObject()) { //Does the Monster have an object?
 				System.out.println(myMonster.getName() + " has a " + myMonster.getObject().getName().toLowerCase());
 			} else {
 				System.out.println(myMonster.getName() + " doesn't have an object");
-			}
+			}*/
 		}
 		
 		if(hasNPC) {
-			System.out.println(myNPC.getName() + " is in the room");
+			result = myNPC.getName() + " is in the room.";
+			
+			//commenting out for same reason as before
+			/*
 			if(myNPC.hasOb()) { //Does the NPC have an object?
-				System.out.println(myNPC.getName() + " has an object");				
+				result += myNPC.getName() + " has an object.");				
 			} else {
 				System.out.println(myNPC.getName() + " doesn't have an object");
-			}
+			}*/
 		}
+		return result;
 	}
 	
 	//Add the Monster's Object if he's dead.

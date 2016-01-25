@@ -1,2 +1,2 @@
 HH11
-There is a door to your north.
+You reach the end of the hallway. It extends back to the north.

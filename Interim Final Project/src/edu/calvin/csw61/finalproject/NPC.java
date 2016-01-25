@@ -89,7 +89,8 @@ public class NPC extends Character implements ActionBehavior {
 			}
 		} else {
 			//The NPC doesn't have a Quest to give
-			System.out.println("I have no Quest!");
+			ReadFile rf = new ReadFile(myName + ".txt");
+			rf.readAndPrint();
 		}
 		//Attempt to give the Player the ObjectInterface 
 		give(p);  

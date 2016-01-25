@@ -1,2 +1,3 @@
 HH8
-There are doors to your south and west.
+You enter a classroom. There are posters on the wall written in foreign languages.
+There is a long hallway to the south and a short one to the west.

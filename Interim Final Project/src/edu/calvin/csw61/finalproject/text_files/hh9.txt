@@ -1,2 +1,2 @@
 HH9
-There are doors to your north and south.
+You travel down the hallway. To the north lies a set of classrooms. The hallway extends to the south.
