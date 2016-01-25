@@ -1,2 +1,3 @@
 SB 4
-There are doors to your east and west.
+You enter the computer lab. The computers are old, unlike the computer science lab.
+The psychology break room is to the west. There is a classroom to the east.

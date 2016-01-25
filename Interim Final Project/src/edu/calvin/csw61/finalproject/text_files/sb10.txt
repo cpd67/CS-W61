@@ -1,2 +1,3 @@
 SB 10
-There are doors to your north, south, and east.
+You enter a classroom. There has been some random scribbling on the whiteboard.
+There are more classrooms to the east and and a psychology break room to the south.

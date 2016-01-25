@@ -1,2 +1,2 @@
 SB 6
-There are doors to your north, east, and west.
+You enter a hallway that goes to the north and west. The entrance to the Science Building is to the east.
