@@ -35,7 +35,7 @@ public class Throw implements Command {
 			//Is the ObjectInterface a QuestItem?
 			if(myObject.getName().toLowerCase().equals(myPlayer.getActualQuest().getItem())) {
 				//Reset the Quest state back to OnQuest
-				result = "You threw the needed Quest item!";
+				result = "You threw the needed Quest item!\n";
 				myPlayer.setQuestState(myPlayer.getOnQuestState());
 				result += "You threw " + myObject.getName();
 				//Take away the ObjectInterface

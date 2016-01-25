@@ -41,8 +41,7 @@ public class Quest {
 	 * @return: myId, an int representing the id number of the Quest.
 	 */
 	public int getId() {
-		return myId;
-	}
+		return myId;	}
 	
 	/**
 	 * Accessor for the description of the Quest.

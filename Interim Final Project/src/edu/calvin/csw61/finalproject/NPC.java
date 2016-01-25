@@ -60,22 +60,19 @@ public class NPC extends Character implements ActionBehavior {
 	 */
 	public void act(Player p) { 
 		if(hasQuest) { //If the NPC has a Quest...
-			Quest q = myQuest;
-			//Name + "beforeLines.txt"
-			//Talk to the Player...
-			//(Will change to reading lines from a file)
-			System.out.println("'Hello! Here is a Quest!'");
+			Quest q = myQuest; //make a new quest
+			getLines(myName + "BeforeQuest"); //print the questlines
 			
 			//Try to give them the Quest.
 			//If the NPC already gave the Player a Quest and the Player 
 			//hasn't found the necessary QuestItem...
 			String qName = p.getQuestName();
 			if(qName.equals(q.getName()) && !p.hasItem(myNeededOb.toLowerCase())) {
-				System.out.println("'I already gave you that Quest!'");
-				System.out.println("'Come back when you've found my item!'");
+				System.out.println("\"Come back when you've found my item please!\"");
 			//Else, if the Player has the necessary QuestItem and is in either the 
 			//OnQuestState or HasQuestItemState...
 			} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
+				getLines(myName + "QuestCompleted");
 				System.out.println("What's that? You have a missing item?");
 				System.out.println("You do! Hand it over!");
 				//Give the NPC the QuestItem
@@ -95,13 +92,17 @@ public class NPC extends Character implements ActionBehavior {
 			}
 		} else {
 			//The NPC has no Quest to give
-			ReadFile rf = new ReadFile(myName + ".txt");
-			rf.readAndPrint();
+			getLines(myName);
 		}
 		//Attempt to give the Player the ObjectInterface 
 		give(p);  
 	}
 	
+	
+	public void getLines(String name) {
+		ReadFile rf = new ReadFile("/npc_lines/" + name + ".txt");
+		rf.readAndPrint();
+	}
 	/**
 	 * give() allows the NPC to give the Player an ObjectInterface.
 	 * @param: p, the handle to the Player.
