@@ -1,2 +1,3 @@
 SB 11
-There are doors to your north, east, and west.
+You enter the psychology break room. To the west lies a strange door.
+There is a classroom to the north and a psychology computer lab to the east.
