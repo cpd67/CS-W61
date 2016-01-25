@@ -364,9 +364,19 @@ public class Room {
 			for(int i = 0; i < myObjects.size(); i++) {
 				result += myObjects.get(i).getName() + " ";
 			}
-			result += "\n";
+			result += ".\n";
 		}
 		return result;
+	}
+	
+	/**
+	 * Capitalizes the first letter of names.
+	 * (Adapted from StackOverflow)
+	 * @param: str, the String to capitalize.
+	 * @return: the String with the first letter capitalized
+	 */
+	public String capitalizeLetter(String str) {
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 	
 	/**
@@ -376,7 +386,7 @@ public class Room {
 	public String showPeople() {
 		String result = "";
 		if(hasMonster) {
-			result = "A " + myMonster.getName() + " is in the room. ";
+			result = "A " + capitalizeLetter(myMonster.getName()) + " is in the room. ";
 			if(myMonster.hasWeapon()) { //Does the Monster have a weapon?
 				result += "It has a " + myMonster.getWeapon().getWeaponName().toLowerCase() + ".\n";
 			} else {
@@ -389,7 +399,7 @@ public class Room {
 			//get the Name of the NPC
 			//Name + "Lines.txt" 
 			//SPit out the lines
-			result += myNPC.getName() + " is in the room.";
+			result += capitalizeLetter(myNPC.getName()) + " is in the room.";
 		}
 		return result;
 	}

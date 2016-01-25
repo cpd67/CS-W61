@@ -49,6 +49,8 @@ public class Player {
 	private QuestState hasQuestItemState;
 	//Current QuestState
 	private QuestState currentState;
+	//Number of Quests completed	
+	private int myQuestsCompleted;
 	
 	/**
 	 * Constructor for the Player class!
@@ -75,6 +77,8 @@ public class Player {
 		this.hasQuestItemState = new HasQuestItemState(this);
 		//Not on a Quest at the start
 		this.currentState = noQuestState; 
+  		//No Quests completed
+		myQuestsCompleted = 0;
 	}
 	
 	/**
@@ -795,5 +799,20 @@ public class Player {
 	 */
 	public QuestState getCurrentState() {
 		return currentState;
+	}
+
+	/**
+	 * Increments the number of Quests completed.
+	 */
+	public void questComplete() {
+		myQuestsCompleted++;
+	}
+	
+	/**
+	 * Accessor for the number of Quests completed. 
+	 * @return: myQuestsCompleted, an int representing the number of Quests completed.
+	 */
+	public int getQuestCounter() {
+		return myQuestsCompleted;
 	}
 }

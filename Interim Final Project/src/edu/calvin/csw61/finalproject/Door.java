@@ -2,7 +2,8 @@ package edu.calvin.csw61.finalproject;
 
 /**
  * Door implements the ApertureBehavior Interface and mimics the behavior of a Door
- * in a Room.
+ * in a Room. 
+ * NOTE: The next Room number determines the next Room to get from the HashMap of Rooms.
  */
 public class Door implements ApertureBehavior {
 	
@@ -30,7 +31,14 @@ public class Door implements ApertureBehavior {
 		this.myName = "door";
 	}
 	
-	//Room1 = player's Room, room2 = next room, dir = direction in Room.
+	/**
+	 * Explicit-constructor for a Door.
+	 * @param: playerRoom, a handle to the Room that the Player is in.
+	 * @param: nextRoomNumber, the Integer that marks the next Room.
+	 * @param: breakable, a boolean that determines if the Door is breakable.
+	 * @param: locked, a boolean that determines if the Door is locked.
+	 * @param: dir, a String representing the direction of the Door in the Room.
+	 */
 	public Door(Room playerRoom, Integer nextRoomNumber, boolean breakable, boolean locked, String dir){
 		if(breakable){ //Is the Door breakable?
 			this.setBreakable();
@@ -218,6 +226,14 @@ public class Door implements ApertureBehavior {
 				System.out.println("Something went wrong...");
 				break;
 		}
+	}
+	
+	/**
+	 * Accessor for the next Room number. 
+	 * @return: myNextRoomNumber, an Integer representing the next Room number.
+	 */
+	public int getNextRoom() {
+		return myNextRoomNumber;
 	}
 	
 	/**

@@ -10,8 +10,7 @@ public class Key implements ObjectInterface {
 	 * Constructor for the Key class.
 	 * @param: name, a String representing the name of the ObjectInterface. 
 	 *         (It could be used to make keys for specific Rooms, like
-	 *         SB 14 Key. But, we use it only to make a generic key
-	 *         by passing "key" in).
+	 *         SB 14 Key. We name the last Room key, "special key").
 	 */
 	public Key(String name) {
 		this.myName = name.toLowerCase();

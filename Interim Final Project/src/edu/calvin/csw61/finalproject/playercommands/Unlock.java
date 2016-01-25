@@ -87,10 +87,34 @@ public class Unlock implements Command {
 					if(!door.isLocked()){
 						result = "Door is already unlocked!";
 					} else {
-						door.setUnlocked();
-						result = "The door is now unlocked.";
-						//remove key
-						myPlayer.removeObject("key");
+						//Check if we're in the Science Building
+						if(myPlayer.getBuilding().equals("Science Building")) {
+							//Check if the next Room is the last Room
+							if(door.getNextRoom() == 12) {
+								//Check if the Player has the special key
+								if(myPlayer.hasItem("special key")) {
+									//They do, so unlock it
+									door.setUnlocked();
+									result = "The door is now unlocked.";
+									result += "It creaks open to a dark and eerie room...\n";
+									myPlayer.removeObject("special key");
+								} else {
+									//Else, can't unlock the special door with an ordinary key
+									result = "The key doesn't fit...looks like you need a different one.";
+								}
+								//Else, it's not the special Room, so unlock it
+							} else {
+								door.setUnlocked();
+								result = "The door is now unlocked.";
+								myPlayer.removeObject("key");
+							}
+							//Else, we're not in the Science Building
+						} else {
+							door.setUnlocked();
+							result = "The door is now unlocked.";	
+							myPlayer.removeObject("key");	
+						}
+						//Not a Door
 					}
 				} else {
 					result = "You can't unlock that."; //if there is no door, tell user

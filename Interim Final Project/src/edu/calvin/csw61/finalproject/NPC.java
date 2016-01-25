@@ -76,7 +76,7 @@ public class NPC extends Character implements ActionBehavior {
 			//Else, if the Player has the necessary QuestItem and is in either the 
 			//OnQuestState or HasQuestItemState...
 			} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
-				System.out.println("What's that? You already have a missing item?");
+				System.out.println("What's that? You have a missing item?");
 				System.out.println("You do! Hand it over!");
 				//Give the NPC the QuestItem
 				System.out.println("You gave " + getName() + " the " + myNeededOb);
@@ -84,7 +84,8 @@ public class NPC extends Character implements ActionBehavior {
 				//The NPC no longer has a Quest to give
 				setHasNoQuest(); 
 				//Reset the State of the Player
-				p.setQuestState(p.getNoQuestState()); 
+				p.setQuestState(p.getNoQuestState());
+				p.questComplete();  //Increment the Quest counter
 				System.out.println("Quest complete!");
 				//Increment the max health allotment for the Player
 				p.addMaxHealth();  
@@ -137,7 +138,7 @@ public class NPC extends Character implements ActionBehavior {
 			}
 			//No ObjectInterface to give
 		} else {
-			//System.out.println("I am sorry...but I have no item to give!");
+			System.out.println("I am sorry...but I have no item to give!");
 		}
 	}
 	
