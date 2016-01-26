@@ -67,8 +67,6 @@ public class NPC extends Character implements ActionBehavior {
 		else {
 			if(hasQuest) { //If the NPC has a Quest...
 				Quest q = myQuest; //make a new quest
-				getLines(myName + "BeforeQuest"); //print the questlines
-
 				//Try to give them the Quest.
 				//If the NPC already gave the Player a Quest and the Player 
 				//hasn't found the necessary QuestItem...
@@ -78,9 +76,6 @@ public class NPC extends Character implements ActionBehavior {
 					//Else, if the Player has the necessary QuestItem and is in either the 
 					//OnQuestState or HasQuestItemState...
 				} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
-					getLines(myName + "QuestCompleted");
-					System.out.println("What's that? You have a missing item?");
-					System.out.println("You do! Hand it over!");
 					//Give the NPC the QuestItem
 					System.out.println("You gave " + getName() + " the " + myNeededOb);
 					p.removeObject(myNeededOb.toLowerCase());
@@ -89,11 +84,13 @@ public class NPC extends Character implements ActionBehavior {
 					//Reset the State of the Player
 					p.setQuestState(p.getNoQuestState());
 					p.questComplete();  //Increment the Quest counter
+					getLines(myName + "QuestCompleted");
 					System.out.println("Quest complete!");
 					//Increment the max health allotment for the Player
 					p.addMaxHealth();  
 				} else {
 					//Try to set the Quest
+					getLines(myName + "BeforeQuest"); //print the questlines
 					p.setNewQuest(q);  
 				}
 			} else {
