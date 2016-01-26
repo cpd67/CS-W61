@@ -42,7 +42,7 @@ public class Walk implements Command{
 				//Check if the Door is locked...
 				if(!checker.isLocked()) {
 					//Unlocked, so check if the Door's direction is equal to the passed direction
-					if(checker.getDir().equals(myDirection)) {
+					if(checker.getDir().equals(myDirection.toLowerCase())) {
 						//Go through the Door.
 						checker.goThrough(myPlayer); 
 						//put the room description in result
@@ -51,19 +51,19 @@ public class Walk implements Command{
 						result += myPlayer.getRoom().showObjects();
 						result += myPlayer.getRoom().showPeople();
 						//Only go through the Door once.
-						break; 
+						return; 
 					}
 				} else {
-					result += "The door is locked. Do you have a key?";
-					break;
+					result += "LOCKED.";
+					return;
 				}
 			} else {  //Check for a wall...
 				//Typecast to a Wall
 				WallBehavior checker2 = (WallBehavior)myPlayer.getRoom().getAperatures().get(i);  
 				//If the Wall's direction equals the Player's Direction...
-				if(checker2.getDir().equals(myDirection)) {  
+				if(checker2.getDir().equals(myDirection.toLowerCase())) {  
 					result += "You can't go that way";
-					break;
+					return;
 				}
 			}
 		}

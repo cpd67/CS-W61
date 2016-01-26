@@ -223,42 +223,42 @@ public class GameMap {
 		Integer[] commonsRooms11 = {-1, 7, -1, 10};
 	
 		//Room 0
-		myCMRooms.put(0, new Room(true, true, false, false, false, false, commonsRooms0));
+		myCMRooms.put(0, new Room(true, true, false, false, false, true, commonsRooms0));
 		myCMRooms.get(0).setDescriptor(makeDescriptor("cm0.txt"));
 		//Room 1
-		myCMRooms.put(1, new Room(true, false, false, false, false, false, commonsRooms1));
+		myCMRooms.put(1, new Room(true, false, false, false, true, false, commonsRooms1));
 		myCMRooms.get(1).setDescriptor(makeDescriptor("cm1.txt"));
 		//Room 2
-		myCMRooms.put(2, new Room(true, false, false, false, false, false, commonsRooms2));
+		myCMRooms.put(2, new Room(true, false, false, false, true, false, commonsRooms2));
 		myCMRooms.get(2).setDescriptor(makeDescriptor("cm2.txt"));
 		//Room 3
-		myCMRooms.put(3, new Room(true, false, false, false, false, false, commonsRooms3));
+		myCMRooms.put(3, new Room(true, false, false, false, false, true, commonsRooms3));
 		myCMRooms.get(3).setDescriptor(makeDescriptor("cm3.txt"));
 		//Room 4
-		myCMRooms.put(4, new Room(true, true, false, false, false, false, commonsRooms4));
+		myCMRooms.put(4, new Room(true, true, false, false, false, true, commonsRooms4));
 		myCMRooms.get(4).setDescriptor(makeDescriptor("cm4.txt"));
 		myCMRooms.get(4).getDoor("south").setLocked(); //lock the south door
 		//Room 5
-		myCMRooms.put(5, new Room(true, true, true, false, false, false, commonsRooms5));
+		myCMRooms.put(5, new Room(true, true, true, false, false, true, commonsRooms5));
 		myCMRooms.get(5).setDescriptor(makeDescriptor("cm5.txt"));
 		//Room 6
 		myCMRooms.put(6, new Room(true, true, false, true, true, false, commonsRooms6));
 		myCMRooms.get(6).setDescriptor(makeDescriptor("cm6.txt"));
 		//Room 7
-		myCMRooms.put(7, new Room(true, true, false, false, false, false, commonsRooms7));
+		myCMRooms.put(7, new Room(true, true, false, false, false, true, commonsRooms7));
 		myCMRooms.get(7).setDescriptor(makeDescriptor("cm7.txt"));
 		myCMRooms.get(7).getDoor("south").setLocked(); //lock the south door
 		//Room 8
-		myCMRooms.put(8, new Room(false, true, true, false, false, false, commonsRooms8));
+		myCMRooms.put(8, new Room(false, true, true, false, false, true, commonsRooms8));
 		myCMRooms.get(8).setDescriptor(makeDescriptor("cm8.txt"));
 		//Room 9
-		myCMRooms.put(9, new Room(false, true, false, true, false, false, commonsRooms9));
+		myCMRooms.put(9, new Room(false, true, false, true, true, false, commonsRooms9));
 		myCMRooms.get(9).setDescriptor(makeDescriptor("cm9.txt"));
 		//Room 10
-		myCMRooms.put(10, new Room(false, true, true, false, false, false, commonsRooms10));
+		myCMRooms.put(10, new Room(false, true, true, false, false, true, commonsRooms10));
 		myCMRooms.get(10).setDescriptor(makeDescriptor("cm10.txt"));
 		//Room 11
-		myCMRooms.put(11, new Room(false, true, false, true, false, false, commonsRooms11));
+		myCMRooms.put(11, new Room(false, true, false, true, true, false, commonsRooms11));
 		myCMRooms.get(11).setDescriptor(makeDescriptor("cm11.txt"));
 	}
 	
@@ -277,7 +277,7 @@ public class GameMap {
 		Integer[] hiemengaHallRooms11 = {10, -1, -1, -1};
 		
 		//Room 0
-		myHHRooms.put(0, new Room(false, false, true, true, false, false, hiemengaHallRooms0));
+		myHHRooms.put(0, new Room(false, false, true, true, false, true, hiemengaHallRooms0));
 		myHHRooms.get(0).setDescriptor(makeDescriptor("hh0.txt"));
 		myHHRooms.get(0).getDoor("east").setLocked(); //lock the east door
 		//Room 1
@@ -285,13 +285,13 @@ public class GameMap {
 		myHHRooms.get(1).setDescriptor(makeDescriptor("hh1.txt"));
 		myHHRooms.get(1).getDoor("south").setLocked(); //lock the south door
 		//Room 2
-		myHHRooms.put(2, new Room(true, false, false, false, false, false, hiemengaHallRooms2));
+		myHHRooms.put(2, new Room(true, false, false, false, false, true, hiemengaHallRooms2));
 		myHHRooms.get(2).setDescriptor(makeDescriptor("hh2.txt"));
 		//Room 3
-		myHHRooms.put(3, new Room(false, false, true, false, false, false, hiemengaHallRooms3));
+		myHHRooms.put(3, new Room(false, false, true, false, false, true, hiemengaHallRooms3));
 		myHHRooms.get(3).setDescriptor(makeDescriptor("hh3.txt"));
 		//Room 4
-		myHHRooms.put(4, new Room(false, true, true, true, false, false, hiemengaHallRooms4));
+		myHHRooms.put(4, new Room(false, true, true, true, true, false, hiemengaHallRooms4));
 		myHHRooms.get(4).setDescriptor(makeDescriptor("hh4.txt"));
 		//Room 5
 		myHHRooms.put(5, new Room(true, false, false, false, false, false, hiemengaHallRooms5));
@@ -408,43 +408,43 @@ public class GameMap {
 		Integer[] chapelRooms11 = {7, -1, -1, -1};  //North, South, East, West
 		
 		//Room 0
-		myCPRooms.put(0, new Room(true, true, false, false, false, false, chapelRooms0));  
+		myCPRooms.put(0, new Room(true, true, false, false, false, true, chapelRooms0));  
 		myCPRooms.get(0).setDescriptor(makeDescriptor("cp0.txt"));
 		myCPRooms.get(0).getDoor("south").setLocked(); //lock south door
 		//Room 1
-		myCPRooms.put(1, new Room(false, true, true, false, false, false, chapelRooms1));  
+		myCPRooms.put(1, new Room(false, true, true, false, false, true, chapelRooms1));  
 		myCPRooms.get(1).setDescriptor(makeDescriptor("cp1.txt"));
 		myCPRooms.get(1).getDoor("east").setLocked(); //lock east door
 		//Room 2
-		myCPRooms.put(2, new Room(false, false, false, true, false, false, chapelRooms2));  
+		myCPRooms.put(2, new Room(false, false, false, true, false, true, chapelRooms2));  
 		myCPRooms.get(2).setDescriptor(makeDescriptor("cp2.txt"));
 		//Room 3
-		myCPRooms.put(3, new Room(false, true, false, false, false, false, chapelRooms3));  
+		myCPRooms.put(3, new Room(false, true, false, false, true, false, chapelRooms3));  
 		myCPRooms.get(3).setDescriptor(makeDescriptor("cp3.txt"));
 		//Room 4
 		myCPRooms.put(4, new Room(true, false, true, false, false, false, chapelRooms4));  
 		myCPRooms.get(4).setDescriptor(makeDescriptor("cp4.txt"));
 		//Room 5
-		myCPRooms.put(5, new Room(false, true, false, true, false, false, chapelRooms5));  
+		myCPRooms.put(5, new Room(false, true, false, true, true, false, chapelRooms5));  
 		myCPRooms.get(5).setDescriptor(makeDescriptor("cp5.txt"));
 		myCPRooms.get(5).getDoor("west").setLocked(); //lock west door
 		//Room 6
-		myCPRooms.put(6, new Room(true, true, true, false, false, false, chapelRooms6));  
+		myCPRooms.put(6, new Room(true, true, true, false, true, false, chapelRooms6));  
 		myCPRooms.get(6).setDescriptor(makeDescriptor("cp6.txt"));
 		//Room 7
-		myCPRooms.put(7, new Room(true, true, false, true, false, false, chapelRooms7));  
+		myCPRooms.put(7, new Room(true, true, false, true, false, true, chapelRooms7));  
 		myCPRooms.get(7).setDescriptor(makeDescriptor("cp7.txt"));
 		//Room 8
-		myCPRooms.put(8, new Room(false, false, true, false, false, false, chapelRooms8));  
+		myCPRooms.put(8, new Room(false, false, true, false, false, true, chapelRooms8));  
 		myCPRooms.get(8).setDescriptor(makeDescriptor("cp8.txt"));
 		//Room 9
-		myCPRooms.put(9, new Room(true, false, true, true, false, false, chapelRooms9));  
+		myCPRooms.put(9, new Room(true, false, true, true, false, true, chapelRooms9));  
 		myCPRooms.get(9).setDescriptor(makeDescriptor("cp9.txt"));
 		//Room 10
-		myCPRooms.put(10, new Room(true, false, false, true, false, false, chapelRooms10));  
+		myCPRooms.put(10, new Room(true, false, false, true, false, true, chapelRooms10));  
 		myCPRooms.get(10).setDescriptor(makeDescriptor("cp10.txt"));
 		//Room 11
-		myCPRooms.put(11, new Room(true, false, false, false, false, false, chapelRooms11));  
+		myCPRooms.put(11, new Room(true, false, false, false, true, false, chapelRooms11));  
 		myCPRooms.get(11).setDescriptor(makeDescriptor("cp11.txt"));
 
 	}
