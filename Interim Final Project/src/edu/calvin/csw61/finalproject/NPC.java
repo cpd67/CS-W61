@@ -59,40 +59,47 @@ public class NPC extends Character implements ActionBehavior {
 	 * @param: p, the handle to the Player. 
 	 */
 	public void act(Player p) { 
-		if(hasQuest) { //If the NPC has a Quest...
-			Quest q = myQuest; //make a new quest
-			getLines(myName + "BeforeQuest"); //print the questlines
-			
-			//Try to give them the Quest.
-			//If the NPC already gave the Player a Quest and the Player 
-			//hasn't found the necessary QuestItem...
-			String qName = p.getQuestName();
-			if(qName.equals(q.getName()) && !p.hasItem(myNeededOb.toLowerCase())) {
-				System.out.println("\"Come back when you've found my item please!\"");
-			//Else, if the Player has the necessary QuestItem and is in either the 
-			//OnQuestState or HasQuestItemState...
-			} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
-				getLines(myName + "QuestCompleted");
-				System.out.println("What's that? You have a missing item?");
-				System.out.println("You do! Hand it over!");
-				//Give the NPC the QuestItem
-				System.out.println("You gave " + getName() + " the " + myNeededOb);
-				p.removeObject(myNeededOb.toLowerCase());
-				//The NPC no longer has a Quest to give
-				setHasNoQuest(); 
-				//Reset the State of the Player
-				p.setQuestState(p.getNoQuestState());
-				p.questComplete();  //Increment the Quest counter
-				System.out.println("Quest complete!");
-				//Increment the max health allotment for the Player
-				p.addMaxHealth();  
+		if(myName.equals("john")){
+			getLines("john");
+			System.out.println("You have saved Knightdale!\nYou have won the game!");
+			System.exit(1);
+		}
+		else {
+			if(hasQuest) { //If the NPC has a Quest...
+				Quest q = myQuest; //make a new quest
+				getLines(myName + "BeforeQuest"); //print the questlines
+
+				//Try to give them the Quest.
+				//If the NPC already gave the Player a Quest and the Player 
+				//hasn't found the necessary QuestItem...
+				String qName = p.getQuestName();
+				if(qName.equals(q.getName()) && !p.hasItem(myNeededOb.toLowerCase())) {
+					System.out.println("\"Come back when you've found my item please!\"");
+					//Else, if the Player has the necessary QuestItem and is in either the 
+					//OnQuestState or HasQuestItemState...
+				} else if(p.hasItem(q.getItem()) && p.hasItem()) { 
+					getLines(myName + "QuestCompleted");
+					System.out.println("What's that? You have a missing item?");
+					System.out.println("You do! Hand it over!");
+					//Give the NPC the QuestItem
+					System.out.println("You gave " + getName() + " the " + myNeededOb);
+					p.removeObject(myNeededOb.toLowerCase());
+					//The NPC no longer has a Quest to give
+					setHasNoQuest(); 
+					//Reset the State of the Player
+					p.setQuestState(p.getNoQuestState());
+					p.questComplete();  //Increment the Quest counter
+					System.out.println("Quest complete!");
+					//Increment the max health allotment for the Player
+					p.addMaxHealth();  
+				} else {
+					//Try to set the Quest
+					p.setNewQuest(q);  
+				}
 			} else {
-				//Try to set the Quest
-				p.setNewQuest(q);  
+				//The NPC has no Quest to give
+				getLines(myName);
 			}
-		} else {
-			//The NPC has no Quest to give
-			getLines(myName);
 		}
 		//Attempt to give the Player the ObjectInterface 
 		give(p);  
@@ -139,7 +146,7 @@ public class NPC extends Character implements ActionBehavior {
 			}
 			//No ObjectInterface to give
 		} else {
-			System.out.println("I am sorry...but I have no item to give!");
+			//System.out.println("I am sorry...but I have no item to give!");
 		}
 	}
 	

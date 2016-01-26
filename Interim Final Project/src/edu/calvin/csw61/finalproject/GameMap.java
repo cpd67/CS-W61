@@ -120,7 +120,6 @@ public class GameMap {
 	}
 	
 	public static void startGame() {
-		System.out.println("Testbed for LostInKnightdale");
 		//Load the game
 		loadGame();
 		story();
@@ -206,8 +205,6 @@ public class GameMap {
 
 		//West
 		setSBRooms();
-				
-		System.out.println("Rooms created.");
 		
 	}
 	
@@ -417,6 +414,7 @@ public class GameMap {
 		//Room 1
 		myCPRooms.put(1, new Room(false, true, true, false, false, false, chapelRooms1));  
 		myCPRooms.get(1).setDescriptor(makeDescriptor("cp1.txt"));
+		myCPRooms.get(1).getDoor("east").setLocked(); //lock east door
 		//Room 2
 		myCPRooms.put(2, new Room(false, false, false, true, false, false, chapelRooms2));  
 		myCPRooms.get(2).setDescriptor(makeDescriptor("cp2.txt"));
@@ -429,6 +427,7 @@ public class GameMap {
 		//Room 5
 		myCPRooms.put(5, new Room(false, true, false, true, false, false, chapelRooms5));  
 		myCPRooms.get(5).setDescriptor(makeDescriptor("cp5.txt"));
+		myCPRooms.get(5).getDoor("west").setLocked(); //lock west door
 		//Room 6
 		myCPRooms.put(6, new Room(true, true, true, false, false, false, chapelRooms6));  
 		myCPRooms.get(6).setDescriptor(makeDescriptor("cp6.txt"));
@@ -488,7 +487,8 @@ public class GameMap {
 		myHHRooms.get(8).addObject(fruitFactory.createFruit("papaya"));
 		myHHRooms.get(10).addObject(fruitFactory.createFruit("blueberry"));
 
-		myHHRooms.get(6).getMonster().setWeapon(weaponFactory.createWeapon("shotgun"));
+		myHHRooms.get(6).getMonster().setWeapon(weaponFactory.createWeapon("sword"));
+		myHHRooms.get(11).getMonster().setWeapon(weaponFactory.createWeapon("shotgun"));
 		
 		//ID card
 		ObjectInterface idcard = new QuestItem("idcard");
@@ -540,6 +540,9 @@ public class GameMap {
 		mySBRooms.get(8).addObject(fruitFactory.createFruit("orange"));
 		mySBRooms.get(12).addObject(fruitFactory.createFruit("apple"));
 		
+		mySBRooms.get(6).getMonster().setWeapon(weaponFactory.createWeapon("chainsaw"));
+		mySBRooms.get(4).getMonster().setWeapon(weaponFactory.createWeapon("bazooka"));
+		
 		//Moses supposes his toeses are roses but Moses supposes erroneously. Moses, he knowses his toeses aren't roses, as Moses supposes his toeses to be!
 		ObjectInterface moses = new QuestItem("moses");
 		mySBRooms.get(1).getMonster().setObject(moses);
@@ -550,65 +553,156 @@ public class GameMap {
 		//Chapel
 		//monsters
 		myCPRooms.get(0).setMonster("Demon");
+		
 		myCPRooms.get(1).setMonster("Demon");
+		myCPRooms.get(1).getMonster().setDamage(10);
+		myCPRooms.get(1).getMonster().setHealth(20);
+		
 		myCPRooms.get(2).setMonster("Ganondorf");
+		myCPRooms.get(2).getMonster().setDamage(20);
+		myCPRooms.get(2).getMonster().setHealth(40);
+		
 		myCPRooms.get(7).setMonster("Demon");
+		myCPRooms.get(7).getMonster().setDamage(10);
+		myCPRooms.get(7).getMonster().setHealth(20);
+		
 		myCPRooms.get(8).setMonster("Demon");
+		myCPRooms.get(8).getMonster().setDamage(15);
+		myCPRooms.get(8).getMonster().setHealth(25);
+		
 		myCPRooms.get(9).setMonster("Demon");
+		myCPRooms.get(9).getMonster().setDamage(10);
+		myCPRooms.get(9).getMonster().setHealth(20);
+		
 		myCPRooms.get(10).setMonster("Demon");
+		myCPRooms.get(10).getMonster().setDamage(10);
+		myCPRooms.get(10).getMonster().setHealth(20);
 		//npcs
 		myCPRooms.get(3).setNPC("David");
 		myCPRooms.get(5).setNPC("Tyler");
 		myCPRooms.get(6).setNPC("Paul");
 		myCPRooms.get(11).setNPC("Kelvyn");
-		
+
 		//Hieminga 
 		//monsters
 		myHHRooms.get(0).setMonster("Bookworm");
+		myHHRooms.get(0).getMonster().setDamage(10);
+		myHHRooms.get(0).getMonster().setHealth(20);
+		
 		myHHRooms.get(2).setMonster("Plantinga");
+		myHHRooms.get(2).getMonster().setDamage(30);
+		myHHRooms.get(2).getMonster().setHealth(60);
+		
 		myHHRooms.get(3).setMonster("Bookworm");
+		myHHRooms.get(3).getMonster().setDamage(25);
+		myHHRooms.get(3).getMonster().setHealth(45);
+		
 		myHHRooms.get(5).setMonster("Bookworm");
+		myHHRooms.get(5).getMonster().setDamage(20);
+		myHHRooms.get(5).getMonster().setHealth(40);
+		
 		myHHRooms.get(6).setMonster("Bookworm");
+		myHHRooms.get(6).getMonster().setDamage(20);
+		myHHRooms.get(6).getMonster().setHealth(40);
+		
 		myHHRooms.get(9).setMonster("Bookworm");
+		myHHRooms.get(9).getMonster().setDamage(20);
+		myHHRooms.get(9).getMonster().setHealth(40);
+		
 		myHHRooms.get(11).setMonster("Bookworm");
+		myHHRooms.get(11).getMonster().setDamage(20);
+		myHHRooms.get(11).getMonster().setHealth(40);
 		//npcs
 		myHHRooms.get(4).setNPC("Lia");
 		myHHRooms.get(7).setNPC("Librarian");
 		myHHRooms.get(10).setNPC("Beka");
-		
-		
+
+
 		Quest q2 = new Quest("Find ID card!", "Find Beka's student ID card", 2,  "card");
-		
+
 		myHHRooms.get(10).getNPC().setQuest(q2);
-		
+
 		//Commons
 		//monsters
 		myCMRooms.get(0).setMonster("Squirrel");
+		myCMRooms.get(0).getMonster().setDamage(25);
+		myCMRooms.get(0).getMonster().setHealth(45);
+		
 		myCMRooms.get(3).setMonster("Steve");
+		myCMRooms.get(3).getMonster().setDamage(60);
+		myCMRooms.get(3).getMonster().setHealth(100);
+		
 		myCMRooms.get(4).setMonster("Squirrel");
+		myCMRooms.get(3).getMonster().setDamage(40);
+		myCMRooms.get(3).getMonster().setHealth(60);
+		
 		myCMRooms.get(5).setMonster("Squirrel");
+		myCMRooms.get(3).getMonster().setDamage(40);
+		myCMRooms.get(3).getMonster().setHealth(60);
+		
 		myCMRooms.get(7).setMonster("Squirrel");
+		myCMRooms.get(3).getMonster().setDamage(40);
+		myCMRooms.get(3).getMonster().setHealth(60);
+		
 		myCMRooms.get(8).setMonster("Squirrel");
+		myCMRooms.get(3).getMonster().setDamage(40);
+		myCMRooms.get(3).getMonster().setHealth(60);
+		
 		myCMRooms.get(10).setMonster("Squirrel");
+		myCMRooms.get(3).getMonster().setDamage(40);
+		myCMRooms.get(3).getMonster().setHealth(60);
+		
 		//npcs
 		myCMRooms.get(1).setNPC("LeRoy");
 		myCMRooms.get(2).setNPC("Keith");
 		myCMRooms.get(6).setNPC("Swiper");
 		myCMRooms.get(9).setNPC("Peter");
 		myCMRooms.get(11).setNPC("Spencer");
-		
+
+		Quest q3 = new Quest("Find Pi!", "Find Peter's Raspberry Pi (not pie).", 3, "pi");
+
 		//Science Building
 		//monsters
 		mySBRooms.get(0).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(40);
+		mySBRooms.get(0).getMonster().setHealth(60);
+		
 		mySBRooms.get(1).setMonster("Brainz");
+		mySBRooms.get(0).getMonster().setDamage(80);
+		mySBRooms.get(0).getMonster().setHealth(200);
+		
 		mySBRooms.get(4).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(5).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(6).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(7).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(10).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(12).setMonster("Luther");
+		mySBRooms.get(0).getMonster().setDamage(100);
+		mySBRooms.get(0).getMonster().setHealth(400);
+		
 		mySBRooms.get(14).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		mySBRooms.get(15).setMonster("Zombie");
+		mySBRooms.get(0).getMonster().setDamage(60);
+		mySBRooms.get(0).getMonster().setHealth(80);
+		
 		//npcs
 		mySBRooms.get(0).setNPC("Joel");
 		mySBRooms.get(2).setNPC("Harry");
@@ -617,8 +711,12 @@ public class GameMap {
 		mySBRooms.get(9).setNPC("Andrew");
 		mySBRooms.get(11).setNPC("VicToddNorm");
 		mySBRooms.get(13).setNPC("Serita");
-		}
-	
+		mySBRooms.get(16).setNPC("John");
+		
+		Quest q4 = new Quest("Find Moses!", "Find the statue of Moses and bring it to Joel", 4,  "moses");
+
+	}
+
 
 	
 	public static String makeDescriptor(String fileName){
