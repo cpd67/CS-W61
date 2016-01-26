@@ -1,10 +1,10 @@
-Peter shouts exictedly. “Have you heard? The most important person on campus is dining with us today!”
-“And who might that be?” you ask.
-“Our King and Ruler, the leader of the Leroykins, President LeRoy himself!”
-Maybe he can help you figure things out, you think. “Where can I see him?”
-“He's over in the room to the southwest. The one with the beard,” Peter tells you.
+Peter shouts exictedly. "Have you heard? The most important person on campus is dining with us today!"
+"And who might that be?" you ask.
+"Our King and Ruler, the leader of the Leroykins, President LeRoy himself!"
+Maybe he can help you figure things out, you think. "Where can I see him?"
+"He's over in the room to the southwest. The one with the beard," Peter tells you.
 You begin to head that way.
-“Wait!” Peter yells after you. “I lost my Raspberry Pi. Could you try to find it for me?"
+"Wait!" Peter yells after you. "I lost my Raspberry Pi. Could you try to find it for me?"
 "Couldn't you just get another pie? This is a dining hall after all," you respond.
 "No no no no," Peter tells you. "A Raspberry Pi is small computer. Not food."
-“Oh. Alright,” you tell him, “but it had better be an important pie.”
+"Oh. Alright," you tell him, "but it had better be an important pie."

@@ -36,13 +36,17 @@ public class Fight implements Command {
 		if(myOpponent.isDead()) {
 			//Get the weapon/object from the Monster
 			if(myOpponent.hasWeapon() || myOpponent.hasObject()) {
-				//If the Weapon is already equipped by the Player...
-				if(myPlayer.hasWeapon() && myPlayer.getWeapon().getWeaponName().equals(myOpponent.getWeapon().getWeaponName().toLowerCase())) {
-					myOpponent.setHasNoWeapon();  //Don't drop the Weapon
+				if(myOpponent.hasWeapon()) { //If the Monster has a Weapon...
+					//If the Weapon is already equipped by the Player...
+					if(myPlayer.hasWeapon() && myPlayer.getWeapon().getWeaponName().equals(myOpponent.getWeapon().getWeaponName().toLowerCase())) {				
+						myOpponent.setHasNoWeapon();  //Don't drop the Weapon
+					}
+					myPlayer.getRoom().addMonsterItem();  
+				} else {
+					//Add the Object that the Monster was carrying (and Weapon if 
+					//it isn't already equipped by the Player)
+					myPlayer.getRoom().addMonsterItem();  
 				}
-				//Add the Object that the Monster was carrying (and Weapon if 
-				//it isn't already equipped by the Player)
-				myPlayer.getRoom().addMonsterItem();  
 			}
 			//Take away the Monster
 			myPlayer.getRoom().removeMonster();
