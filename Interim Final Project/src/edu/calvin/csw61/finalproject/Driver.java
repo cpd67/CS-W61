@@ -10,7 +10,7 @@ public class Driver {
 	
 	
 	public static void main(String[] args) {
-		GameMap gameMap = GameMap.getInstance();
+		//GameMap gameMap = GameMap.getInstance();
 		GameMap.startGame();
 	}
 }
