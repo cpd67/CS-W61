@@ -386,7 +386,7 @@ public class Room {
 	public String showPeople() {
 		String result = "";
 		if(hasMonster) {
-			result = "A " + capitalizeLetter(myMonster.getName()) + " is in the room. ";
+			result = "A " + capitalizeLetter(myMonster.getName()) + " is here. ";
 			if(myMonster.hasWeapon()) { //Does the Monster have a weapon?
 				result += "It has a " + myMonster.getWeapon().getWeaponName().toLowerCase() + ".\n";
 			} else {

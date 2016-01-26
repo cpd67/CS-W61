@@ -11,6 +11,6 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		GameMap gameMap = GameMap.getInstance();
-		gameMap.startGame();
+		GameMap.startGame();
 	}
 }

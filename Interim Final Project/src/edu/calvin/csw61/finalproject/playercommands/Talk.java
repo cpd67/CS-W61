@@ -23,7 +23,6 @@ public class Talk implements Command {
 		
 		//Give the Player a Quest at the end
 		myConversationPartner.act(myPlayer);
-		result = "Talk sucessful!"; //Temporary
 	}
 	
 	public String getResult() {

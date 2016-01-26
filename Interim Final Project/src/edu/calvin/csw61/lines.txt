@@ -1,0 +1,226 @@
+Lost in Knightdale
+
+"Where am I?" you say to yourself. The world is spinning around your head. You attempt to sit up and look around, but you're so dizzy and sore that you fall back down. "Ugh," you moan.
+Slowly, your vision starts to clear. Gingerly, you lift yourself up into a sitting position. The world is spinning more slowly now, and you see that you are in the middle of a large, grassy lawn.
+"What happened?" you wonder. Suddenly, like a bolt of lightning, you realize that you have forgotten the last few years of your previous life. This realization knocks you back onto the ground.
+"I'm doomed," you think. "what do I do now?" You sit up again and take a look around you. There are four buildings within walking distance, one in each direction. Out of the corner of your eye you see something moving.
+Looking closer, you see that a woman is walking towards you. She has a smile on her face and looks friendly. As she reaches you, she starts to speak.
+"Hello there!" she says. "Welcome to Knightdale! I'm Pastor Mary."
+She seems friendly enough. Why not talk to her more and try to find out where you are?
+
+Talk Mary
+
+“I'm so sorry,” she says. “It looks like you've landed harder than most. Not to worry though. You have reached the land of Knightdale, more commonly known as Calvin College. At least, that's what we used to be.”
+She looks wistfully off in the distance, as if thinking about someone she loved who is now long gone. Suddenly, she turns back to you.
+“I should really talk to the Leroykins. They're making the journey far too hard. The last five prospects have all landed badly. Anyway, I'm missing my Bible. I think I left it in the Chapel down south. Could you get it for me? I'd go myself but I'm too weak to fight.”
+
+Quest Added! “Obtain Bible”
+
+CP
+go south
+
+fight demon
+take key
+
+walk south
+There is a man standing in the middle of the room. He looks worried and a little scared.
+talk man
+“Hello,” he says, “I'm Pastor Paul. Who might you be?”
+“Well, I, uh, I'm not really sure,” you sheepishly reply. “I don't really know how I got here. But this lady named Pastor Mary sent me here to look for her Bible. Have you seen it?”
+He thinks for a moment before replying. “I haven't seen it, but it might be in her office on the western side of the building. When we were overrun by monsters, we all ran out immediately. She probably left it there in all the commotion. The only reason I'm still in here is because the demons trapped me in.”
+“Thank you,” you reply. “By the way, I just defeated the demon.”
+“Really?” he looks at you incredulously. “Thank you! I'll leave just as soon as I can collect my things.”
+
+“Hi! We're the WA's!”
+talk wa's
+“What's a WA?” you ask.
+“Worship Apprentice,” one of them responds. “We're responsible for Chapel services and building maintenance. I'm Kelvyn, what's your name?”
+Faced with the question again, you decide to tell them the whole story. They nod knowingly, and Kelvyn speaks up again.
+“We know who you are, and we're sorry. So sorry. But there's nothing we can do about it. You were destined for this life from the beginning of time.”
+“What?” you wonder. “What is this place?”
+A demon roars in the distance and the WA's scatter. You are left on your own.
+
+
+There is a person in a hockey jersey standing in front of you.
+Talk person
+“Hello,” he says. “I'm David. What's your name?”
+This is getting old. You should probably get a name soon. “Honestly, I'm not sure,” you tell him.
+“Oh! You're one of them!” he exclaims.
+“One of who?” you ask, somewhat put off.
+“I'm so sorry,” he says, “but your whole life is about to change.”
+He turns and walks out quickly, without saying goodbye.
+
+Sitting at a desk is a young man looking perplexed and tired.
+Talk man
+You decide to start things a little differently. “What's your name?” you ask.
+“I'm Tyler,” he responds. He seems too sleepy to say anything else.
+You decide to ask if everything is okay.
+“I'm fine,” Tyler says. “I'm just worried about my animals. They seem to have gone cannibalistic. Some of them even eat themselves!”
+“Oh dear,” you respond, somewhat apprehensively. “I hope you figure out the problem.”
+“Thank you.” Tyler turns away. Suddenly, he looks back at you. “By the way, you're a pretty obvious Dutchman. You should probably watch that accent around here.”
+You have an accent? You hadn't noticed. “Thanks.”
+
+
+talk mary
+give bible
+“Thank you so much! I hope the demons weren't too big of a problem.”
+“They weren't a big deal,” you tell her. “But could you tell me more about where I am?”
+“I'm sorry,” she says, “but I'm afraid someone else will have to do that. Try the library. I'm sure someone there can help you.”
+“Thank you!” you say.
+
+HH
+talk Librarian
+“Hello! Can I help you find a book?”
+“No thanks,” you answer. “But you could help me find myself...”
+“You'd need a Philosophy professor for that, I'm afraid,” the librarian tells you. “But I might be able to find you a book about it.”
+She takes a closer look at you and suddenly stiffens up. “Unfortunately, we only serve Calvinists here. I'm going to have to ask you to leave.”
+“What?” Shocked, you retreat a few paces. “I thought we were all Calvin?”
+
+talk Beka
+“Hello, who might you be?”
+“I'm Beka, your expert on international trade and large programs,” she replies. “Can I help you?”
+“Yes,” you say. “I need to find out about Dutchmen.”
+She recoils heavily and gives you a startled look. “Whatever for?”
+“Uh, I ah, I'm writing a book about them,” you stammer.
+“We're not allowed to talk much about them,” she tells you. “But over in the foreign language department, there is someone who might be able to help. You'll know her because she always has her nose in her Latin books.”
+“By the way,” Beka continues, “I left my ID card up that way. If you see it, could you bring it back for me?”
+“Sure!” you reply.
+
+talk Lia
+“Hi! I'm Lia!” The young lady looks up at you from her books. “What's a Dutchman like you doing around here?”
+There it is again. Who are Dutchman? You decide to ask.
+“What do you know about Dutchmen?” you ask.
+She jumps to her feet and pulls you into a corner. “Dutchmen,” she whispers, “are strange people. They are like us in every way, except they live in a perpetual state of not having any Hope. Don't ever try to trade with one, because they are experts at ripping people off.”
+“Thank you,” you say. You think back to what you have been told. Are you one of these people?
+
+after quest:
+"Thank you so much!" Beka looks relieved. "I was afraid I'd have to buy a new one."
+You smile and go on your way. You have done your good deed for the day.
+
+
+CM
+Card Swiper
+“May I see your card please?” she asks.
+“Um, I don't have a card. But there's no one here, why should I need it?”
+“I need your card,” she says grumpily.
+“Can I just give you my number?”
+“NO! I need your card.”
+You sigh. She seems unaware of the destruction around her. You try walking past her. She seems not to care. She must be really out of it. Whatever. You move on.
+
+Talk Peter
+(he has a nametag that says peter)
+Peter shouts exictedly. “Have you heard? The most important person on campus is dining with us today!”
+“And who might that be?” you ask.
+“Our King and Ruler, the leader of the Leroykins, President LeRoy himself!”
+Maybe he can help you figure things out, you think. “Where can I see him?”
+“He's over in the room to the southwest. The one with the beard,” Peter tells you.
+You begin to head that way.
+“Wait!” Peter yells after you. “I lost my Raspberry Pi. Could you try to find it for me?"
+"Couldn't you just get another pie? This is a dining hall after all," you respond.
+"No no no no," Peter tells you. "A Raspberry Pi is small computer. Not food."
+“Oh. Alright,” you tell him, “but it had better be an important pie.”
+
+After quest: 
+
+Talk Leroy
+(if quest !completed)
+“You must help Peter before I talk to you. Our students come first here.”
+else
+“I hear you're the one in charge around here?” you ask, somewhat accusingly.
+“I guess you could say that, yes,” the President answers.
+“Maybe you could tell me what in Knightdale is going on?” You are impatient, and want a straight answer.
+“I've been waiting for you,” LeRoy says. “You see, there is a prophesy, made by the great John Calvin himself. This prophesy states that one day, Knightdale will fall into despair. As you've seen, I believe that has already happened. The previous president left us in this state. Something about a new arena. Anyway, when they built it, they uncovered some virus, and it produced the monsters you see.
+“And large monsters they are,” you add.
+“Definitely. The prophesy also says that only one can save us. And that one...” LeRoy hesitates, as if reluctant to finish.
+“Go on,” you prod.
+“That one,” he continues slowly, “must be a Dutchman. It has been predestined. As the prophesy states, 'From the land of No Hope will come the Hope for all of Knightdale.'”
+“And you think I'm the one. But why me?”
+“No reason,” the President tells you, “I've been sending my Leroykins to take every Dutchman that looks promising. You're the sixth or seventh.”
+“So you just abducted me in hopes that I might be the one?” You are incensed and angrily storm out.
+
+There is a young man sitting at one of the tables.
+Talk Spencer
+“Hey, I’m Spencer,” he tells you.
+“Do you know what a Leroykin is?” you ask.
+“Yeah!” he answers, “they’re us! Every student you see is one. We’re named after our leader, LeRoy, and everything we do is done in order to benefit Knightdale. We were born for this.”
+“I see,” you say.
+
+
+Talk VanderLinden
+“Hello Grasshopper. What have you learned from your stay here?”
+Grasshopper? Does he think you’re a student? “Honestly, I have learned almost nothing yet. Only a tiny bit about Dutchmen.”
+“Dutchmen!” he scowls. “Those totally depraved mess of people? Let me tell you, when it comes to depravity, they’re the worst of the bunch.”
+“Why are they so bad?” you ask.
+“You mean you don’t know?” He is surprised. “I guess it was inevitable. They were predestined to believe that they weren’t destined to be predestined. However, they were destined to depravity.”
+“I will ponder this,” you tell him.
+“Good,” he says, and turns back to his food.
+
+SB
+Joel
+"Hello Dutchman. I know what you're here for. Before you can complete your mission, you will need prove your worth to us."
+"How do I do that?" you ask. "And why should I even want to help you? You did kidnap me, after all."
+"See that tulip growing over there? It represents you. And because of your total depravity, you will persist in helping us. You were unconditionally elected to do this, and by grace it is irresistible for you. By helping us, you will earn limited atonement for your depravity."
+"Uh... huh..." You're not quite sure what all that means, but it sounds highly theological. Maybe it's just a coincidence. "So what do I need to do?"
+"I need you to find the coveted statue of Moses and bring it back to me. The Computer Scientists will reign above all on Chaos Day!"
+"Okay," you say. He sounds a little power hungry. But you can't stop yourself. You must go find Moses.
+
+after quest:
+You hand Moses to the professor.
+"I didn't believe you could do it," he says, "but you have proved me wrong. Go talk to Serita Nelesen, she will point you on your way."
+
+Andrew
+"Bidoof!" Andrew states.
+"What?" you're confused.
+"Bidoof is the best Pokemon!" he says. You're not sure what this has to do with anything, but you play along.
+"Yeah, I guess he is," you say. "But could you tell me about Moses?"
+"Don't tell me how to live my life," shouts Andrew.
+This guy is a psycho. You decide to leave him alone.
+
+Lydia
+"Hi there! I'm Lydia! Thanks for coming to help us."
+"You're welcome? I mean, you did kind of just pluck me out of my life... which, by the way, I know nothing about." You're still upset about what LeRoy told you.
+"True," she says. "There are people here who can probably help you out on that. We Computer Science people are helpful AND smart."
+"Really?" you'd like to meet these people. "Thanks!"
+
+Harry
+"Hello. I'm Professor Plantinga."
+"Could you tell me a bit about my past?" you ask.
+"How would I know about that?" he responds.
+"Just a shot in the dark," you answer. "It's alright."
+He thinks for a second and then starts to talk. "Well, you're a Dutchman."
+"Yes, I knew that," you say.
+"And you're here to help us. We took you from the land of no hope and brought you here in hope that you might save us."
+"I knew that to," you say under your breath. Maybe you should find somebody more helpful. "Thanks for your help!"
+
+Pat
+"Hi! I'm Pat Bailey. How can I help you?"
+"Could you tell me who I am?" you ask him.
+"Definitely. You come from Dutchland," he starts.
+"Thanks, I knew that."
+"Hold on, I'm not finished," he tells you. "When you were born, you were predestined to save us. Your previous life does not matter. It no longer exists. To save us, you will become one of us."
+"Oh, okay." You sound apathetic, yet you are fully confused. Better keep moving.
+
+VicToddNorm
+
+"Hi! I'm Professor Norman, but some people call me Vic Todd Norm."
+"Can I just go with Vic?" you ask.
+"Sure," he says. "Hey, see that door to the west? That's important. Remember that. I'm not the smartest person in the world, but I know you're going to need it."
+"Really?" Why would you need a door? "Thanks."
+"You're welcome. Oh, by the way," he reaches for your hand. "Thank you from the bottom of my heart."
+
+
+Calvin's Ghost
+You have never seen a ghost before, but you know instantly that this is what one looks like. Except it has a long beard. You wouldn't have expected that.
+He starts to talk in a deep voice. "Welcome, Dutchman. Your time has come."
+"My time? What does that mean?" you ask.
+"You have completed your destiny. No one has been in here for hundreds of years. But now that you are here, I have been freed."
+"That's... good?"
+"Very good. But look at yourself. You are no longer who you used to be. During your time here, you have slowly become like us."
+It is true. You are no longer the Dutchman you once were.
+The ghost continues. "I am the ghost of John Calvin. I am the one who prophesied long ago that you would save us. Because you have freed me, I can wipe out the debt we owe and destroy the monsters. Thank you. All of Knightdale thanks you."
+He bows and with a whoosh, leaves the room. You decide to take some time to contemplate all that has happened.
+
+You have won!
+
+
+
